@@ -485,6 +485,7 @@ function reader(rubr, index) {
   $texte.innerHTML = '';
   $pageNb.innerHTML = '';
   if (rubr !== 'nondit') {
+    document.querySelector('#reader-box').style.borderBottom = '';
     // affichage proses ou poésies
     if (page === 0) {
       if (rubr === 'proses') {
@@ -502,6 +503,7 @@ function reader(rubr, index) {
     $texte.classList.remove('galerie');
     $texte.innerHTML += obj.txt[page];
   } else {
+    document.querySelector('#reader-box').style.borderBottom = '4px solid #fffcf5';
     // affichage du non-dit (miniatures)
     let txt = '';
     const obj = content[rubr][index];
