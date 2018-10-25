@@ -1,0 +1,500 @@
+@font-face {
+  font-family: LT33;
+  src: url('HELVETICA_LT_33.TTF');
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-size: 1.8vw;
+  background-color: black;
+  font-family: 'LT33', cursive;
+  color: #505050;
+}
+.shadow{
+    text-shadow: 1px 1px 4px #999;
+}
+h1 {
+  margin: 0;
+  font-size: 6vw;
+  font-weight: 400;
+}
+#main {
+  background: url('img/fond-fixe.jpg') center fixed;
+  max-width: 1600px;
+  min-height: 100vh;
+  margin: auto;
+  height:  100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.header {
+  position: relative;
+  z-index: 10;
+  color: #dde5c6;
+  /* margin-bottom: 3vw; */
+  box-shadow: 0 0.2vw 0.5vw #777;
+}
+.header img{
+  width: 100%;
+  display: block;
+}
+.header .bandeau {
+  box-sizing: border-box;
+  padding: 2% 0 1%;
+  width: 100%;
+  background: rgba(0,0,0,0.56);
+  position: absolute;
+  bottom: 25%;
+}
+.header .titre {
+  margin: auto;
+  width: max-content;
+}
+.bandeau p{
+  margin: 0;
+}
+.header .bandeau p{
+  text-align: right;
+  font-size: 2.2vw;
+}
+.bandeau
+ {
+  box-shadow: 0px 0.1vw 0.4vw #222;
+}
+.hasard{
+  font-family: "Qwigley", cursive;
+  overflow: hidden;
+  text-align: center;
+  font-size: 7vw;
+  padding-top: 2vh;
+  /* width: 100%; */
+  /* position: absolute; */
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+.hasard p{
+  margin: 0;
+}
+#box-rubriques * {
+  box-sizing: border-box;
+}
+#box-rubriques {
+  padding: 2% 2% 0;
+  display: flex;
+  align-items: center;
+}
+.rubriques {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: space-around;
+  align-items: center;
+}
+.proses, .poesies, .nondit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: 300px;
+  width: 26%;
+  left: 0;
+  top: 0;
+  transition: left 0.2s, top 0.2s, opacity 0.2s;
+  z-index: 1;
+}
+nav .rubrique-image {
+  width: 100%;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+figure {
+  margin: 0;
+  font-size: 2.2vw;
+  text-align: center;
+}
+.rubriques .img {
+  width: 100%;
+  height: 250px;
+}
+.rubriques .prose {
+  background: url(img/img-nav-prose.png) cover center;
+}
+aside {
+  display: none;
+  width: 54%;
+  text-shadow: 1px 1px 4px #333;
+}
+aside p {
+  margin: 0;
+}
+aside img {
+  width: 100%;
+}
+#box {
+  position: absolute;
+  opacity: 0;
+  width: 70%;
+  top: 0;
+  padding: 0% 3.5%;
+  overflow: hidden;
+  user-select: none;
+  transition: opacity 0.4s;
+}
+#inbox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex: auto;
+
+  background-color:rgba(0,0,0,0.81);
+  border-radius: 2vw;
+  height: 0px;
+  padding: 3%;
+  color: #ddd;
+  font-size: 16px;
+  overflow: hidden;
+  transition: bottom 0s, right 0.4s;
+}
+#inbox p {
+  flex: 0 0 30px;
+  margin: auto;
+  text-align: center;
+  cursor: pointer;
+}
+.footer {
+  position: relative;
+  width: 100%;
+  bottom: 0;
+}
+.footer .bandeau {
+  display: flex;
+  background: rgba(0,0,0,0.4);
+  justify-content: space-around;
+  text-align: center;
+  padding: 1%;
+  color: #dde5c6;
+}
+.footer .bandeau > div {
+  width: 25%;
+}
+.footer .stylo, .footer .stylet, .footer .pinceau {
+  padding: 0% 0 4%;
+}
+.footer .stylo {
+  background: url('img/footer-stylo.png') 100%/100% no-repeat;
+  padding-left: 16%;
+}
+.footer .stylet {
+  background: url('img/footer-stylet.png') 100%/100% no-repeat;
+}
+.footer .pinceau {
+  background: url('img/footer-pinceau.png') 100%/100% no-repeat;
+}
+.footer .texte {
+  display: none;
+}
+.footer .stylo-txt1 {
+  margin-bottom: 1.6vw;
+  padding-top: 1%;
+}
+.footer .stylo-txt2 {
+  font-size: 1.1vw;
+}
+.footer .copyright{
+    padding: 0.6vw 0;
+    font-size: 1.3vw;
+    text-align: center;
+    text-shadow: #333 1px 1px 2px;
+}
+.over {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.94);
+}
+#reader-container {
+  font-family: "Questrial";
+  font-size: 16px;
+  color: #222;
+  padding: 10px;
+  /* overflow: hidden; */
+  z-index: 20;
+
+}
+#reader-box {
+  display: flex;
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 10px auto;
+  height: 100%;
+  max-height: 800px;
+  border-radius: 10px;
+  background: #fffcf5;
+  border: 4px #fffcf5 solid;
+  border-bottom: 50px #fffcf5 solid;
+}
+#reader {
+  overflow: auto;
+  overflow: hidden;
+  margin: 0 auto;
+  cursor: default;
+  user-select: none;
+  /* scroll-behavior: smooth; */
+}
+#reader-titre, #popup-titre {
+  text-align: center;
+  width: 100%;
+  font-size: 22px;
+  color: #fffcf5;
+}
+#texte {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: max-content;
+  max-width: 100%;
+  min-height: 100%;
+  /* margin: auto; */
+  padding: 50px;
+  padding-bottom: 0;
+  text-align: justify;
+}
+#texte h2 {
+  font-size: 1.5em;
+  margin: 0;
+  text-align: center;
+}
+#texte h3 {
+  font-size: 1em;
+  font-weight: 400;
+  margin: 0;
+  text-align: center;
+}
+#texte p.center {
+  width: max-content;
+  margin: 0 auto;
+}
+#texte p.right {
+  width: max-content;
+  margin-left: auto;
+}
+#texte p {
+  margin: 0.5em 0;
+  /* max-width: 650px; */
+}
+#pageNb {
+  position: absolute;
+  width: 50px;
+  font-size: 16px;
+  bottom: -35px;
+  left: calc(50% - 25px);
+  color: #333;
+  text-align: center;
+}
+#nav, #popup-nav {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  max-width: 580px;
+}
+#close, #prev, #next, #popup-close, #popup-prev, #popup-next {
+  display: block;
+  /* position: relative; */
+  width: 36px;
+  height: 35px;
+  /* background: #ddd; */
+  /* color: #777; */
+  /* text-align: center; */
+  /* font-size: 30px; */
+  cursor: pointer;
+}
+#close, #popup-close {
+  background: url(img/close.png);
+}
+#prev, #popup-prev {
+  background: url(img/prev.png);
+}
+#next, #popup-next {
+  background: url(img/next.png);
+}
+
+#texte.galerie {
+  flex-direction: inherit;
+  justify-content: space-evenly;
+  align-content: center;
+  /* align-content: space-evenly; */
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px 0 0;
+}
+#texte.galerie h2 {
+  width: 100%;
+  margin-bottom: 20px;
+}
+figure.thumb {
+  display: flex;
+  flex-direction: column;
+  width: 42%;
+  max-width: 175px;
+  margin: 10px 10px;
+}
+figure.thumb img {
+  width:100%;
+  border-radius: 8px;
+  box-shadow: #777 2px 2px 5px;
+  cursor: pointer;
+}
+.thumb figcaption {
+  font-size: 15px;
+  margin-top: 6px;
+}
+#popup-container {
+  z-index: 30;
+  /* display: flex; */
+}
+#popup-container img {
+  margin: 10px auto;
+  border: #fffcf5 2px solid;
+  border-radius: 10px;
+}
+@media screen and (min-width: 1600px) {
+  body {
+    font-size: 28px;
+  }
+  .bandeau h1 {
+    font-size: 110px;
+  }
+  .header .bandeau p {
+    font-size: 35px;
+  }
+  .hasard {
+    font-size: 78px;
+  }
+  nav .texte {
+    font-size: 35px;
+  }
+  .footer .stylo-txt2 {
+    font-size: 17px;
+  }
+  .footer .copyright {
+    font-size: 20px;
+    padding: 10px 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #main {
+    min-height: 100vh;
+  }
+  .header {
+    position: relative;
+  }
+  .header img{
+    position: absolute;
+    bottom: 0;
+  }
+  .header .bandeau {
+    position: relative;
+  }
+  .hasard{
+    display: none;
+  }
+  #box-rubriques {
+    flex: auto;
+    display: flex;
+    align-items: normal;
+    padding: 2%;
+  }
+  .rubriques {
+    flex-direction: column;
+  }
+  nav .rubrique-image {
+    margin: 0;
+  }
+  .proses, .poesies, .nondit {
+    width: 100%;
+    max-width: initial;
+    padding: 2%;
+  }
+  figure {
+    width: 46%;
+  }
+  figcaption.texte {
+    display: none;
+  }
+  /*  */
+  aside {
+    display: block;
+    text-align: center;
+    font-size: 7.5vw;
+
+  }
+  #box {
+    width: 100%;
+  }
+  #inbox {
+    transition: bottom 0.4s, right 0s;
+  }
+  .footer .bandeau > div {
+    width: 100%;
+  }
+  .footer .stylo {
+    padding-left: initial;
+    position: absolute;
+    width: 35%;
+    top: 0;
+    padding: 0 0 7.4%;
+  }
+  .footer .conception, .footer .realisation {
+    display: none;
+  }
+  .contact .texte {
+    display: block;
+    font-size: 4.8vw;
+    padding-left: 33%;
+  }
+  .footer .stylo-txt1 {
+    display: none;
+  }
+  .footer .stylo-txt2 {
+    display: none;
+  }
+  .footer .copyright{
+      padding: 1.5vw 0;
+      font-size: 3vw;
+  }
+  #box-reader {
+    font-size: 14px;
+    padding: 14px;
+  }
+  #titre {
+    top: -32px;
+    font-size: 16px;
+  }
+  #texte {
+    padding: 15px;
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .hasard {
+    font-size: 4.8vw;
+  }
+  #inbox p {
+    font-size: 20px;
+  }
+}
