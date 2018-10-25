@@ -53,6 +53,7 @@ h1 {
 .header .titre {
   margin: auto;
   width: max-content;
+  text-shadow: #444 1px 1px 4px;	
 }
 .bandeau p{
   margin: 0;
@@ -152,12 +153,11 @@ aside img {
   justify-content: flex-start;
   align-items: center;
   flex: auto;
-
-  background-color:rgba(0,0,0,0.81);
-  border-radius: 2vw;
+  background-color:rgba(0,0,0,0.80);
+  border-radius: 15px;
   height: 0px;
   padding: 3%;
-  color: #ddd;
+  color: #dde5c6;
   font-size: 16px;
   overflow: hidden;
   transition: bottom 0s, right 0.4s;
@@ -257,10 +257,10 @@ aside img {
 #reader-titre, #popup-titre {
   text-align: center;
   width: 100%;
-  font-size: 22px;
+  font-size: 18px;
   color: #dde5c6;
   font-family: 'LT33';
-  text-shadow: #a7a7a7 1px 1px 4px;
+  text-shadow: #a7a7a7 0.5px 0.5px 1px;
 }
 #texte {
   display: flex;
@@ -370,7 +370,6 @@ figure.thumb img {
 }
 #popup-container img {
   margin: 10px auto;
-  border: #fffcf5 2px solid;
   border-radius: 10px;
 }
 @media screen and (min-width: 1600px) {
