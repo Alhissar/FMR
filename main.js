@@ -200,6 +200,7 @@ const divs = {};
 const $rubriques = document.querySelector('.rubriques');
 const $box = document.getElementById('box');
 const $inbox = document.getElementById('inbox');
+const $excerptClose = document.getElementById('excerpt-close');
 let firstY;
 
 const rubriques = {
@@ -224,7 +225,8 @@ const rubriques = {
     }
     return height;
   },
-  refresh() {
+  refresh(anim) {
+    $box.style.transition = (anim) ? '' : '0s';
     if (rubriques.abs && window.innerWidth <= mobile) $rubriques.style.height = 0;
     const rubHeight = box(divs.proses).height;
     const rubWidth = box(divs.proses).width;
@@ -262,23 +264,32 @@ const rubriques = {
 
     // update box
     let boxHeight = 0;
-    if (this.clicked) {
-      $inbox.style.bottom = 0;
-      $inbox.style.right = 0;
-    }
+    // 0.035 = valeur de $box.paddingLeft
+    const padding = box($rubriques).width * 0.035;
+    $excerptClose.style.left = `${padding}px`;
     if (window.innerWidth > mobile) {
-      $box.style.left = `${rubWidth + space}px`;
-      $box.style.top = '-7%';
+      // animation horizontale (desktop)
       boxHeight = this.getHeight();
+      $box.style.top = '-7%';
       $inbox.style.height = `${this.getHeight()}px`;
-      if (!this.clicked) $inbox.style.right = `${- box($box).width}px`;
+      if (this.clicked) {
+        $box.style.left = `${rubWidth + space}px`;
+      } else {
+        $box.style.left = `${box($box).width + rubWidth + space}px`;
+      }
     } else {
+      // animation verticale (mobile)
       $box.style.left = 0;
       $box.style.top = `${rubHeight + space}px`;
       boxHeight = this.getHeight() / 1.55;
       $inbox.style.height = `${this.getHeight() / 1.55}px`; // ?
-      if (!this.clicked) $inbox.style.bottom = `${- this.getHeight() / 1.55}px`;
+      if (this.clicked) {
+        $box.style.top = `${rubHeight + space}px`;
+      } else {
+        $box.style.top = `${boxHeight + this.getHeight() / 1.55}px`;
+      }
     }
+
     if (!this.abs) return;
     if (this.getHeight() < boxHeight + rubHeight && window.innerWidth <= mobile) {
       $rubriques.style.height = `${boxHeight + rubHeight}px`;
@@ -302,19 +313,11 @@ document.querySelector('#prev').onclick = () => changePage(-1);
 document.querySelector('#next').onclick = () => changePage(1);
 document.querySelector('#popup-prev').onclick = () => changeView(-1);
 document.querySelector('#popup-next').onclick = () => changeView(1);
-document.querySelector('#close').onclick = (e) => {
-  const txt = document.querySelector('#reader');
-  const scroll = txt.scrollTop;
-  const [rubr, txtNb, page, ] = content.reading;
-  content[rubr][txtNb].page = page;
-  content[rubr][txtNb].scroll = scroll;
-  document.querySelector('#reader-container').style = '';
-  document.body.style = '';
-};
-document.querySelector('#popup-close').onclick = () => {
-  document.querySelector('#popup-container').style = '';
-  document.querySelector('#reader-container').style.display = 'flex';
-};
+document.querySelector('#close').onclick = closeReader;
+document.querySelector('#popup-close').onclick = closePopup;
+$excerptClose.onclick = () => click(rubriques.clicked);
+document.querySelector('#reader-container').onclick = (e) => closeOver(e, closeReader);
+document.querySelector('#popup-container').onclick = (e) => closeOver(e, closePopup);
 
 function bandeau() {
   const $header = document.querySelector('.header');
@@ -376,7 +379,7 @@ function click(name) {
   $box.style.opacity = 1;
   // si on reclique : clicked = ''
   if (rubriques.clicked === '') {
-    rubriques.refresh();
+    rubriques.refresh(true);
     rubriques.allVisible();
     setTimeout(toggle, 210);
     return;
@@ -393,12 +396,29 @@ function click(name) {
     }
   });
 }
+function closeOver(e, callback) {
+  if (e.target.className !== 'over') return;
+  callback();
+}
+function closeReader() {
+  const txt = document.querySelector('#reader');
+  const scroll = txt.scrollTop;
+  const [rubr, txtNb, page,] = content.reading;
+  content[rubr][txtNb].page = page;
+  content[rubr][txtNb].scroll = scroll;
+  document.querySelector('#reader-container').style = '';
+  document.body.style = '';
+}
+function closePopup() {
+  document.querySelector('#popup-container').style = '';
+  document.querySelector('#reader-container').style.display = 'flex';
+};
 function excerpt(rubr) {
   let txt = '';
   const $inbox = document.querySelector('#inbox');
-    content[rubr].forEach((obj, i) => {
-      txt += `<p onclick= 'reader("${rubr}", ${i})'>${obj.titre}</p>`;
-    });
+  content[rubr].forEach((obj, i) => {
+    txt += `<p onclick= 'reader("${rubr}", ${i})'>${obj.titre}</p>`;
+  });
   $inbox.innerHTML = txt;
 }
 function init() {
@@ -421,6 +441,7 @@ function middleware(eventName) {
   let prevEvent;
   if (eventName === 'mousewheel') {
     return function wheel(e) {
+      e.preventDefault();
       const oldScroll = e.currentTarget.scrollTop;
       if (content.reading[0] === 'nondit') {
         e.currentTarget.scrollTop += e.deltaY / 2;
@@ -473,6 +494,7 @@ function popup([rubr, index, page, i]) {
 }
 function reader(rubr, index) {
   const obj = content[rubr][index];
+  const $reader = document.querySelector('#reader'); 
   const $texte = document.querySelector('#texte');
   const $pageNb = document.querySelector('#pageNb');
   document.querySelector('#reader-container').style.display = 'flex';
@@ -517,10 +539,8 @@ function reader(rubr, index) {
     $texte.classList.add('galerie');
     $texte.innerHTML += txt;
   }
-  document.querySelector('#reader-titre').innerHTML = `${obj.auteur} - <cite>${obj.titre}</cite>`;
-
   //on scroll la boite reader (qui contient le texte)
-  document.querySelector('#reader').scrollTop = scroll;
+  $reader.scrollTop = scroll;
   // on affiche les boutons #prev et #next
   let next, prev;
   if (page !== 0) {
@@ -529,13 +549,28 @@ function reader(rubr, index) {
   if (page < obj.txt.length - 1) {
     next = true;
   }
-  if (rubr === 'poesies') prev = next = true;
+  if (rubr === 'poesies') {
+    $texte.style.textAlign = 'left';
+    if (box($texte).height === box($reader).height) {
+      $texte.classList.add(('texteVerticalCenter'));
+    } else {
+      $texte.classList.remove(('texteVerticalCenter'));
+    }
+    prev = next = true;
+    document.querySelector('#reader-titre').innerHTML = '';
+  } else {
+    $texte.style.textAlign = '';
+    $texte.classList.remove(('texteVerticalCenter'));
+    document.querySelector('#reader-titre').innerHTML = `<cite>${obj.titre}</cite> - (${obj.auteur})`;
+  }
   document.querySelector('#prev').style.height = prev ? '' : '0';
   document.querySelector('#next').style.height = next ? '' : '0';
 }
-function refresh() {
+function refresh(e) {
   bandeau();
-  rubriques.refresh();
+  // pas d'anim des rubriques et de l'excerpt si resize
+  let anim = (!e || e.eventName === 'resize') ? true : false;
+  rubriques.refresh(anim);
   if (document.querySelector('#popup-container').style.display === 'flex') {
     resize(document.querySelector('#popup-container img'));
   }
