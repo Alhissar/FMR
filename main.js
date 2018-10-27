@@ -412,7 +412,7 @@ function closeReader() {
 function closePopup() {
   document.querySelector('#popup-container').style = '';
   document.querySelector('#reader-container').style.display = 'flex';
-};
+}
 function excerpt(rubr) {
   let txt = '';
   const $inbox = document.querySelector('#inbox');
@@ -422,13 +422,9 @@ function excerpt(rubr) {
   $inbox.innerHTML = txt;
 }
 function init() {
-  // on peuple divs et rubriques
+  // on peuple divs
   names.forEach(name => {
     divs[name] = document.querySelector(`.${name}`);
-    rubriques[name] = {
-      width: 0,
-      left: 0,
-    };
   });
   // ajout des onclick
   names.forEach((name) => {
@@ -486,7 +482,7 @@ function popup([rubr, index, page, i]) {
   const obj = content[rubr][index];
   const image = obj.txt[page][i];
   const src = `${content.url + obj.url}${image[1]}.jpg`;
-  document.querySelector('#popup-titre').innerHTML = `${obj.auteur} - <cite>${image[0]}</cite>`;
+  document.querySelector('#popup-titre').innerHTML = `<cite>${image[0]} - (${obj.auteur})</cite>`;
 
   $img.style = '';
   $img.onload = () => resize($img);
