@@ -178,12 +178,12 @@ aside img {
   border-radius: 15px;
   cursor: pointer;
 }
-.footer {
+footer {
   position: relative;
   width: 100%;
   bottom: 0;
 }
-.footer .bandeau {
+footer .bandeau {
   display: flex;
   background: rgba(0,0,0,0.4);
   justify-content: space-around;
@@ -191,33 +191,33 @@ aside img {
   padding: 1%;
   color: #dde5c6;
 }
-.footer .bandeau > div {
+footer .bandeau > div {
   width: 25%;
 }
-.footer .stylo, .footer .stylet, .footer .pinceau {
+footer .stylo, footer .stylet, footer .pinceau {
   padding: 0% 0 4%;
 }
-.footer .stylo {
+footer .stylo {
   background: url('img/footer-stylo.png') 100%/100% no-repeat;
   padding-left: 16%;
 }
-.footer .stylet {
+footer .stylet {
   background: url('img/footer-stylet.png') 100%/100% no-repeat;
 }
-.footer .pinceau {
+footer .pinceau {
   background: url('img/footer-pinceau.png') 100%/100% no-repeat;
 }
-.footer .texte {
+footer .texte {
   display: none;
 }
-.footer .stylo-txt1 {
+footer .stylo-txt1 {
   margin-bottom: 1.6vw;
   padding-top: 1%;
 }
-.footer .stylo-txt2 {
+footer .stylo-txt2 {
   font-size: 1.1vw;
 }
-.footer .copyright{
+footer .copyright{
     padding: 0.6vw 0;
     font-size: 1.3vw;
     text-align: center;
@@ -400,10 +400,10 @@ figure.thumb img {
   nav .texte {
     font-size: 35px;
   }
-  .footer .stylo-txt2 {
+  footer .stylo-txt2 {
     font-size: 17px;
   }
-  .footer .copyright {
+  footer .copyright {
     font-size: 20px;
     padding: 10px 0;
   }
@@ -462,17 +462,17 @@ figure.thumb img {
   #inbox {
     transition: bottom 0.4s, right 0s;
   }
-  .footer .bandeau > div {
+  footer .bandeau > div {
     width: 100%;
   }
-  .footer .stylo {
+  footer .stylo {
     padding-left: initial;
     position: absolute;
     width: 35%;
     top: 0;
     padding: 0 0 7.4%;
   }
-  .footer .conception, .footer .realisation {
+  footer .conception, footer .realisation {
     display: none;
   }
   .contact .texte {
@@ -480,13 +480,13 @@ figure.thumb img {
     font-size: 4.8vw;
     padding-left: 33%;
   }
-  .footer .stylo-txt1 {
+  footer .stylo-txt1 {
     display: none;
   }
-  .footer .stylo-txt2 {
+  footer .stylo-txt2 {
     display: none;
   }
-  .footer .copyright{
+  footer .copyright{
       padding: 1.5vw 0;
       font-size: 3vw;
   }
