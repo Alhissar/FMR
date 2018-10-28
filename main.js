@@ -6,7 +6,6 @@ const $box = document.getElementById('box');
 const $inbox = document.getElementById('inbox');
 const $excerptClose = document.getElementById('excerpt-close');
 let firstY;
-
 const rubriques = {
   abs: false,
   clicked: '',
@@ -102,26 +101,6 @@ const rubriques = {
     }
   }
 };
-
-window.addEventListener('resize', refresh);
-window.addEventListener('scroll', bandeau);
-document.querySelector('#reader').addEventListener('touchstart', middleware('touchstart'));
-document.querySelector('#reader').addEventListener('mousewheel', middleware('mousewheel'));
-document.querySelector('#reader').addEventListener('mousemove', middleware('mousemove'));
-document.querySelector('#reader').addEventListener('touchmove', middleware('touchmove'));
-document.querySelector('#inbox').addEventListener('touchstart', middleware('touchstart'));
-document.querySelector('#inbox').addEventListener('mousewheel', middleware('mousewheel'));
-document.querySelector('#inbox').addEventListener('mousemove', middleware('mousemove'));
-document.querySelector('#inbox').addEventListener('touchmove', middleware('touchmove'));
-document.querySelector('#prev').onclick = () => changePage(-1);
-document.querySelector('#next').onclick = () => changePage(1);
-document.querySelector('#popup-prev').onclick = () => changeView(-1);
-document.querySelector('#popup-next').onclick = () => changeView(1);
-document.querySelector('#close').onclick = closeReader;
-document.querySelector('#popup-close').onclick = closePopup;
-$excerptClose.onclick = () => click(rubriques.clicked);
-document.querySelector('#reader-container').onclick = (e) => closeOver(e, closeReader);
-document.querySelector('#popup-container').onclick = (e) => closeOver(e, closePopup);
 
 function bandeau() {
   const $header = document.querySelector('.header');
@@ -231,11 +210,28 @@ function init() {
     divs[name] = document.querySelector(`.${name}`);
   });
   // ajout des onclick
+  window.addEventListener('resize', refresh);
+  window.addEventListener('scroll', bandeau);
+  document.querySelector('#reader').addEventListener('touchstart', middleware('touchstart'));
+  document.querySelector('#reader').addEventListener('mousewheel', middleware('mousewheel'));
+  document.querySelector('#reader').addEventListener('mousemove', middleware('mousemove'));
+  document.querySelector('#reader').addEventListener('touchmove', middleware('touchmove'));
+  document.querySelector('#inbox').addEventListener('touchstart', middleware('touchstart'));
+  document.querySelector('#inbox').addEventListener('mousewheel', middleware('mousewheel'));
+  document.querySelector('#inbox').addEventListener('touchmove', middleware('touchmove'));
+  document.querySelector('#prev').onclick = () => changePage(-1);
+  document.querySelector('#next').onclick = () => changePage(1);
+  document.querySelector('#popup-prev').onclick = () => changeView(-1);
+  document.querySelector('#popup-next').onclick = () => changeView(1);
+  document.querySelector('#close').onclick = closeReader;
+  document.querySelector('#popup-close').onclick = closePopup;
+  $excerptClose.onclick = () => click(rubriques.clicked);
+  document.querySelector('#reader-container').onclick = (e) => closeOver(e, closeReader);
+  document.querySelector('#popup-container').onclick = (e) => closeOver(e, closePopup);
   names.forEach((name) => {
     divs[name].addEventListener('click', () => click(name), false);
   });
   rubriques.refresh();
-  refresh();
 }
 function middleware(eventName) {
   let prevEvent;
