@@ -403,8 +403,12 @@ figure.thumb img {
   nav .texte {
     font-size: 35px;
   }
+    footer .stylo-txt1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
   footer .stylo-txt2 {
-    font-size: 17px;
+    font-size: 26px;
   }
   footer .copyright {
     font-size: 20px;
