@@ -181,41 +181,44 @@ aside img {
 footer {
   position: relative;
   width: 100%;
-  bottom: 0;
+  font-size: 1.7vw;
+  /* bottom: 0; */
 }
 footer .bandeau {
   display: flex;
   background: rgba(0,0,0,0.4);
-  justify-content: space-around;
+  justify-content: space-evenly;
   text-align: center;
-  padding: 1%;
+  padding: 0.5%;
   color: #dde5c6;
+  text-shadow: #505050 1px 1px 2px;
 }
-footer .bandeau > div {
-  width: 25%;
+footer .design, footer .contact, footer .dev {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex: auto;
 }
-footer .stylo, footer .stylet, footer .pinceau {
-  padding: 0% 0 4%;
-}
-footer .stylo {
-  background: url('img/footer-stylo.png') 100%/100% no-repeat;
-  padding-left: 16%;
-}
-footer .stylet {
-  background: url('img/footer-stylet.png') 100%/100% no-repeat;
-}
-footer .pinceau {
-  background: url('img/footer-pinceau.png') 100%/100% no-repeat;
+footer img {
+  width: 46%;
+  max-width: 230px;
 }
 footer .texte {
   display: none;
 }
+footer .txt {
+  width: 33%;
+}
+footer .contact .txt {
+  width: auto;
+}
 footer .stylo-txt1 {
-  margin-bottom: 1.6vw;
-  padding-top: 1%;
+  margin-bottom: 0.8vw;
+  font-weight: 700;
+  opacity: 0.9;
 }
 footer .stylo-txt2 {
-  font-size: 1.1vw;
+  font-size: 1.6vw;
 }
 footer .copyright{
     padding: 0.6vw 0;
@@ -462,23 +465,26 @@ figure.thumb img {
   #inbox {
     transition: bottom 0.4s, right 0s;
   }
-  footer .bandeau > div {
-    width: 100%;
+  footer .bandeau {
+    padding: 2%;
+    box-shadow: #999 1px 1px 2px;
   }
-  footer .stylo {
-    padding-left: initial;
-    position: absolute;
-    width: 35%;
-    top: 0;
-    padding: 0 0 7.4%;
-  }
-  footer .conception, footer .realisation {
+  footer .contact, footer .dev {
     display: none;
   }
-  .contact .texte {
+  footer .design {
+    width: 40%;
+  }
+  footer img {
+    width: 100%;
+  }
+  footer .txt {
+    display: none;
+  }
+  footer .texte {
     display: block;
-    font-size: 4.8vw;
-    padding-left: 33%;
+    font-size: 4.4vw;
+    width: 60%;
   }
   footer .stylo-txt1 {
     display: none;
@@ -489,6 +495,7 @@ figure.thumb img {
   footer .copyright{
       padding: 1.5vw 0;
       font-size: 3vw;
+      text-shadow: #777 1px 1px 2px;
   }
   #box-reader {
     font-size: 14px;
