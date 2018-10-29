@@ -295,7 +295,6 @@ function reader(rubr, index) {
   const $pageNb = document.querySelector('#pageNb');
   document.querySelector('#reader-container').style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  // document.body.style.marginRight = '17px';
 
   // on sauvegarde l'objet lu (rubr, textNb, page, scroll) dans content
   let { page = 0, scroll } = obj;
@@ -303,7 +302,6 @@ function reader(rubr, index) {
   $texte.innerHTML = '';
   $pageNb.innerHTML = '';
   if (rubr !== 'nondit') {
-    document.querySelector('#reader-box').style.borderBottom = '';
     // affichage proses ou poésies
     if (page === 0) {
       if (rubr === 'proses') {
@@ -321,7 +319,6 @@ function reader(rubr, index) {
     $texte.classList.remove('galerie');
     $texte.innerHTML += obj.txt[page];
   } else {
-    document.querySelector('#reader-box').style.borderBottom = '4px solid #fffcf5';
     // affichage du non-dit (miniatures)
     let txt = '';
     const obj = content[rubr][index];
@@ -334,6 +331,13 @@ function reader(rubr, index) {
     }
     $texte.classList.add('galerie');
     $texte.innerHTML += txt;
+  }
+  if (rubr === 'proses') {
+    document.querySelector('#pageNb').style.display = '';
+    document.querySelector('#reader').style.marginBottom = '40px';
+  } else {
+    document.querySelector('#pageNb').style.display = 'none';
+    document.querySelector('#reader').style.marginBottom = '';
   }
   //on scroll la boite reader (qui contient le texte)
   $reader.scrollTop = scroll;
