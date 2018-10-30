@@ -434,13 +434,11 @@ figure.thumb img {
   #main {
     min-height: 100vh;
   }
-  .header {
-    position: relative;
-  }
   .header img{
     position: absolute;
     bottom: 0;
   }
+  /* javascript indication mobile */
   .header .bandeau {
     position: relative;
   }

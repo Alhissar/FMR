@@ -1,5 +1,4 @@
 const names = ['proses', 'poesies', 'nondit'];
-const mobile = 600;
 const divs = {};
 const $rubriques = document.querySelector('.rubriques');
 const $box = document.getElementById('box');
@@ -20,7 +19,7 @@ const rubriques = {
   },
   getHeight() {
     let height = 0;
-    if (window.innerWidth > mobile) {
+    if (!this.isPhone()) {
       height = box(divs.proses).height;
     } else {
       const parent = document.getElementById('box-rubriques').getBoundingClientRect();
@@ -28,21 +27,35 @@ const rubriques = {
     }
     return height;
   },
+  isPhone() {
+    const cssCheck = window.getComputedStyle(document.querySelector('.header .bandeau'));
+    const positionCheck = cssCheck.getPropertyValue('position');
+    return (positionCheck === 'relative') ? true : false;
+  },
   refresh(anim) {
     $box.style.transition = (anim) ? '' : '0s';
-    if (rubriques.abs && window.innerWidth <= mobile) $rubriques.style.height = 0;
+    if (rubriques.abs && this.isPhone()) $rubriques.style.height = 0;
     const rubHeight = box(divs.proses).height;
     const rubWidth = box(divs.proses).width;
     let space = 0;
-    if (window.innerWidth > mobile) {
-      space = ( box($rubriques).width - rubWidth * 3 ) / 6;
-    } else {
+    if (this.isPhone()) {
       space = this.getHeight() - rubHeight * 3;
       space = space < 0 ? 0 : space / 6;
+    } else {
+      space = (box($rubriques).width - rubWidth * 3) / 6;
     }
     // udapte rubriques > divs
     names.forEach((name, i) => {
-      if (window.innerWidth > mobile) {
+      if (this.isPhone()) {
+        // version mobile
+        this[name] = {
+          left: 0,
+          top: rubHeight * i + space * (2 * i + 1)
+        };
+        if (rubriques.clicked) {
+          this[name].top = space;
+        }
+      } else {
         // version desktop
         this[name] = {
           left: rubWidth * i + space * (2 * i + 1),
@@ -50,15 +63,6 @@ const rubriques = {
         };
         if (this.clicked) {
           this[name].left = space;
-        }
-      } else {
-        // version mobile
-        this[name] = {
-          left: 0,
-          top: rubHeight * i + space * ( 2 * i + 1)
-        };
-        if (rubriques.clicked) {
-          this[name].top = space;
         }
       }
       divs[name].style.left = this[name].left + 'px';
@@ -70,17 +74,7 @@ const rubriques = {
     // 0.035 = valeur de $box.paddingLeft
     const padding = box($rubriques).width * 0.035;
     $excerptClose.style.left = `${padding}px`;
-    if (window.innerWidth > mobile) {
-      // animation horizontale (desktop)
-      boxHeight = this.getHeight();
-      $box.style.top = '-7%';
-      $inbox.style.height = `${this.getHeight()}px`;
-      if (this.clicked) {
-        $box.style.left = `${rubWidth + space}px`;
-      } else {
-        $box.style.left = `${box($box).width + rubWidth + space}px`;
-      }
-    } else {
+    if (this.isPhone()) {
       // animation verticale (mobile)
       $box.style.left = 0;
       $box.style.top = `${rubHeight + space}px`;
@@ -91,10 +85,20 @@ const rubriques = {
       } else {
         $box.style.top = `${boxHeight + this.getHeight() / 1.55}px`;
       }
+    } else {
+      // animation horizontale (desktop)
+      boxHeight = this.getHeight();
+      $box.style.top = '-7%';
+      $inbox.style.height = `${this.getHeight()}px`;
+      if (this.clicked) {
+        $box.style.left = `${rubWidth + space}px`;
+      } else {
+        $box.style.left = `${box($box).width + rubWidth + space}px`;
+      }
     }
 
     if (!this.abs) return;
-    if (this.getHeight() < boxHeight + rubHeight && window.innerWidth <= mobile) {
+    if (this.getHeight() < boxHeight + rubHeight && this.isPhone()) {
       $rubriques.style.height = `${boxHeight + rubHeight}px`;
     } else {
       $rubriques.style.height = `${this.getHeight()}px`;
