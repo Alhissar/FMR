@@ -219,7 +219,7 @@ function init() {
   window.addEventListener('scroll', bandeau);
   document.querySelector('#reader').addEventListener('touchstart', middleware('touchstart'));
   document.querySelector('#reader').addEventListener('mousewheel', middleware('mousewheel'));
-  document.querySelector('#reader').addEventListener('mousemove', middleware('mousemove'));
+  // document.querySelector('#reader').addEventListener('mousemove', middleware('mousemove'));
   document.querySelector('#reader').addEventListener('touchmove', middleware('touchmove'));
   document.querySelector('#inbox').addEventListener('touchstart', middleware('touchstart'));
   document.querySelector('#inbox').addEventListener('mousewheel', middleware('mousewheel'));
@@ -233,6 +233,8 @@ function init() {
   $excerptClose.onclick = () => click(rubriques.clicked);
   document.querySelector('#reader-container').onclick = (e) => closeOver(e, closeReader);
   document.querySelector('#popup-container').onclick = (e) => closeOver(e, closePopup);
+  document.querySelector('#reader-scroll').addEventListener('mousemove', middleware('mousemove'));
+  document.querySelector('#excerpt-scroll').addEventListener('mousemove', middleware('mousemove'));
   names.forEach((name) => {
     divs[name].addEventListener('click', () => click(name), false);
   });
@@ -240,6 +242,7 @@ function init() {
 }
 function middleware(eventName) {
   let prevEvent;
+  let top;
   if (eventName === 'mousewheel') {
     return function wheel(e) {
       e.preventDefault();
@@ -258,9 +261,40 @@ function middleware(eventName) {
   if (eventName === 'mousemove') {
     return function move(e) {
       e.preventDefault();
-      if (e.buttons && prevEvent && content.reading[0] !== 'nondit') {
-        e.currentTarget.scrollTop += prevEvent.screenY - e.screenY;
-        updateScroll(e.currentTarget.parentNode.lastElementChild);
+      if (e.buttons && prevEvent) {
+        if (e.currentTarget.id === 'reader-scroll' ||
+        e.currentTarget.id === 'excerpt-scroll') {
+          const $scroll = e.currentTarget;
+          if (e.currentTarget.id !== prevEvent.target.id) return;
+          // cas du move sur scroll
+          // on positionne le scroll à la position de mouse.
+          // on convertit pos de mouse en pos de scroll
+          // 1. recupérer la valeur de $scroll.style.top et virer 'px'
+          const cssTop = window.getComputedStyle($scroll).top;
+          // top = ?
+          top = cssTop.slice(0, -2) | 0;
+          // 👀 aux limites
+          if (top < 0) top = 0;
+          if (top > $scroll.parentNode.offsetHeight - $scroll.offsetHeight) {
+            top = $scroll.parentNode.offsetHeight - $scroll.offsetHeight;
+          }
+          // on déplace le scroll
+          e.currentTarget.style.top = `${e.screenY - prevEvent.screenY + top}px`;
+          // on effectue le scroll du contenu
+          const ratio = top / $scroll.parentNode.offsetHeight;
+          // cibler la div à scroller
+          const $toScroll = $scroll.parentNode.parentNode.firstElementChild;
+          $toScroll.scrollTop = ratio * ($toScroll.scrollHeight - $toScroll.offsetHeight);
+          // debugger;
+          console.log(ratio);
+          
+        } else {
+          // move sur $reader
+          // if (content.reading[0] !== 'nondit') {
+          //   e.currentTarget.scrollTop += prevEvent.screenY - e.screenY;
+          //   updateScroll(e.currentTarget.parentNode.lastElementChild);
+          // }
+        }
       }
       prevEvent = e;
     };
@@ -334,11 +368,13 @@ function reader(rubr, index) {
       const image = obj.txt[page][i];
 
       const srcThumb = `${content.url + obj.url}tbn_${image[1]}.jpg`;
-      txt += `<figure onclick='popup(["${rubr}",${index}, ${page}, ${i}])' class='thumb'><img src='${srcThumb}' alt='${image[0]} - Auteur : ${obj.titre}'>
-      <figcaption>${image[0]}</figcaption></figure>`;
+      txt += `<figure onclick='popup(["${rubr}",${index}, ${page}, ${i}])' class='thumb'>`;
+      txt += `<img src='${srcThumb}' alt='${image[0]} - Auteur : ${obj.titre}'`;
+      txt += "width='150px' height='150px'>";
+      txt += `<figcaption>${image[0]}</figcaption></figure>`;
     }
-    $texte.classList.add('galerie');
     $texte.innerHTML += txt;
+    $texte.classList.add('galerie');
   }
   if (rubr === 'proses') {
     document.querySelector('#pageNb').style.display = '';
@@ -374,6 +410,7 @@ function reader(rubr, index) {
   document.querySelector('#prev').style.height = prev ? '' : '0';
   document.querySelector('#next').style.height = next ? '' : '0';
   updateScroll(document.querySelector('#reader-scrollbar'));
+  // updateScroll(document.querySelector('#reader-scrollbar'));
 }
 function refresh(e) {
   bandeau();

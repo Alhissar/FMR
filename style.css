@@ -186,10 +186,10 @@ aside img {
 #excerpt-scroll, #reader-scroll {
   position: relative;
   top: 0px;
-  right: 3px;
-  width: 8px;
+  right: 23px;
+  width: 50px;
   height: 24px;
-  background: url('img/btn-barre-scroll.png') center/100%;
+  background: url('img/btn-barre-scroll.png') center/8px 24px no-repeat;
 }
 footer {
   position: relative;
@@ -369,6 +369,7 @@ footer .copyright{
   align-content: center;
   flex-wrap: wrap;
   width: 100%;
+  height: max-content;
   padding: 0;
 }
 #texte.galerie h2 {
@@ -384,6 +385,7 @@ figure.thumb {
 }
 figure.thumb img {
   width:100%;
+  height: auto;
   border-radius: 8px;
   box-shadow: #777 2px 2px 5px;
   cursor: pointer;
