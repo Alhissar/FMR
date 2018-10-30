@@ -203,6 +203,7 @@ function excerpt(rubr) {
     txt += `<p onclick= 'reader("${rubr}", ${i})'>${obj.titre}</p>`;
   });
   $inbox.innerHTML = txt;
+  updateScroll(document.querySelector('#excerpt-scrollbar'));
 }
 function init() {
   // on peuple divs
@@ -247,6 +248,7 @@ function middleware(eventName) {
       if (oldScroll !== e.currentTarget.scrollTop) {
         e.preventDefault();
       }
+      updateScroll(e.currentTarget.parentNode.lastElementChild);
     };
   }
   if (eventName === 'mousemove') {
@@ -254,6 +256,7 @@ function middleware(eventName) {
       e.preventDefault();
       if (e.buttons && prevEvent && content.reading[0] !== 'nondit') {
         e.currentTarget.scrollTop += prevEvent.screenY - e.screenY;
+        updateScroll(e.currentTarget.parentNode.lastElementChild);
       }
       prevEvent = e;
     };
@@ -268,6 +271,7 @@ function middleware(eventName) {
       e.preventDefault();
       if (firstY) {
         e.currentTarget.scrollTop += firstY - e.touches[0].pageY;
+        updateScroll(e.currentTarget.parentNode.lastElementChild);
       }
       firstY = e.touches[0].pageY;
     };
@@ -365,12 +369,16 @@ function reader(rubr, index) {
   }
   document.querySelector('#prev').style.height = prev ? '' : '0';
   document.querySelector('#next').style.height = next ? '' : '0';
+  updateScroll(document.querySelector('#reader-scrollbar'));
 }
 function refresh(e) {
   bandeau();
   // pas d'anim des rubriques et de l'excerpt si resize
   let anim = (!e || e.eventName === 'resize') ? true : false;
   rubriques.refresh(anim);
+  updateScroll(document.querySelector('#excerpt-scrollbar'));
+  updateScroll(document.querySelector('#reader-scrollbar'));
+
   if (document.querySelector('#popup-container').style.display === 'flex') {
     resize(document.querySelector('#popup-container img'));
   }
@@ -394,6 +402,25 @@ function resize($img) {
   // on ajuste la largeur pour ne pas dépasser naturalWidth, si besoin
   width = (width > $img.naturalWidth) ? $img.naturalWidth : width;
   document.querySelector('#popup-nav').style.maxWidth = `${width * 0.95}px`;
+}
+/**
+ * 
+ * @param {Node} el 
+ */
+function updateScroll(el) {
+  // on récupère la boite de contenu (à scroller)
+  const $toScroll = el.parentNode.firstElementChild;
+  // scrollMax du contenu (en px)
+  const scrollMax = $toScroll.scrollHeight - $toScroll.offsetHeight;
+  if (scrollMax <= 0) {
+    el.style.display = 'none';
+  } else {
+    el.style.display = '';
+    // ratio (de 0 à 1)
+    const ratio = $toScroll.scrollTop / scrollMax;
+    // scroll max de scroll : (scrollbar.height - scroll.height) * ratio
+    el.lastElementChild.style.top = `${(box(el).height - box(el.firstElementChild).height) * ratio}px`;
+  }
 }
 function toggle() {
   let txt = '';

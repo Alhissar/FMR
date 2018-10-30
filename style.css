@@ -167,13 +167,29 @@ aside img {
 }
 #excerpt-close {
   position: absolute;
-  left: 0;
   top: 0;
+  left: 0;
   width: 35px;
   height: 35px;
   background: url('img/close.png'), #333;
   border-radius: 42px;
   cursor: pointer;
+}
+#excerpt-scrollbar, #reader-scrollbar {
+  position: absolute;
+  top: 14%;
+  right: 9%;
+  width: 2px;
+  height: 72%;
+  background: #ccc;
+}
+#excerpt-scroll, #reader-scroll {
+  position: relative;
+  top: 0px;
+  right: 3px;
+  width: 8px;
+  height: 24px;
+  background: url('img/btn-barre-scroll.png') center/100%;
 }
 footer {
   position: relative;
@@ -307,6 +323,7 @@ footer .copyright{
   margin: 0.5em 0;
 }
 #pageNb {
+  z-index:5;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -319,6 +336,10 @@ footer .copyright{
   background: var(--reader-bg-color);
   color: #333;
   border-radius: 10px;
+}
+#reader-scrollbar {
+  right: 14px;
+  background: #999;
 }
 #nav, #popup-nav {
   display: flex;
@@ -506,6 +527,10 @@ figure.thumb img {
     padding: 15px;
     font-size: 14px;
   }
+  #reader-scrollbar {
+  right: 6px;
+}
+
 }
 
 @media screen and (min-width: 800px) {
