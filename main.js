@@ -338,7 +338,7 @@ function popup([rubr, index, page, i]) {
   const obj = content[rubr][index];
   const image = obj.txt[page][i];
   const src = `${content.url + obj.url}${image[1]}.jpg`;
-  document.querySelector('#popup-titre').innerHTML = `<cite>${image[0]} - (${obj.auteur})</cite>`;
+  document.querySelector('#popup-titre').innerHTML = `<cite>${image[0]} (${obj.auteur})</cite>`;
 
   $img.style = '';
   $img.onload = () => resize($img);
@@ -419,7 +419,7 @@ function reader(rubr, index) {
   } else {
     $texte.style.textAlign = '';
     $texte.classList.remove(('texteVerticalCenter'));
-    document.querySelector('#reader-titre').innerHTML = `<cite>${obj.titre}</cite> - (${obj.auteur})`;
+    document.querySelector('#reader-titre').innerHTML = `<cite>${obj.titre}</cite> (${obj.auteur})`;
   }
   document.querySelector('#prev').style.height = prev ? '' : '0';
   document.querySelector('#next').style.height = next ? '' : '0';
