@@ -388,6 +388,7 @@ figure.thumb {
 figure.thumb img {
   width:100%;
   height: auto;
+  min-height: 150px;
   border-radius: 8px;
   box-shadow: #777 2px 2px 5px;
   cursor: pointer;
@@ -468,6 +469,9 @@ figure.thumb img {
   }
   figure {
     width: 46%;
+  }
+  figure.thumb img {
+    min-height: 110px;
   }
   figcaption.texte {
     display: none;
