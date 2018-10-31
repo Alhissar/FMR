@@ -185,11 +185,12 @@ aside img {
 }
 #excerpt-scroll, #reader-scroll {
   position: relative;
-  top: 0px;
-  right: 23px;
-  width: 50px;
-  height: 24px;
+  top: -25px;
+  right: 49px;
+  width: 100px;
+  height: 100px;
   background: url('img/btn-barre-scroll.png') center/8px 24px no-repeat;
+  border-radius: 50px;
 }
 footer {
   position: relative;
@@ -323,6 +324,7 @@ footer .copyright{
   margin: 0.5em 0;
 }
 #pageNb {
+  user-select: none;
   z-index:5;
   position: absolute;
   display: flex;

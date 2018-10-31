@@ -215,6 +215,92 @@ function init() {
     divs[name] = document.querySelector(`.${name}`);
   });
   // ajout des onclick
+  let prevEvent, firstEvent;
+  let top;
+  function middleware(eventName) {
+    // let prevEvent, firstEvent;
+    // let top;
+    if (eventName === 'mousedown') {
+      return function down(e) {
+        firstEvent = e.target;
+      };
+    }
+    if (eventName === 'click') {
+      return function click(e) {
+        if (!firstEvent || (firstEvent.id !== e.currentTarget.id)) {
+          firstEvent = null;
+          return;
+        }
+        closeOver(e, closeReader);
+      };
+    }
+    if (eventName === 'mousewheel') {
+      return function wheel(e) {
+        e.preventDefault();
+        const oldScroll = e.currentTarget.scrollTop;
+        if (content.reading[0] === 'nondit') {
+          e.currentTarget.scrollTop += e.deltaY / 2;
+        } else {
+          e.currentTarget.scrollTop += e.deltaY / 4;
+        }
+        if (oldScroll !== e.currentTarget.scrollTop) {
+          e.preventDefault();
+        }
+        updateScroll(e.currentTarget.parentNode.lastElementChild);
+      };
+    }
+    if (eventName === 'mousemove') {
+      return function move(e) {
+        e.preventDefault();
+        if (e.buttons && prevEvent) {
+          if (e.currentTarget.id === 'reader-scroll' ||
+            e.currentTarget.id === 'excerpt-scroll') {
+            const $scroll = e.currentTarget;
+            if (e.currentTarget.id !== prevEvent.target.id) return;
+            // cas du move sur scroll
+            // 1. recupérer la valeur de $scroll.style.top et virer 'px'
+            const cssTop = window.getComputedStyle($scroll).top;
+            top = cssTop.slice(0, -2) | 0;
+            // 👀 aux limites
+            if (top < - $scroll.offsetHeight / 2) top = - $scroll.offsetHeight / 2;
+            if (top > $scroll.parentNode.offsetHeight - $scroll.offsetHeight / 2) {
+              top = $scroll.parentNode.offsetHeight - $scroll.offsetHeight / 2;
+            }
+            // on déplace le scroll
+            e.currentTarget.style.top = `${e.screenY - prevEvent.screenY + top}px`;
+            const ratio = (top + $scroll.offsetHeight / 2) / $scroll.parentNode.offsetHeight;
+            // cibler la div à scroller
+            const $toScroll = $scroll.parentNode.parentNode.firstElementChild;
+            // on effectue le scroll du contenu
+            $toScroll.scrollTop = ratio * ($toScroll.scrollHeight - $toScroll.offsetHeight);
+          } else {
+            // move sur $reader
+            // if (content.reading[0] !== 'nondit') {
+            //   e.currentTarget.scrollTop += prevEvent.screenY - e.screenY;
+            //   updateScroll(e.currentTarget.parentNode.lastElementChild);
+            // }
+          }
+        }
+        prevEvent = e;
+      };
+    }
+    if (eventName === 'touchstart') {
+      return function touchstart(e) {
+        firstY = e.touches[0].pageY;
+      };
+    }
+    if (eventName === 'touchmove') {
+      return function touchmove(e) {
+        e.preventDefault();
+        if (firstY) {
+          e.currentTarget.scrollTop += firstY - e.touches[0].pageY;
+          updateScroll(e.currentTarget.parentNode.lastElementChild);
+        }
+        firstY = e.touches[0].pageY;
+      };
+    }
+  }
+
   window.addEventListener('resize', refresh);
   window.addEventListener('scroll', bandeau);
   document.querySelector('#reader').addEventListener('touchstart', middleware('touchstart'));
@@ -231,89 +317,17 @@ function init() {
   document.querySelector('#close').onclick = closeReader;
   document.querySelector('#popup-close').onclick = closePopup;
   $excerptClose.onclick = () => click(rubriques.clicked);
-  document.querySelector('#reader-container').onclick = (e) => closeOver(e, closeReader);
+  document.querySelector('#reader-container').addEventListener('mousedown', middleware('mousedown'), false);
+  document.querySelector('#reader-container').addEventListener('click', middleware('click'));
+  // document.querySelector('#reader-container').onclick = (e) => closeOver(e, closeReader);
   document.querySelector('#popup-container').onclick = (e) => closeOver(e, closePopup);
+  document.querySelector('#reader-scroll').addEventListener('mousedown', middleware('mousedown'));
   document.querySelector('#reader-scroll').addEventListener('mousemove', middleware('mousemove'));
   document.querySelector('#excerpt-scroll').addEventListener('mousemove', middleware('mousemove'));
   names.forEach((name) => {
     divs[name].addEventListener('click', () => click(name), false);
   });
   rubriques.refresh();
-}
-function middleware(eventName) {
-  let prevEvent;
-  let top;
-  if (eventName === 'mousewheel') {
-    return function wheel(e) {
-      e.preventDefault();
-      const oldScroll = e.currentTarget.scrollTop;
-      if (content.reading[0] === 'nondit') {
-        e.currentTarget.scrollTop += e.deltaY / 2;
-      } else {
-        e.currentTarget.scrollTop += e.deltaY / 4;
-      }
-      if (oldScroll !== e.currentTarget.scrollTop) {
-        e.preventDefault();
-      }
-      updateScroll(e.currentTarget.parentNode.lastElementChild);
-    };
-  }
-  if (eventName === 'mousemove') {
-    return function move(e) {
-      e.preventDefault();
-      if (e.buttons && prevEvent) {
-        if (e.currentTarget.id === 'reader-scroll' ||
-        e.currentTarget.id === 'excerpt-scroll') {
-          const $scroll = e.currentTarget;
-          if (e.currentTarget.id !== prevEvent.target.id) return;
-          // cas du move sur scroll
-          // on positionne le scroll à la position de mouse.
-          // on convertit pos de mouse en pos de scroll
-          // 1. recupérer la valeur de $scroll.style.top et virer 'px'
-          const cssTop = window.getComputedStyle($scroll).top;
-          // top = ?
-          top = cssTop.slice(0, -2) | 0;
-          // 👀 aux limites
-          if (top < 0) top = 0;
-          if (top > $scroll.parentNode.offsetHeight - $scroll.offsetHeight) {
-            top = $scroll.parentNode.offsetHeight - $scroll.offsetHeight;
-          }
-          // on déplace le scroll
-          e.currentTarget.style.top = `${e.screenY - prevEvent.screenY + top}px`;
-          // on effectue le scroll du contenu
-          const ratio = top / $scroll.parentNode.offsetHeight;
-          // cibler la div à scroller
-          const $toScroll = $scroll.parentNode.parentNode.firstElementChild;
-          $toScroll.scrollTop = ratio * ($toScroll.scrollHeight - $toScroll.offsetHeight);
-          // debugger;
-          console.log(ratio);
-          
-        } else {
-          // move sur $reader
-          // if (content.reading[0] !== 'nondit') {
-          //   e.currentTarget.scrollTop += prevEvent.screenY - e.screenY;
-          //   updateScroll(e.currentTarget.parentNode.lastElementChild);
-          // }
-        }
-      }
-      prevEvent = e;
-    };
-  }
-  if (eventName === 'touchstart') {
-    return function touchstart(e) {
-      firstY = e.touches[0].pageY;
-    };
-  }
-  if (eventName === 'touchmove') {
-    return function touchmove(e) {
-      e.preventDefault();
-      if (firstY) {
-        e.currentTarget.scrollTop += firstY - e.touches[0].pageY;
-        updateScroll(e.currentTarget.parentNode.lastElementChild);
-      }
-      firstY = e.touches[0].pageY;
-    };
-  }
 }
 function popup([rubr, index, page, i]) {
   const $img = document.querySelector('#popup-container img');
@@ -460,7 +474,7 @@ function updateScroll(el) {
     // ratio (de 0 à 1)
     const ratio = $toScroll.scrollTop / scrollMax;
     // scroll max de scroll : (scrollbar.height - scroll.height) * ratio
-    el.lastElementChild.style.top = `${(box(el).height - box(el.firstElementChild).height) * ratio}px`;
+    el.lastElementChild.style.top = `${(box(el).height) * ratio - box(el.firstElementChild).height / 2}px`;
   }
 }
 function toggle() {
