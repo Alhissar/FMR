@@ -444,6 +444,15 @@ figure.thumb img {
   }
 }
 
+@media screen and (min-width: 800px) {
+  .hasard {
+    font-size: 4.8vw;
+  }
+  #inbox p {
+    font-size: 20px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   #main {
     min-height: 100vh;
@@ -478,6 +487,10 @@ figure.thumb img {
   }
   figure {
     width: 46%;
+  }
+  figure.thumb{
+	  width: 44%;
+	  margin: 10px 2px;
   }
   figcaption.texte {
     display: none;
@@ -539,17 +552,12 @@ figure.thumb img {
     padding: 15px;
     font-size: 14px;
   }
+  #texte.galerie {
+	  justify-content: space-around;
+  }
   #reader-scrollbar {
   right: 6px;
 }
 
 }
 
-@media screen and (min-width: 800px) {
-  .hasard {
-    font-size: 4.8vw;
-  }
-  #inbox p {
-    font-size: 20px;
-  }
-}
