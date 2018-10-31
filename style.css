@@ -268,7 +268,7 @@ footer .copyright{
 
 }
 #reader-box {
-  --reader-bg-color: #e4e0d8;
+  --reader-bg-color: url("img/pattern.jpg");
   display: flex;
   position: relative;
   width: 100%;
@@ -276,7 +276,7 @@ footer .copyright{
   margin: 10px auto;
   height: 100%;
   max-height: 800px;
-  border-radius: 10px;
+  border-radius: 15px;
   background: var(--reader-bg-color);
   text-shadow: #bbb 1px 1px 2px;
 }
@@ -381,7 +381,7 @@ footer .copyright{
   flex-wrap: wrap;
   width: 100%;
   height: max-content;
-  padding: 0;
+  padding: 0 16px 0 0;
 }
 #texte.galerie h2 {
   width: 100%;
@@ -390,9 +390,10 @@ footer .copyright{
 figure.thumb {
   display: flex;
   flex-direction: column;
-  width: 42%;
+  width: 29%;
   max-width: 175px;
   margin: 10px 10px;
+  /* margin: 10px 0; */
 }
 figure.thumb img {
   width:100%;
