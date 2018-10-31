@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://fonts.googleapis.com/css?family=Qwigley|Questrial" rel="stylesheet">
+  <script src="content.js" defer></script>
   <script src="main.js" defer></script>
   <link rel='stylesheet' href="style.css">
   <title>Le Blog Ephémère</title>
@@ -12,7 +13,7 @@
 <body>
 
   <div id="main">
-    <div class='header'>
+    <div class="header">
       <img src="img/accueil.jpg" alt="">
       <div class='bandeau'>
         <div class="titre">
@@ -55,44 +56,54 @@
           </aside>
         </div>
         <div id="box">
-          <div id="inbox">
-
+          <div id="inbox"></div>
+          <div id="excerpt-close"></div>
+          <div id="excerpt-scrollbar">
+            <div id="excerpt-scroll"></div>
           </div>
         </div>
       </nav>
     </div>
-    <div class='footer'>
+    <footer>
       <div class="bandeau">
-        <div class="contact">
-          <div class="stylo">
-            <p class="stylo-txt1">Contact</p>
-            <p class="stylo-txt2">fmr@blogfmr.fr</p>
-          </div>
-          <div class="texte">Contact : fmr@blogfmr.fr</div>
-        </div>
-        <div class="conception">
-          <div class="pinceau">
+        <div class="design">
+          <img src="img/stylo-footer.png" alt="">
+          <div class="txt">
             <p class="stylo-txt1">Web design</p>
-            <p class="stylo-txt2">F. Millier - Ephémère Prod</p>
+            <p class="stylo-txt2">FM&reg; Prod</p>
           </div>
         </div>
-        <div class="realisation">
-          <div class="stylet">
+        <div class="texte">Contact : fmr@blogfmr.fr</div>
+
+        <div class="contact">
+          <div class="txt">
+            <p class="stylo-txt1">Contact</p>
+            <p class="stylo-txt2"><a href="mailto:fmr@blogfmr.fr">fmr@blogfmr.fr</a></p>
+          </div>
+        </div>
+
+        <div class="dev">
+          <div class="txt">
             <p class="stylo-txt1">Réalisation</p>
             <p class="stylo-txt2">d.Prod</p>
           </div>
+          <img src="img/stylet-footer.png" alt="">
         </div>
       </div>
       <div class="copyright">FMR / D.prod &copy; 2018</div>
-    </div>
+    </footer>
   </div>
   <div id="reader-container" class="over">
-    <div id="reader-titre">Auteur : Fred</div>
+    <div id="reader-titre"></div>
     <div id="reader-box">
-      <div id="pageNb">3</div>
       <div id="reader">
         <div id="texte"></div>
       </div>
+      <div id="pageNb">3</div>
+      <div id="reader-scrollbar">
+        <div id="reader-scroll"></div>
+      </div>
+
     </div>
     <div id="nav">
       <div id="prev"></div>
@@ -101,7 +112,7 @@
     </div>
   </div>
   <div id="popup-container" class="over">
-    <div id="popup-titre">Auteur : Fred - Atlas</div>
+    <div id="popup-titre"></div>
       <img src="img/close.png" alt="">
       <div id="popup-nav">
         <div id="popup-prev"></div>
