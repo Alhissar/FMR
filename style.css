@@ -15,16 +15,9 @@ body {
 .shadow{
     text-shadow: 1px 1px 4px #999;
 }
-<<<<<<< HEAD
-a{
-	text-decoration: none;
-}
-
-=======
 a {
 	text-decoration: none;
 }
->>>>>>> 9cb396e315238b4babbe9c527fae3180eddf8cd0
 h1 {
   margin: 0;
   font-size: 6vw;
@@ -232,11 +225,7 @@ footer img {
   max-width: 280px;
 }
 footer a {
-<<<<<<< HEAD
-    color: #dde5c6;
-=======
   color: #dde5c6;
->>>>>>> 9cb396e315238b4babbe9c527fae3180eddf8cd0
 }
 footer .texte {
   display: none;
