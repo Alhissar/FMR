@@ -3,8 +3,7 @@ const divs = {};
 const $rubriques = document.querySelector('.rubriques');
 const $box = document.getElementById('box');
 const $inbox = document.getElementById('inbox');
-const $excerptClose = document.getElementById('excerpt-close');
-let firstY;
+// const $excerptClose = document.getElementById('excerpt-close');
 const rubriques = {
   abs: false,
   clicked: '',
@@ -73,7 +72,7 @@ const rubriques = {
     let boxHeight = 0;
     // 0.035 = valeur de $box.paddingLeft
     const padding = box($rubriques).width * 0.035;
-    $excerptClose.style.left = `${padding}px`;
+    document.getElementById('excerpt-close').style.left = `${padding}px`;
     if (this.isPhone()) {
       // animation verticale (mobile)
       $box.style.left = 0;
@@ -216,7 +215,7 @@ function init() {
   });
   // ajout des onclick
   let prevEvent, firstEvent;
-  let top;
+  let top, firstY;
   function middleware(eventName) {
     // let prevEvent, firstEvent;
     // let top;
@@ -316,7 +315,7 @@ function init() {
   document.querySelector('#popup-next').onclick = () => changeView(1);
   document.querySelector('#close').onclick = closeReader;
   document.querySelector('#popup-close').onclick = closePopup;
-  $excerptClose.onclick = () => click(rubriques.clicked);
+  document.getElementById('excerpt-close').onclick = () => click(rubriques.clicked);
   document.querySelector('#reader-container').addEventListener('mousedown', middleware('mousedown'), false);
   document.querySelector('#reader-container').addEventListener('click', middleware('click'));
   // document.querySelector('#reader-container').onclick = (e) => closeOver(e, closeReader);
@@ -459,7 +458,7 @@ function resize($img) {
   document.querySelector('#popup-nav').style.maxWidth = `${width * 0.95}px`;
 }
 /**
- * 
+ * Update $scroll.top en fc de $toScroll
  * @param {Node} el 
  */
 function updateScroll(el) {

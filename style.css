@@ -186,7 +186,10 @@ aside img {
   right: 9%;
   width: 2px;
   height: 72%;
-  background: #ccc;
+  background: #aaa;
+}
+#reader-scrollBar {
+  background: #777;
 }
 #excerpt-scroll, #reader-scroll {
   position: relative;
@@ -490,7 +493,7 @@ figure.thumb img {
     width: 46%;
   }
   figure.thumb{
-    width: 44%;
+    width: 45%;
 	  margin: 10px 2px;
   }
   figure.thumb img {
@@ -553,7 +556,7 @@ figure.thumb img {
     font-size: 16px;
   }
   #texte {
-    padding: 15px;
+    padding: 12px 18px 12px 12px;
     font-size: 14px;
   }
   #texte.galerie {
@@ -561,5 +564,6 @@ figure.thumb img {
   }
   #reader-scrollbar {
     right: 10px;
+    opacity: 0.5;
   }
 }
