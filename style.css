@@ -15,10 +15,16 @@ body {
 .shadow{
     text-shadow: 1px 1px 4px #999;
 }
+<<<<<<< HEAD
 a{
 	text-decoration: none;
 }
 
+=======
+a {
+	text-decoration: none;
+}
+>>>>>>> 9cb396e315238b4babbe9c527fae3180eddf8cd0
 h1 {
   margin: 0;
   font-size: 6vw;
@@ -187,7 +193,10 @@ aside img {
   right: 9%;
   width: 2px;
   height: 72%;
-  background: #ccc;
+  background: #aaa;
+}
+#reader-scrollBar {
+  background: #777;
 }
 #excerpt-scroll, #reader-scroll {
   position: relative;
@@ -223,7 +232,11 @@ footer img {
   max-width: 280px;
 }
 footer a {
+<<<<<<< HEAD
     color: #dde5c6;
+=======
+  color: #dde5c6;
+>>>>>>> 9cb396e315238b4babbe9c527fae3180eddf8cd0
 }
 footer .texte {
   display: none;
@@ -268,7 +281,7 @@ footer .copyright{
 
 }
 #reader-box {
-  --reader-bg-color: url("img/pattern.jpg");
+  --reader-bg-color: #e4e0d8;
   display: flex;
   position: relative;
   width: 100%;
@@ -398,6 +411,7 @@ figure.thumb {
 figure.thumb img {
   width:100%;
   height: auto;
+  min-height: 150px;
   border-radius: 8px;
   box-shadow: #777 2px 2px 5px;
   cursor: pointer;
@@ -450,6 +464,7 @@ figure.thumb img {
   }
   #inbox p {
     font-size: 20px;
+    padding: 5px 0;
   }
 }
 
@@ -489,8 +504,11 @@ figure.thumb img {
     width: 46%;
   }
   figure.thumb{
-	  width: 44%;
+    width: 45%;
 	  margin: 10px 2px;
+  }
+  figure.thumb img {
+    min-height: 120px;
   }
   figcaption.texte {
     display: none;
@@ -549,15 +567,14 @@ figure.thumb img {
     font-size: 16px;
   }
   #texte {
-    padding: 15px;
+    padding: 12px 18px 12px 12px;
     font-size: 14px;
   }
   #texte.galerie {
 	  justify-content: space-around;
   }
   #reader-scrollbar {
-  right: 6px;
+    right: 10px;
+    opacity: 0.5;
+  }
 }
-
-}
-
