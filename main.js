@@ -3,8 +3,6 @@ const divs = {};
 const $rubriques = document.querySelector('.rubriques');
 const $box = document.getElementById('box');
 const $inbox = document.getElementById('inbox');
-const $excerptClose = document.getElementById('excerpt-close');
-let firstY;
 const rubriques = {
   abs: false,
   clicked: '',
@@ -73,7 +71,7 @@ const rubriques = {
     let boxHeight = 0;
     // 0.035 = valeur de $box.paddingLeft
     const padding = box($rubriques).width * 0.035;
-    $excerptClose.style.left = `${padding}px`;
+    document.getElementById('excerpt-close').style.left = `${padding}px`;
     if (this.isPhone()) {
       // animation verticale (mobile)
       $box.style.left = 0;
@@ -204,7 +202,7 @@ function excerpt(rubr) {
   let txt = '';
   const $inbox = document.querySelector('#inbox');
   content[rubr].forEach((obj, i) => {
-    txt += `<p onclick= 'reader("${rubr}", ${i})'>${obj.titre}</p>`;
+    txt += `<p onclick= 'reader("${rubr}", ${i})'>${obj.auteur} - (${obj.titre})</p>`;
   });
   $inbox.innerHTML = txt;
   updateScroll(document.querySelector('#excerpt-scrollbar'));
@@ -216,10 +214,8 @@ function init() {
   });
   // ajout des onclick
   let prevEvent, firstEvent;
-  let top;
+  let top, firstY;
   function middleware(eventName) {
-    // let prevEvent, firstEvent;
-    // let top;
     if (eventName === 'mousedown') {
       return function down(e) {
         firstEvent = e.target;
@@ -273,12 +269,6 @@ function init() {
             const $toScroll = $scroll.parentNode.parentNode.firstElementChild;
             // on effectue le scroll du contenu
             $toScroll.scrollTop = ratio * ($toScroll.scrollHeight - $toScroll.offsetHeight);
-          } else {
-            // move sur $reader
-            // if (content.reading[0] !== 'nondit') {
-            //   e.currentTarget.scrollTop += prevEvent.screenY - e.screenY;
-            //   updateScroll(e.currentTarget.parentNode.lastElementChild);
-            // }
           }
         }
         prevEvent = e;
@@ -305,7 +295,6 @@ function init() {
   window.addEventListener('scroll', bandeau);
   document.querySelector('#reader').addEventListener('touchstart', middleware('touchstart'));
   document.querySelector('#reader').addEventListener('mousewheel', middleware('mousewheel'));
-  // document.querySelector('#reader').addEventListener('mousemove', middleware('mousemove'));
   document.querySelector('#reader').addEventListener('touchmove', middleware('touchmove'));
   document.querySelector('#inbox').addEventListener('touchstart', middleware('touchstart'));
   document.querySelector('#inbox').addEventListener('mousewheel', middleware('mousewheel'));
@@ -316,7 +305,7 @@ function init() {
   document.querySelector('#popup-next').onclick = () => changeView(1);
   document.querySelector('#close').onclick = closeReader;
   document.querySelector('#popup-close').onclick = closePopup;
-  $excerptClose.onclick = () => click(rubriques.clicked);
+  document.getElementById('excerpt-close').onclick = () => click(rubriques.clicked);
   document.querySelector('#reader-container').addEventListener('mousedown', middleware('mousedown'), false);
   document.querySelector('#reader-container').addEventListener('click', middleware('click'));
   // document.querySelector('#reader-container').onclick = (e) => closeOver(e, closeReader);
@@ -338,7 +327,7 @@ function popup([rubr, index, page, i]) {
   const obj = content[rubr][index];
   const image = obj.txt[page][i];
   const src = `${content.url + obj.url}${image[1]}.jpg`;
-  document.querySelector('#popup-titre').innerHTML = `<cite>${image[0]} - (${obj.auteur})</cite>`;
+  document.querySelector('#popup-titre').innerHTML = `<cite>${image[0]} (${obj.auteur})</cite>`;
 
   $img.style = '';
   $img.onload = () => resize($img);
@@ -419,12 +408,11 @@ function reader(rubr, index) {
   } else {
     $texte.style.textAlign = '';
     $texte.classList.remove(('texteVerticalCenter'));
-    document.querySelector('#reader-titre').innerHTML = `<cite>${obj.titre}</cite> - (${obj.auteur})`;
+    document.querySelector('#reader-titre').innerHTML = `- <cite>${obj.titre}</cite> - (${obj.auteur})`;
   }
   document.querySelector('#prev').style.height = prev ? '' : '0';
   document.querySelector('#next').style.height = next ? '' : '0';
   updateScroll(document.querySelector('#reader-scrollbar'));
-  // updateScroll(document.querySelector('#reader-scrollbar'));
 }
 function refresh(e) {
   bandeau();
@@ -459,7 +447,7 @@ function resize($img) {
   document.querySelector('#popup-nav').style.maxWidth = `${width * 0.95}px`;
 }
 /**
- * 
+ * Update $scroll.top en fc de $toScroll
  * @param {Node} el 
  */
 function updateScroll(el) {
