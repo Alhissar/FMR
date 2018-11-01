@@ -202,7 +202,11 @@ function excerpt(rubr) {
   let txt = '';
   const $inbox = document.querySelector('#inbox');
   content[rubr].forEach((obj, i) => {
-    txt += `<p onclick= 'reader("${rubr}", ${i})'>${obj.auteur} - (${obj.titre})</p>`;
+    if (rubr !== 'nondit') {
+      txt += `<p onclick= 'reader("${rubr}", ${i})'>${obj.titre}</p>`;
+    } else {
+      txt += `<p onclick= 'reader("${rubr}", ${i})'>${obj.auteur} - (${obj.titre})</p>`;
+    }
   });
   $inbox.innerHTML = txt;
   updateScroll(document.querySelector('#excerpt-scrollbar'));
