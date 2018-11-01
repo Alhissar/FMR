@@ -54,6 +54,8 @@ h1 {
 }
 .header .titre {
   margin: auto;
+  width: -moz-max-content;
+  width: -webkit-max-content;
   width: max-content;
   text-shadow: #444 1px 1px 4px;	
 }
@@ -144,6 +146,9 @@ aside img {
   padding: 2px 3.5% 0;
   padding-left: calc(3.5% + 2px);
   overflow: hidden;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
   user-select: none;
   transition: opacity 0.4s, left 0.4s, top 0.4s;
 }
@@ -267,7 +272,10 @@ footer .copyright{
   color: #222;
   padding: 10px;
   z-index: 20;
-
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 #reader-box {
   --reader-bg-color: #e4e0d8;
@@ -287,7 +295,6 @@ footer .copyright{
   overflow: hidden;
   margin: 0 auto;
   cursor: default;
-  user-select: none;
 }
 #reader-titre, #popup-titre {
   text-align: center;
@@ -302,6 +309,9 @@ footer .copyright{
   flex-direction: column;
   justify-content: flex-start;
   width: max-content;
+  width: -moz-max-content;
+  width: -webkit-max-content;
+  width: -ms-max-content;
   max-width: 100%;
   min-height: 100%;
   padding: 50px;
@@ -335,7 +345,6 @@ footer .copyright{
   margin: 0.5em 0;
 }
 #pageNb {
-  user-select: none;
   z-index:5;
   position: absolute;
   display: flex;
@@ -566,4 +575,19 @@ figure.thumb img {
     right: 10px;
     opacity: 0.5;
   }
+}
+
+@supports (-ms-ime-align: auto) {
+	/*
+      Votre CSS pour IE versions 10, 11 et Edge
+   */
+   .header .titre {
+	   display: flex;
+	   flex-direction: column;
+	   align-items: center;
+   }
+   footer .design, footer .contact, footer .dev {
+	   justify-content: center;
+   }
+   
 }
