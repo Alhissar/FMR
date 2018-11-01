@@ -3,7 +3,6 @@ const divs = {};
 const $rubriques = document.querySelector('.rubriques');
 const $box = document.getElementById('box');
 const $inbox = document.getElementById('inbox');
-// const $excerptClose = document.getElementById('excerpt-close');
 const rubriques = {
   abs: false,
   clicked: '',
@@ -217,8 +216,6 @@ function init() {
   let prevEvent, firstEvent;
   let top, firstY;
   function middleware(eventName) {
-    // let prevEvent, firstEvent;
-    // let top;
     if (eventName === 'mousedown') {
       return function down(e) {
         firstEvent = e.target;
@@ -272,12 +269,6 @@ function init() {
             const $toScroll = $scroll.parentNode.parentNode.firstElementChild;
             // on effectue le scroll du contenu
             $toScroll.scrollTop = ratio * ($toScroll.scrollHeight - $toScroll.offsetHeight);
-          } else {
-            // move sur $reader
-            // if (content.reading[0] !== 'nondit') {
-            //   e.currentTarget.scrollTop += prevEvent.screenY - e.screenY;
-            //   updateScroll(e.currentTarget.parentNode.lastElementChild);
-            // }
           }
         }
         prevEvent = e;
@@ -304,7 +295,6 @@ function init() {
   window.addEventListener('scroll', bandeau);
   document.querySelector('#reader').addEventListener('touchstart', middleware('touchstart'));
   document.querySelector('#reader').addEventListener('mousewheel', middleware('mousewheel'));
-  // document.querySelector('#reader').addEventListener('mousemove', middleware('mousemove'));
   document.querySelector('#reader').addEventListener('touchmove', middleware('touchmove'));
   document.querySelector('#inbox').addEventListener('touchstart', middleware('touchstart'));
   document.querySelector('#inbox').addEventListener('mousewheel', middleware('mousewheel'));
@@ -423,7 +413,6 @@ function reader(rubr, index) {
   document.querySelector('#prev').style.height = prev ? '' : '0';
   document.querySelector('#next').style.height = next ? '' : '0';
   updateScroll(document.querySelector('#reader-scrollbar'));
-  // updateScroll(document.querySelector('#reader-scrollbar'));
 }
 function refresh(e) {
   bandeau();
