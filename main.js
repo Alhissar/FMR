@@ -202,7 +202,11 @@ function excerpt(rubr) {
   let txt = '';
   const $inbox = document.querySelector('#inbox');
   content[rubr].forEach((obj, i) => {
-    txt += `<p onclick= 'reader("${rubr}", ${i})'>${obj.titre}</p>`;
+    if (rubr !== 'nondit') {
+      txt += `<p onclick= 'reader("${rubr}", ${i})'>${obj.titre}</p>`;
+    } else {
+      txt += `<p onclick= 'reader("${rubr}", ${i})'>${obj.auteur} - (${obj.titre})</p>`;
+    }
   });
   $inbox.innerHTML = txt;
   updateScroll(document.querySelector('#excerpt-scrollbar'));
@@ -408,7 +412,7 @@ function reader(rubr, index) {
   } else {
     $texte.style.textAlign = '';
     $texte.classList.remove(('texteVerticalCenter'));
-    document.querySelector('#reader-titre').innerHTML = `<cite>${obj.titre}</cite> (${obj.auteur})`;
+    document.querySelector('#reader-titre').innerHTML = `- <cite>${obj.titre}</cite> - (${obj.auteur})`;
   }
   document.querySelector('#prev').style.height = prev ? '' : '0';
   document.querySelector('#next').style.height = next ? '' : '0';
