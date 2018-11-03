@@ -13,7 +13,7 @@ body {
   color: #505050;
 }
 .shadow{
-    text-shadow: 1px 1px 4px #999;
+  text-shadow: 1px 1px 4px #999;
 }
 a {
 	text-decoration: none;
@@ -123,9 +123,6 @@ figure {
   width: 100%;
   height: 250px;
 }
-/* .rubriques .prose {
-  background: url(img/img-nav-prose.png) cover center;
-} */
 aside {
   display: none;
   width: 54%;
@@ -247,10 +244,10 @@ footer .stylo-txt2 {
   font-size: 1.6vw;
 }
 footer .copyright{
-    padding: 0.6vw 0;
-    font-size: 1.3vw;
-    text-align: center;
-    text-shadow: #333 1px 1px 2px;
+  padding: 0.6vw 0;
+  font-size: 1.3vw;
+  text-align: center;
+  text-shadow: #333 1px 1px 2px;
 }
 .over {
   display: none;
@@ -406,7 +403,6 @@ figure.thumb {
   width: 29%;
   max-width: 175px;
   margin: 10px 10px;
-  /* margin: 10px 0; */
 }
 figure.thumb img {
   width:100%;
@@ -545,7 +541,6 @@ figure.thumb img {
   figcaption.texte {
     display: none;
   }
-  /*  */
   aside {
     display: block;
     text-align: center;
