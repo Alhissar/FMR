@@ -197,6 +197,7 @@ function closeReader() {
 function closePopup() {
   document.querySelector('#popup-container').style = '';
   document.querySelector('#reader-container').style.display = 'flex';
+  updateScroll(document.querySelector('#reader-scrollbar'));
 }
 function excerpt(rubr) {
   let txt = '';
@@ -440,8 +441,8 @@ function resize($img) {
   // calculer 2 ratios (width : container / originale), (height : container / originale)
   // conserver celui qui vérifie (originale * ratio) < container
   // si les deux vérifient la condition, prendre le plus grand
-  // margin_top + margin-bottom + 2 * border = 24 (px)
-  const marginH = box(document.querySelector('#popup-titre')).height + 35 + 24;
+  // margin_top + margin-bottom = 20 (px)
+  const marginH = box(document.querySelector('#popup-titre')).height + 10;
   let ratioWidth = (window.innerWidth - 4) / box($img).width;
   let ratioHeight = (window.innerHeight - marginH) / box($img).height;
   if (ratioWidth * box($img).height > window.innerHeight - marginH) ratioWidth = 0;
@@ -453,8 +454,8 @@ function resize($img) {
   $img.style.width = `${width}px`;
   $img.style.maxWidth = `${$img.naturalWidth}px`;
   // on ajuste la largeur pour ne pas dépasser naturalWidth, si besoin
-  width = (width > $img.naturalWidth) ? $img.naturalWidth : width;
-  document.querySelector('#popup-nav').style.maxWidth = `${width * 0.95}px`;
+  // width = (width > $img.naturalWidth) ? $img.naturalWidth : width;
+  // document.querySelector('#popup-nav').style.maxWidth = `${width * 0.95}px`;
 }
 /**
  * Update $scroll.top en fc de $toScroll
