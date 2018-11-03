@@ -122,9 +122,9 @@ figure {
   width: 100%;
   height: 250px;
 }
-.rubriques .prose {
+/* .rubriques .prose {
   background: url(img/img-nav-prose.png) cover center;
-}
+} */
 aside {
   display: none;
   width: 54%;

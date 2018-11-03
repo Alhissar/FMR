@@ -234,18 +234,24 @@ function init() {
         closeOver(e, closeReader);
       };
     }
-    if (eventName === 'mousewheel') {
+    if (eventName === 'wheel') {
       return function wheel(e) {
         e.preventDefault();
         const oldScroll = e.currentTarget.scrollTop;
+        let delta = e.deltaY;
+        if (e.deltaMode === 1) {
+          delta *= 33;
+        }
         if (content.reading[0] === 'nondit') {
-          e.currentTarget.scrollTop += e.deltaY / 2;
+          e.currentTarget.scrollTop += delta / 2;
         } else {
-          e.currentTarget.scrollTop += e.deltaY / 4;
+          e.currentTarget.scrollTop += delta / 4;
         }
         if (oldScroll !== e.currentTarget.scrollTop) {
           e.preventDefault();
         }
+        // affichage dans la console de deltaMode, deltaY
+        // console.log(e.deltaMode, delta);
         updateScroll(e.currentTarget.parentNode.lastElementChild);
       };
     }
@@ -298,10 +304,10 @@ function init() {
   window.addEventListener('resize', refresh);
   window.addEventListener('scroll', bandeau);
   document.querySelector('#reader').addEventListener('touchstart', middleware('touchstart'));
-  document.querySelector('#reader').addEventListener('mousewheel', middleware('mousewheel'));
+  document.querySelector('#reader').addEventListener('wheel', middleware('wheel'));
   document.querySelector('#reader').addEventListener('touchmove', middleware('touchmove'));
   document.querySelector('#inbox').addEventListener('touchstart', middleware('touchstart'));
-  document.querySelector('#inbox').addEventListener('mousewheel', middleware('mousewheel'));
+  document.querySelector('#inbox').addEventListener('wheel', middleware('wheel'));
   document.querySelector('#inbox').addEventListener('touchmove', middleware('touchmove'));
   document.querySelector('#prev').onclick = () => changePage(-1);
   document.querySelector('#next').onclick = () => changePage(1);
