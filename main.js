@@ -331,6 +331,8 @@ function init() {
 }
 function popup([rubr, index, page, i]) {
   const $img = document.querySelector('#popup-container img');
+  document.querySelector('#popup-img').style.opacity = 0;
+  $img.style.width = '1px';
   document.querySelector('#popup-container').style.display = 'flex';
   document.querySelector('#reader-container').style.display = '';
   document.body.style.overflow = 'hidden';
@@ -340,9 +342,11 @@ function popup([rubr, index, page, i]) {
   const src = `${content.url + obj.url}${image[1]}.jpg`;
   document.querySelector('#popup-titre').innerHTML = `<cite>${image[0]} (${obj.auteur})</cite>`;
 
-  $img.style = '';
-  $img.onload = () => resize($img);
-  $img.src = src;
+  $img.onload = () => {
+    document.querySelector('#popup-img').style.opacity = 1;
+    resize($img);
+  };
+  setTimeout(()=> {$img.src = src;}, 500);
 }
 function reader(rubr, index) {
   const obj = content[rubr][index];

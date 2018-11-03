@@ -54,6 +54,7 @@ h1 {
 }
 .header .titre {
   margin: auto;
+  width: -moz-max-content;
   width: max-content;
   text-shadow: #444 1px 1px 4px;	
 }
@@ -144,6 +145,7 @@ aside img {
   padding: 2px 3.5% 0;
   padding-left: calc(3.5% + 2px);
   overflow: hidden;
+  -moz-user-select: none;
   user-select: none;
   transition: opacity 0.4s, left 0.4s, top 0.4s;
 }
@@ -281,18 +283,20 @@ footer .copyright{
   border-radius: 15px;
   background: var(--reader-bg-color);
   text-shadow: #bbb 1px 1px 2px;
+  overflow: hidden;
 }
 #reader {
   overflow: auto;
   overflow: hidden;
   margin: 0 auto;
   cursor: default;
+  -moz-user-select: none;
   user-select: none;
 }
 #reader-titre, #popup-titre {
   text-align: center;
   width: 100%;
-  font-size: 18px;
+  font-size: 20px;
   color: #dde5c6;
   font-family: 'LT33';
   text-shadow: #a7a7a7 0.5px 0.5px 1px;
@@ -301,6 +305,7 @@ footer .copyright{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: -moz-max-content;
   width: max-content;
   max-width: 100%;
   min-height: 100%;
@@ -324,10 +329,12 @@ footer .copyright{
   text-align: center;
 }
 #texte p.center {
+  width: -moz-max-content;
   width: max-content;
   margin: 0 auto;
 }
 #texte p.right {
+  width: -moz-max-content;
   width: max-content;
   margin-left: auto;
 }
@@ -335,6 +342,7 @@ footer .copyright{
   margin: 0.5em 0;
 }
 #pageNb {
+  -moz-user-select: none;
   user-select: none;
   z-index:5;
   position: absolute;
@@ -415,17 +423,20 @@ figure.thumb img {
 }
 #popup-img {
   position: relative;
-
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 #popup-container img {
+  width: 1px;
   margin: 3px auto 0;
   border-radius: 10px;
+  transition: width 0.5s;
 }
 #popup-close, #popup-prev, #popup-next {
   position: absolute;
   top: 0;
   opacity: 0;
-  transition: opacity 0.5s ease-out;
+  transition: opacity 0.3s ease-in;
 }
 #popup-close {
   right: 0px;
@@ -590,6 +601,9 @@ figure.thumb img {
   }
   #texte.galerie {
 	  justify-content: space-around;
+  }
+  #reader-titre, #popup-titre {
+    font-size: 16px;
   }
   #reader-scrollbar {
     right: 10px;
