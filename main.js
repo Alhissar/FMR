@@ -290,7 +290,6 @@ function init() {
       return function touchstart(e) {
         if (this.id === 'popup-container') {
           firstX = e.touches[0].pageX;
-          console.log('Saving firstX', firstX);
         } else {
           firstY = e.touches[0].pageY;
         }
@@ -310,7 +309,6 @@ function init() {
       return function touchend(e) {
         const delta = firstX - e.changedTouches[0].pageX;
         if (Math.abs(delta) < 5) {
-          console.log('presque un click');
           setTimeout(closePopup, 50);
           return;
         } else {
@@ -380,15 +378,18 @@ function reader(rubr, index) {
   content.reading = [rubr, index, page, scroll];
   $texte.innerHTML = '';
   $pageNb.innerHTML = '';
+  $texte.classList.remove('page0');
   if (rubr !== 'nondit') {
     // affichage proses ou poésies
     if (page === 0) {
       if (rubr === 'proses') {
+        $texte.classList.add('page0');
         $texte.innerHTML += `<h2>${obj.titre}</h2>`;
         $texte.innerHTML += `<h3>${obj.titre2}</h3>`;
         $texte.innerHTML += `<p></p>`;
       } else {
-        $texte.innerHTML = `<h2>${obj.titre}</h2>`;
+        $texte.innerHTML = '<p></p>';
+        $texte.innerHTML += `<h2>${obj.titre}</h2>`;
         $texte.innerHTML += '<p></p>';
       }
     } else {
@@ -396,6 +397,10 @@ function reader(rubr, index) {
     }
     $texte.classList.remove('galerie');
     $texte.innerHTML += obj.txt[page];
+    // add some space below poem
+    if (rubr === 'poesies') {
+      $texte.innerHTML += `<p></p>`;
+    }
   } else {
     // affichage du non-dit (miniatures)
     let txt = '';
@@ -412,6 +417,7 @@ function reader(rubr, index) {
     $texte.innerHTML += txt;
     $texte.classList.add('galerie');
   }
+  // affichage du no de page
   if (rubr === 'proses') {
     document.querySelector('#pageNb').style.display = '';
     document.querySelector('#reader').style.marginBottom = '40px';

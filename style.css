@@ -311,6 +311,9 @@ footer .copyright{
   padding-bottom: 0;
   text-align: justify;
 }
+#texte.page0 {
+  padding-top: 25vh;
+}
 #texte.texteVerticalCenter {
   padding-top: 0;
   justify-content: center;
