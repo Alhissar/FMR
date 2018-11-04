@@ -182,7 +182,8 @@ function click(name) {
   });
 }
 function closeOver(e, callback) {
-  if (e.target.className !== 'over') return;
+  if (e.target.className !== 'over' || 
+      window.getComputedStyle(document.querySelector('#popup-close')).display === 'none') return;
   callback();
 }
 function closeReader() {
@@ -219,7 +220,7 @@ function init() {
   });
   // ajout des onclick
   let prevEvent, firstEvent;
-  let top, firstY;
+  let top, firstX, firstY;
   function middleware(eventName) {
     if (eventName === 'mousedown') {
       return function down(e) {
@@ -287,7 +288,12 @@ function init() {
     }
     if (eventName === 'touchstart') {
       return function touchstart(e) {
-        firstY = e.touches[0].pageY;
+        if (this.id === 'popup-container') {
+          firstX = e.touches[0].pageX;
+          console.log('Saving firstX', firstX);
+        } else {
+          firstY = e.touches[0].pageY;
+        }
       };
     }
     if (eventName === 'touchmove') {
@@ -298,6 +304,18 @@ function init() {
           updateScroll(e.currentTarget.parentNode.lastElementChild);
         }
         firstY = e.touches[0].pageY;
+      };
+    }
+    if (eventName === 'touchend') {
+      return function touchend(e) {
+        const delta = firstX - e.changedTouches[0].pageX;
+        if (Math.abs(delta) < 5) {
+          console.log('presque un click');
+          setTimeout(closePopup, 50);
+          return;
+        } else {
+          changeView(Math.sign(delta));
+        }
       };
     }
   }
@@ -319,8 +337,9 @@ function init() {
   document.getElementById('excerpt-close').onclick = () => click(rubriques.clicked);
   document.querySelector('#reader-container').addEventListener('mousedown', middleware('mousedown'), false);
   document.querySelector('#reader-container').addEventListener('click', middleware('click'));
-  // document.querySelector('#reader-container').onclick = (e) => closeOver(e, closeReader);
   document.querySelector('#popup-container').onclick = (e) => closeOver(e, closePopup);
+  document.querySelector('#popup-container').addEventListener('touchstart', middleware('touchstart'));
+  document.querySelector('#popup-container').addEventListener('touchend', middleware('touchend'));
   document.querySelector('#reader-scroll').addEventListener('mousedown', middleware('mousedown'));
   document.querySelector('#reader-scroll').addEventListener('mousemove', middleware('mousemove'));
   document.querySelector('#excerpt-scroll').addEventListener('mousemove', middleware('mousemove'));
@@ -365,7 +384,6 @@ function reader(rubr, index) {
     // affichage proses ou poésies
     if (page === 0) {
       if (rubr === 'proses') {
-        $texte.innerHTML = `<p></p><p></p><p></p><p></p>`;
         $texte.innerHTML += `<h2>${obj.titre}</h2>`;
         $texte.innerHTML += `<h3>${obj.titre2}</h3>`;
         $texte.innerHTML += `<p></p>`;

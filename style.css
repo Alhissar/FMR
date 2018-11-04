@@ -609,11 +609,8 @@ figure.thumb img {
   }
 }
 @media (hover:none) {
-  #popup-prev, #popup-next {
-    opacity: 0 !important;
-  }
-  #popup-close {
-    opacity: 1;
+  #popup-close, #popup-prev, #popup-next {
+    display: none;
   }
 }
 
