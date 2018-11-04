@@ -181,10 +181,10 @@ aside img {
 }
 #excerpt-scrollbar, #reader-scrollbar {
   position: absolute;
-  top: 14%;
+  top: 15%;
   right: 9%;
   width: 2px;
-  height: 72%;
+  height: 70%;
   background: #aaa;
 }
 #reader-scrollBar {
