@@ -1,0 +1,10 @@
+{
+  "name": "FMR",
+  "short_name": "FMR",
+  "theme_color": "#e4e0d8",
+  "background_color": "#e4e0d8",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/"
+}
