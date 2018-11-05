@@ -288,8 +288,8 @@ function init() {
     }
     if (eventName === 'touchstart') {
       return function touchstart(e) {
-        e.preventDefault();
         if (this.id === 'popup-container') {
+          e.preventDefault();
           firstX = e.touches[0].pageX;
         } else {
           firstY = e.touches[0].pageY;
