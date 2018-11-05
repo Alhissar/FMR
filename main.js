@@ -71,7 +71,7 @@ const rubriques = {
     let boxHeight = 0;
     // 0.035 = valeur de $box.paddingLeft
     const padding = box($rubriques).width * 0.035;
-    document.getElementById('excerpt-close').style.left = `${padding}px`;
+    document.getElementById('excerpt-close').style.left = `${padding + 4}px`;
     if (this.isPhone()) {
       // animation verticale (mobile)
       $box.style.left = 0;
@@ -288,6 +288,7 @@ function init() {
     }
     if (eventName === 'touchstart') {
       return function touchstart(e) {
+        e.preventDefault();
         if (this.id === 'popup-container') {
           firstX = e.touches[0].pageX;
         } else {
@@ -363,7 +364,7 @@ function popup([rubr, index, page, i]) {
     document.querySelector('#popup-img').style.opacity = 1;
     resize($img);
   };
-  setTimeout(()=> {$img.src = src;}, 500);
+  setTimeout(()=> {$img.src = src;}, 400);
 }
 function reader(rubr, index) {
   const obj = content[rubr][index];

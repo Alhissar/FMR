@@ -4,6 +4,7 @@
 }
 * {
   box-sizing: border-box;
+  -webkit-user-select: none;
 }
 body {
   margin: 0;
@@ -171,7 +172,7 @@ aside img {
 }
 #excerpt-close {
   position: absolute;
-  top: 0;
+  top: 4px;
   left: 0;
   width: 30px;
   height: 30px;
@@ -277,7 +278,7 @@ footer .copyright{
   height: 100%;
   max-height: 800px;
   border-radius: 15px;
-  background: url(img/reader-bg.jpg);
+  background: url(img/reader-bg.jpg) #e4e0d8;
 	background-attachment: fixed;
   text-shadow: #bbb 1px 1px 2px;
   overflow: hidden;
@@ -340,10 +341,13 @@ footer .copyright{
   margin-left: auto;
 }
 #texte p {
+  -webkit-user-select: none;
   margin: 0.5em 0;
 }
 #pageNb {
+  -webkit-user-select: none;
   -moz-user-select: none;
+  user-select: none;
   z-index:5;
   position: absolute;
   display: flex;
@@ -433,7 +437,7 @@ figure.thumb img {
   width: 1px;
   margin: 0 auto 0px;
   border-radius: 10px;
-  transition: width 0.5s;
+  transition: width 0.4s;
 }
 #popup-close, #popup-prev, #popup-next {
   position: absolute;
