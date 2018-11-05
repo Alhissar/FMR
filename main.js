@@ -380,6 +380,7 @@ function reader(rubr, index) {
   $texte.innerHTML = '';
   $pageNb.innerHTML = '';
   $texte.classList.remove('page0');
+  // remplissage du reader par le contenu de la page
   if (rubr !== 'nondit') {
     // affichage proses ou poésies
     if (page === 0) {
@@ -436,6 +437,7 @@ function reader(rubr, index) {
   if (page < obj.txt.length - 1) {
     next = true;
   }
+  // gestion centrage vertical et titre
   if (rubr === 'poesies') {
     $texte.style.textAlign = 'left';
     if (box($texte).height === box($reader).height) {
@@ -450,8 +452,10 @@ function reader(rubr, index) {
     $texte.classList.remove(('texteVerticalCenter'));
     document.querySelector('#reader-titre').innerHTML = `- <cite>${obj.titre}</cite> - (${obj.auteur})`;
   }
+  // affichage boutons prev, next
   document.querySelector('#prev').style.height = prev ? '' : '0';
   document.querySelector('#next').style.height = next ? '' : '0';
+  // update de scrollbar
   updateScroll(document.querySelector('#reader-scrollbar'));
 }
 function refresh(e) {
