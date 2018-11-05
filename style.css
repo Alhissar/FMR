@@ -173,8 +173,8 @@ aside img {
   position: absolute;
   top: 0;
   left: 0;
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   background: url('img/close.png'), #333;
   border-radius: 42px;
   cursor: pointer;
@@ -269,7 +269,6 @@ footer .copyright{
 
 }
 #reader-box {
-  --reader-bg-color: #e4e0d8;
   display: flex;
   position: relative;
   width: 100%;
@@ -278,7 +277,8 @@ footer .copyright{
   height: 100%;
   max-height: 800px;
   border-radius: 15px;
-  background: var(--reader-bg-color);
+  background: url(img/reader-bg.jpg);
+	background-attachment: fixed;
   text-shadow: #bbb 1px 1px 2px;
   overflow: hidden;
 }
@@ -344,7 +344,6 @@ footer .copyright{
 }
 #pageNb {
   -moz-user-select: none;
-  user-select: none;
   z-index:5;
   position: absolute;
   display: flex;
@@ -355,7 +354,8 @@ footer .copyright{
   padding-top: 8px;
   font-size: 16px;
   bottom: 0;
-  background: var(--reader-bg-color);
+  background: url(img/reader-bg.jpg);
+	background-attachment: fixed;
   color: #333;
   border-radius: 10px;
 }
@@ -366,7 +366,8 @@ footer .copyright{
 #nav, #popup-nav {
   display: flex;
   justify-content: space-between;
-  width: 95%;
+	align-items: center;
+  width: 200px;
   max-width: 580px;
 }
 #close, #prev, #next, #popup-close, #popup-prev, #popup-next {
@@ -441,7 +442,7 @@ figure.thumb img {
   transition: opacity 0.3s ease-in;
 }
 #popup-close {
-  right: 0px;
+  right: 10px;
   top: 100%;
 }
 #popup-prev, #popup-next {
