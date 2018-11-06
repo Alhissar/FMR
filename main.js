@@ -192,6 +192,7 @@ function closeReader() {
   const [rubr, txtNb, page,] = content.reading;
   content[rubr][txtNb].page = page;
   content[rubr][txtNb].scroll = scroll;
+  if (rubr === 'proses') cookieFrom(content);
   document.querySelector('#reader-container').style = '';
   document.body.style = '';
 }
@@ -200,6 +201,28 @@ function closePopup() {
   document.querySelector('#reader-container').style.display = 'flex';
   updateScroll(document.querySelector('#reader-scrollbar'));
 }
+
+function cookieFrom(content) {
+  let cookieContent = [];
+  content.proses.forEach(({titre, page, scroll}) => {
+    cookieContent.push({titre, page, scroll});
+  });
+  docCookies.setItem('fmr', JSON.stringify(cookieContent), Infinity);
+  // return JSON.stringify(cookieContent);
+}
+function cookieTo(content) {
+  // const json = '[{"titre":"Léna C.","page":4,"scroll":380},{"titre":"La Merdveille","page":0,"scroll":0},{"titre":"Je de miroirs","page":10,"scroll":0},{"titre":"Le prophète","page":0,"scroll":0},{"titre":"Job O. Simaurre","page":0,"scroll":0}]';
+  const json = docCookies.getItem('fmr');
+  if (!json) return false;
+  const prosesInfos = JSON.parse(json);
+  prosesInfos.forEach( prose => {
+    // trouve l'index de la prose dans content.proses
+    const i = content.proses.findIndex( elem => elem.titre === prose.titre);
+    content.proses[i].page = prose.page;
+    content.proses[i].scroll = prose.scroll;
+  });
+}
+
 function excerpt(rubr) {
   let txt = '';
   const $inbox = document.querySelector('#inbox');
@@ -346,6 +369,7 @@ function init() {
     divs[name].addEventListener('click', () => click(name), false);
   });
   rubriques.refresh();
+  cookieTo(content);
 }
 function popup([rubr, index, page, i]) {
   const $img = document.querySelector('#popup-container img');
