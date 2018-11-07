@@ -192,7 +192,9 @@ function closeReader() {
   const [rubr, txtNb, page,] = content.reading;
   content[rubr][txtNb].page = page;
   content[rubr][txtNb].scroll = scroll;
-  if (rubr === 'proses') cookieFrom(content);
+  if (rubr === 'proses') {
+    cookieFrom(content);
+  }
   document.querySelector('#reader-container').style = '';
   document.body.style = '';
 }
