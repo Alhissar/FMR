@@ -322,6 +322,7 @@ function init() {
     if (eventName === 'touchmove') {
       return function touchmove(e) {
         e.preventDefault();
+        e.stopPropagation();
         if (firstY) {
           e.currentTarget.scrollTop += firstY - e.touches[0].pageY;
           updateScroll(e.currentTarget.parentNode.lastElementChild);
@@ -332,7 +333,7 @@ function init() {
     if (eventName === 'touchend') {
       return function touchend(e) {
         const delta = firstX - e.changedTouches[0].pageX;
-        if (Math.abs(delta) < 5) {
+        if (Math.abs(delta) < 50) {
           setTimeout(closePopup, 50);
           return;
         } else {
@@ -341,15 +342,15 @@ function init() {
       };
     }
   }
-
+  const tab = {passive: false};
   window.addEventListener('resize', refresh);
   window.addEventListener('scroll', bandeau);
   document.querySelector('#reader').addEventListener('touchstart', middleware('touchstart'));
   document.querySelector('#reader').addEventListener('wheel', middleware('wheel'));
-  document.querySelector('#reader').addEventListener('touchmove', middleware('touchmove'));
+  document.querySelector('#reader').addEventListener('touchmove', middleware('touchmove'), tab);
   document.querySelector('#inbox').addEventListener('touchstart', middleware('touchstart'));
   document.querySelector('#inbox').addEventListener('wheel', middleware('wheel'));
-  document.querySelector('#inbox').addEventListener('touchmove', middleware('touchmove'));
+  document.querySelector('#inbox').addEventListener('touchmove', middleware('touchmove'), tab);
   document.querySelector('#prev').onclick = () => changePage(-1);
   document.querySelector('#next').onclick = () => changePage(1);
   document.querySelector('#popup-prev').onclick = () => changeView(-1);
