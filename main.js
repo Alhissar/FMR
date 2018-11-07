@@ -503,14 +503,19 @@ function resize($img) {
   // si les deux vérifient la condition, prendre le plus grand
   // margin_top + margin-bottom = 20 (px)
   const marginH = box(document.querySelector('#popup-titre')).height + 10;
-  let ratioWidth = (window.innerWidth - 4) / box($img).width;
-  let ratioHeight = (window.innerHeight - marginH) / box($img).height;
-  if (ratioWidth * box($img).height > window.innerHeight - marginH) ratioWidth = 0;
-  if (ratioHeight * box($img).width > window.innerWidth - 4) ratioHeight = 0;
+  // let ratioWidth = (window.innerWidth - 4) / box($img).width;
+  // let ratioHeight = (window.innerHeight - marginH) / box($img).height;
+  // if (ratioWidth * box($img).height > window.innerHeight - marginH) ratioWidth = 0;
+  // if (ratioHeight * box($img).width > window.innerWidth - 4) ratioHeight = 0;
+  let ratioWidth = (window.innerWidth - 4) / $img.naturalWidth;
+  let ratioHeight = (window.innerHeight - marginH) / $img.naturalHeight;
+  if (ratioWidth * $img.naturalHeight > window.innerHeight - marginH) ratioWidth = 0;
+  if (ratioHeight * $img.naturalWidth > window.innerWidth - 4) ratioHeight = 0;
+
   let ratios = [ratioWidth, ratioHeight];
   const ratio = ratios.reduce((acc, curr) => Math.max(acc, curr), 0);
   // calcul de la largeur de l'image
-  let width = box($img).width * ratio - 4;
+  let width = $img.naturalWidth * ratio - 4;
   $img.style.width = `${width}px`;
   $img.style.maxWidth = `${$img.naturalWidth}px`;
   // on ajuste la largeur pour ne pas dépasser naturalWidth, si besoin
