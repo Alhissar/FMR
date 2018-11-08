@@ -66,7 +66,6 @@ const rubriques = {
       divs[name].style.left = this[name].left + 'px';
       divs[name].style.top = this[name].top + 'px';
     });
-
     // update box
     let boxHeight = 0;
     // 0.035 = valeur de $box.paddingLeft
@@ -94,7 +93,6 @@ const rubriques = {
         $box.style.left = `${box($box).width + rubWidth + space}px`;
       }
     }
-
     if (!this.abs) return;
     if (this.getHeight() < boxHeight + rubHeight && this.isPhone()) {
       $rubriques.style.height = `${boxHeight + rubHeight}px`;
@@ -142,7 +140,6 @@ function changePage(nb) {
     } else if (txtNb > content[rubr].length - 1) {
       txtNb = 0;
     }
-
   }
   reader(rubr, txtNb);
 }
@@ -211,7 +208,6 @@ function cookieFrom(content) {
   docCookies.setItem('fmr', JSON.stringify(cookieContent), Infinity);
 }
 function cookieTo(content) {
-  // const json = '[{"titre":"Léna C.","page":4,"scroll":380},{"titre":"La Merdveille","page":0,"scroll":0},{"titre":"Je de miroirs","page":10,"scroll":0},{"titre":"Le prophète","page":0,"scroll":0},{"titre":"Job O. Simaurre","page":0,"scroll":0}]';
   const json = docCookies.getItem('fmr');
   if (!json) return false;
   const prosesInfos = JSON.parse(json);
@@ -274,8 +270,6 @@ function init() {
         if (oldScroll !== e.currentTarget.scrollTop) {
           e.preventDefault();
         }
-        // affichage dans la console de deltaMode, deltaY
-        // console.log(e.deltaMode, delta);
         updateScroll(e.currentTarget.parentNode.lastElementChild);
       };
     }
@@ -343,7 +337,7 @@ function init() {
   }
   const tab = {passive: false};
   window.addEventListener('resize', refresh);
-  window.addEventListener('scroll', bandeau);
+  window.addEventListener('scroll', bandeau, {passive: true});
   document.querySelector('#reader').addEventListener('touchstart', middleware('touchstart'));
   document.querySelector('#reader').addEventListener('wheel', middleware('wheel'));
   document.querySelector('#reader').addEventListener('touchmove', middleware('touchmove'), tab);
@@ -383,7 +377,7 @@ function popup([rubr, index, page, i]) {
   const image = obj.txt[page][i];
   const src = `${content.url + obj.url}${image[1]}.jpg`;
   document.querySelector('#popup-titre').innerHTML = `<cite>${image[0]} (${obj.auteur})</cite>`;
-
+  // load and display image
   const show = () => {
     document.querySelector('#popup-img').style.opacity = 1;
     resize($img);
@@ -404,7 +398,6 @@ function reader(rubr, index) {
   const $pageNb = document.querySelector('#pageNb');
   document.querySelector('#reader-container').style.display = 'flex';
   document.body.style.overflow = 'hidden';
-
   // on sauvegarde l'objet lu (rubr, textNb, page, scroll) dans content
   let { page = 0, scroll } = obj;
   content.reading = [rubr, index, page, scroll];
@@ -440,7 +433,6 @@ function reader(rubr, index) {
     const obj = content[rubr][index];
     for (let i = 0; i < obj.txt[page].length; i++) {
       const image = obj.txt[page][i];
-
       const srcThumb = `${content.url + obj.url}tbn_${image[1]}.jpg`;
       txt += `<figure onclick='popup(["${rubr}",${index}, ${page}, ${i}])' class='thumb'>`;
       txt += `<img src='${srcThumb}' alt='${image[0]} - Auteur : ${obj.titre}'`;
@@ -472,9 +464,9 @@ function reader(rubr, index) {
   if (rubr === 'poesies') {
     $texte.style.textAlign = 'left';
     if (box($texte).height === box($reader).height) {
-      $texte.classList.add(('texteVerticalCenter'));
+      $texte.classList.add('texteVerticalCenter');
     } else {
-      $texte.classList.remove(('texteVerticalCenter'));
+      $texte.classList.remove('texteVerticalCenter');
     }
     prev = next = true;
     document.querySelector('#reader-titre').innerHTML = '';
@@ -496,7 +488,6 @@ function refresh(e) {
   rubriques.refresh(anim);
   updateScroll(document.querySelector('#excerpt-scrollbar'));
   updateScroll(document.querySelector('#reader-scrollbar'));
-
   if (document.querySelector('#popup-container').style.display === 'flex') {
     resize(document.querySelector('#popup-container img'));
   }
@@ -505,7 +496,6 @@ function resize($img) {
   // calculer 2 ratios (width : container / originale), (height : container / originale)
   // conserver celui qui vérifie (originale * ratio) < container
   // si les deux vérifient la condition, prendre le plus grand
-  // margin_top + margin-bottom = 20 (px)
   const marginH = box(document.querySelector('#popup-titre')).height + 10;
   let ratioWidth = (window.innerWidth - 4) / $img.naturalWidth;
   let ratioHeight = (window.innerHeight - marginH) / $img.naturalHeight;
