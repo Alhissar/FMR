@@ -203,14 +203,12 @@ function closePopup() {
   document.querySelector('#reader-container').style.display = 'flex';
   updateScroll(document.querySelector('#reader-scrollbar'));
 }
-
 function cookieFrom(content) {
   let cookieContent = [];
   content.proses.forEach(({titre, page, scroll}) => {
     cookieContent.push({titre, page, scroll});
   });
   docCookies.setItem('fmr', JSON.stringify(cookieContent), Infinity);
-  // return JSON.stringify(cookieContent);
 }
 function cookieTo(content) {
   // const json = '[{"titre":"Léna C.","page":4,"scroll":380},{"titre":"La Merdveille","page":0,"scroll":0},{"titre":"Je de miroirs","page":10,"scroll":0},{"titre":"Le prophète","page":0,"scroll":0},{"titre":"Job O. Simaurre","page":0,"scroll":0}]';
@@ -224,7 +222,6 @@ function cookieTo(content) {
     content.proses[i].scroll = prose.scroll;
   });
 }
-
 function excerpt(rubr) {
   let txt = '';
   const $inbox = document.querySelector('#inbox');
@@ -387,11 +384,18 @@ function popup([rubr, index, page, i]) {
   const src = `${content.url + obj.url}${image[1]}.jpg`;
   document.querySelector('#popup-titre').innerHTML = `<cite>${image[0]} (${obj.auteur})</cite>`;
 
-  $img.onload = () => {
+  const show = () => {
     document.querySelector('#popup-img').style.opacity = 1;
     resize($img);
   };
-  setTimeout(()=> {$img.src = src;}, 400);
+  $img.onload = show;
+  setTimeout(()=> {
+    if ($img.src.includes(src)) {
+      show();
+    } else {
+      $img.src = src;
+    }
+  }, 400);
 }
 function reader(rubr, index) {
   const obj = content[rubr][index];
@@ -503,24 +507,16 @@ function resize($img) {
   // si les deux vérifient la condition, prendre le plus grand
   // margin_top + margin-bottom = 20 (px)
   const marginH = box(document.querySelector('#popup-titre')).height + 10;
-  // let ratioWidth = (window.innerWidth - 4) / box($img).width;
-  // let ratioHeight = (window.innerHeight - marginH) / box($img).height;
-  // if (ratioWidth * box($img).height > window.innerHeight - marginH) ratioWidth = 0;
-  // if (ratioHeight * box($img).width > window.innerWidth - 4) ratioHeight = 0;
   let ratioWidth = (window.innerWidth - 4) / $img.naturalWidth;
   let ratioHeight = (window.innerHeight - marginH) / $img.naturalHeight;
   if (ratioWidth * $img.naturalHeight > window.innerHeight - marginH) ratioWidth = 0;
   if (ratioHeight * $img.naturalWidth > window.innerWidth - 4) ratioHeight = 0;
-
   let ratios = [ratioWidth, ratioHeight];
   const ratio = ratios.reduce((acc, curr) => Math.max(acc, curr), 0);
   // calcul de la largeur de l'image
   let width = $img.naturalWidth * ratio - 4;
   $img.style.width = `${width}px`;
   $img.style.maxWidth = `${$img.naturalWidth}px`;
-  // on ajuste la largeur pour ne pas dépasser naturalWidth, si besoin
-  // width = (width > $img.naturalWidth) ? $img.naturalWidth : width;
-  // document.querySelector('#popup-nav').style.maxWidth = `${width * 0.95}px`;
 }
 /**
  * Update $scroll.top en fc de $toScroll
