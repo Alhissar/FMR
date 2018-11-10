@@ -66,7 +66,6 @@ const rubriques = {
       divs[name].style.left = this[name].left + 'px';
       divs[name].style.top = this[name].top + 'px';
     });
-
     // update box
     let boxHeight = 0;
     // 0.035 = valeur de $box.paddingLeft
@@ -94,7 +93,6 @@ const rubriques = {
         $box.style.left = `${box($box).width + rubWidth + space}px`;
       }
     }
-
     if (!this.abs) return;
     if (this.getHeight() < boxHeight + rubHeight && this.isPhone()) {
       $rubriques.style.height = `${boxHeight + rubHeight}px`;
@@ -142,7 +140,6 @@ function changePage(nb) {
     } else if (txtNb > content[rubr].length - 1) {
       txtNb = 0;
     }
-
   }
   reader(rubr, txtNb);
 }
@@ -192,7 +189,9 @@ function closeReader() {
   const [rubr, txtNb, page,] = content.reading;
   content[rubr][txtNb].page = page;
   content[rubr][txtNb].scroll = scroll;
-  if (rubr === 'proses') cookieFrom(content);
+  if (rubr === 'proses') {
+    cookieFrom(content);
+  }
   document.querySelector('#reader-container').style = '';
   document.body.style = '';
 }
@@ -201,17 +200,14 @@ function closePopup() {
   document.querySelector('#reader-container').style.display = 'flex';
   updateScroll(document.querySelector('#reader-scrollbar'));
 }
-
 function cookieFrom(content) {
   let cookieContent = [];
   content.proses.forEach(({titre, page, scroll}) => {
     cookieContent.push({titre, page, scroll});
   });
   docCookies.setItem('fmr', JSON.stringify(cookieContent), Infinity);
-  // return JSON.stringify(cookieContent);
 }
 function cookieTo(content) {
-  // const json = '[{"titre":"Léna C.","page":4,"scroll":380},{"titre":"La Merdveille","page":0,"scroll":0},{"titre":"Je de miroirs","page":10,"scroll":0},{"titre":"Le prophète","page":0,"scroll":0},{"titre":"Job O. Simaurre","page":0,"scroll":0}]';
   const json = docCookies.getItem('fmr');
   if (!json) return false;
   const prosesInfos = JSON.parse(json);
@@ -222,7 +218,6 @@ function cookieTo(content) {
     content.proses[i].scroll = prose.scroll;
   });
 }
-
 function excerpt(rubr) {
   let txt = '';
   const $inbox = document.querySelector('#inbox');
@@ -275,8 +270,6 @@ function init() {
         if (oldScroll !== e.currentTarget.scrollTop) {
           e.preventDefault();
         }
-        // affichage dans la console de deltaMode, deltaY
-        // console.log(e.deltaMode, delta);
         updateScroll(e.currentTarget.parentNode.lastElementChild);
       };
     }
@@ -322,6 +315,7 @@ function init() {
     if (eventName === 'touchmove') {
       return function touchmove(e) {
         e.preventDefault();
+        e.stopPropagation();
         if (firstY) {
           e.currentTarget.scrollTop += firstY - e.touches[0].pageY;
           updateScroll(e.currentTarget.parentNode.lastElementChild);
@@ -332,7 +326,7 @@ function init() {
     if (eventName === 'touchend') {
       return function touchend(e) {
         const delta = firstX - e.changedTouches[0].pageX;
-        if (Math.abs(delta) < 5) {
+        if (Math.abs(delta) < 50) {
           setTimeout(closePopup, 50);
           return;
         } else {
@@ -341,15 +335,15 @@ function init() {
       };
     }
   }
-
+  const tab = {passive: false};
   window.addEventListener('resize', refresh);
-  window.addEventListener('scroll', bandeau);
+  window.addEventListener('scroll', bandeau, {passive: true});
   document.querySelector('#reader').addEventListener('touchstart', middleware('touchstart'));
   document.querySelector('#reader').addEventListener('wheel', middleware('wheel'));
-  document.querySelector('#reader').addEventListener('touchmove', middleware('touchmove'));
+  document.querySelector('#reader').addEventListener('touchmove', middleware('touchmove'), tab);
   document.querySelector('#inbox').addEventListener('touchstart', middleware('touchstart'));
   document.querySelector('#inbox').addEventListener('wheel', middleware('wheel'));
-  document.querySelector('#inbox').addEventListener('touchmove', middleware('touchmove'));
+  document.querySelector('#inbox').addEventListener('touchmove', middleware('touchmove'), tab);
   document.querySelector('#prev').onclick = () => changePage(-1);
   document.querySelector('#next').onclick = () => changePage(1);
   document.querySelector('#popup-prev').onclick = () => changeView(-1);
@@ -383,12 +377,19 @@ function popup([rubr, index, page, i]) {
   const image = obj.txt[page][i];
   const src = `${content.url + obj.url}${image[1]}.jpg`;
   document.querySelector('#popup-titre').innerHTML = `<cite>${image[0]} (${obj.auteur})</cite>`;
-
-  $img.onload = () => {
+  // load and display image
+  const show = () => {
     document.querySelector('#popup-img').style.opacity = 1;
     resize($img);
   };
-  setTimeout(()=> {$img.src = src;}, 400);
+  $img.onload = show;
+  setTimeout(()=> {
+    if ($img.src.includes(src)) {
+      show();
+    } else {
+      $img.src = src;
+    }
+  }, 400);
 }
 function reader(rubr, index) {
   const obj = content[rubr][index];
@@ -397,7 +398,6 @@ function reader(rubr, index) {
   const $pageNb = document.querySelector('#pageNb');
   document.querySelector('#reader-container').style.display = 'flex';
   document.body.style.overflow = 'hidden';
-
   // on sauvegarde l'objet lu (rubr, textNb, page, scroll) dans content
   let { page = 0, scroll } = obj;
   content.reading = [rubr, index, page, scroll];
@@ -433,7 +433,6 @@ function reader(rubr, index) {
     const obj = content[rubr][index];
     for (let i = 0; i < obj.txt[page].length; i++) {
       const image = obj.txt[page][i];
-
       const srcThumb = `${content.url + obj.url}tbn_${image[1]}.jpg`;
       txt += `<figure onclick='popup(["${rubr}",${index}, ${page}, ${i}])' class='thumb'>`;
       txt += `<img src='${srcThumb}' alt='${image[0]} - Auteur : ${obj.titre}'`;
@@ -465,9 +464,9 @@ function reader(rubr, index) {
   if (rubr === 'poesies') {
     $texte.style.textAlign = 'left';
     if (box($texte).height === box($reader).height) {
-      $texte.classList.add(('texteVerticalCenter'));
+      $texte.classList.add('texteVerticalCenter');
     } else {
-      $texte.classList.remove(('texteVerticalCenter'));
+      $texte.classList.remove('texteVerticalCenter');
     }
     prev = next = true;
     document.querySelector('#reader-titre').innerHTML = '';
@@ -489,7 +488,6 @@ function refresh(e) {
   rubriques.refresh(anim);
   updateScroll(document.querySelector('#excerpt-scrollbar'));
   updateScroll(document.querySelector('#reader-scrollbar'));
-
   if (document.querySelector('#popup-container').style.display === 'flex') {
     resize(document.querySelector('#popup-container img'));
   }
@@ -498,21 +496,17 @@ function resize($img) {
   // calculer 2 ratios (width : container / originale), (height : container / originale)
   // conserver celui qui vérifie (originale * ratio) < container
   // si les deux vérifient la condition, prendre le plus grand
-  // margin_top + margin-bottom = 20 (px)
   const marginH = box(document.querySelector('#popup-titre')).height + 10;
-  let ratioWidth = (window.innerWidth - 4) / box($img).width;
-  let ratioHeight = (window.innerHeight - marginH) / box($img).height;
-  if (ratioWidth * box($img).height > window.innerHeight - marginH) ratioWidth = 0;
-  if (ratioHeight * box($img).width > window.innerWidth - 4) ratioHeight = 0;
+  let ratioWidth = (window.innerWidth - 4) / $img.naturalWidth;
+  let ratioHeight = (window.innerHeight - marginH) / $img.naturalHeight;
+  if (ratioWidth * $img.naturalHeight > window.innerHeight - marginH) ratioWidth = 0;
+  if (ratioHeight * $img.naturalWidth > window.innerWidth - 4) ratioHeight = 0;
   let ratios = [ratioWidth, ratioHeight];
   const ratio = ratios.reduce((acc, curr) => Math.max(acc, curr), 0);
   // calcul de la largeur de l'image
-  let width = box($img).width * ratio - 4;
+  let width = $img.naturalWidth * ratio - 4;
   $img.style.width = `${width}px`;
   $img.style.maxWidth = `${$img.naturalWidth}px`;
-  // on ajuste la largeur pour ne pas dépasser naturalWidth, si besoin
-  // width = (width > $img.naturalWidth) ? $img.naturalWidth : width;
-  // document.querySelector('#popup-nav').style.maxWidth = `${width * 0.95}px`;
 }
 /**
  * Update $scroll.top en fc de $toScroll

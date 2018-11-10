@@ -5,6 +5,7 @@
 * {
   box-sizing: border-box;
   -webkit-user-select: none;
+  user-select: none;
 }
 body {
   margin: 0;
@@ -398,6 +399,7 @@ footer .copyright{
   align-content: center;
   flex-wrap: wrap;
   width: 100%;
+  height: -moz-max-content;
   height: max-content;
   padding: 0 16px 0 0;
 }
@@ -414,7 +416,7 @@ figure.thumb {
 }
 figure.thumb img {
   width:100%;
-  height: auto;
+  /* height: auto; */
   min-height: 150px;
   border-radius: 8px;
   box-shadow: #777 2px 2px 5px;
