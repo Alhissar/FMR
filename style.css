@@ -25,6 +25,9 @@ h1 {
   font-size: 6vw;
   font-weight: 400;
 }
+.chapitre-txt{
+	font-size: 18px;
+}
 #main {
   background: url('img/fond-fixe.jpg') center fixed;
   max-width: 1600px;
