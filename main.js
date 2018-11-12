@@ -374,12 +374,15 @@ function popup([rubr, index, page, i]) {
   document.body.style.overflow = 'hidden';
   content.viewing = i;
   const obj = content[rubr][index];
-  const image = obj.txt[page][i];
-  const src = `${content.url + obj.url}${image[1]}.jpg`;
-  document.querySelector('#popup-titre').innerHTML = `<cite>${image[0]} (${obj.auteur})</cite>`;
+  const [imageName, imageURL] = obj.txt[page][i];
+  // const imageURL = obj.txt[page][i][1];
+  // const imageName = obj.txt[page][i][0];
+  const src = `${content.url + obj.url}${imageURL}.jpg`;
+  document.querySelector('#popup-titre').innerHTML = `<cite>${imageName} (${obj.auteur})</cite>`;
   // load and display image
   const show = () => {
     document.querySelector('#popup-img').style.opacity = 1;
+    document.querySelector('#popup-img img').alt = `${imageName} - (${obj.auteur})`;
     resize($img);
   };
   $img.onload = show;
@@ -435,8 +438,8 @@ function reader(rubr, index) {
       const image = obj.txt[page][i];
       const srcThumb = `${content.url + obj.url}tbn_${image[1]}.jpg`;
       txt += `<figure onclick='popup(["${rubr}",${index}, ${page}, ${i}])' class='thumb'>`;
-      txt += `<img src='${srcThumb}' alt='${image[0]} - Auteur : ${obj.titre}'`;
-      txt += "width='150px' height='150px'>";
+      txt += `<img src='${srcThumb}' alt='${image[0]} - (${obj.auteur})'>`;
+      // txt += "width='150px' height='150px'>";
       txt += `<figcaption>${image[0]}</figcaption></figure>`;
     }
     $texte.innerHTML += txt;
