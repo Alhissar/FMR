@@ -343,6 +343,7 @@ footer .copyright{
 }
 #texte p.chapitre{
 	font-size: 18px;
+	font-weight: 700;
 }
 #texte p.citation{
 	width: 60%;
