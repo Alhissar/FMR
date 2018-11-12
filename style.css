@@ -25,9 +25,6 @@ h1 {
   font-size: 6vw;
   font-weight: 400;
 }
-.chapitre-txt{
-	font-size: 18px;
-}
 #main {
   background: url('img/fond-fixe.jpg') center fixed;
   max-width: 1600px;
@@ -280,7 +277,7 @@ footer .copyright{
   max-width: 600px;
   margin: 10px auto;
   height: 100%;
-  max-height: 800px;
+  max-height: 830px;
   border-radius: 15px;
   background: url(img/reader-bg.jpg) #e4e0d8;
 	background-attachment: fixed;
@@ -343,6 +340,15 @@ footer .copyright{
   width: -moz-max-content;
   width: max-content;
   margin-left: auto;
+}
+#texte p.chapitre{
+	font-size: 18px;
+}
+#texte p.citation{
+	width: 60%;
+}
+#texte p.italique{
+	font-style: italic;
 }
 #texte p {
   -webkit-user-select: none;
