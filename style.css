@@ -351,6 +351,13 @@ footer .copyright{
 #texte p.italique{
 	font-style: italic;
 }
+#texte p.separateurs{
+	width: 56px;
+	height: 16px;
+	background: url("img/separateurs.png"), url("img/separateurs.png");
+	margin: 0 auto;
+	
+}
 #texte p {
   -webkit-user-select: none;
   margin: 0.5em 0;
@@ -620,6 +627,12 @@ figure.thumb img {
   #texte.galerie {
 	  justify-content: space-around;
   }
+	#texte p.citation{
+		width: 70%;
+	}
+	#texte p.right{
+		font-size: 12px;
+	}
   #reader-titre, #popup-titre {
     font-size: 16px;
   }
