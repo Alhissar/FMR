@@ -52,7 +52,8 @@ h1 {
   width: 100%;
   background: rgba(0,0,0,0.56);
   position: absolute;
-  bottom: 25%;
+  /* bottom: 25%; */
+  transform: translateY(-100.1%);
 }
 .header .titre {
   margin: auto;
@@ -527,6 +528,7 @@ figure.thumb img {
   /* javascript indication mobile */
   .header .bandeau {
     position: relative;
+    transform: translateY(0);
   }
   .hasard{
     display: none;

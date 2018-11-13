@@ -109,14 +109,21 @@ function bandeau() {
   const vbandeau = box($bandeau).height;
   let scroll = window.scrollY;
   if (scroll >= vheader - vbandeau) {
-    $header.style.top = `${- vheader + vbandeau + scroll}px`;
+    // $header.style.top = `${- vheader + vbandeau + scroll}px`;
+    $header.style.transform = `translateY(${- vheader + vbandeau + scroll}px)`;
   } else {
-    $header.style.top = 0;
+    // $header.style.top = 0;
+    $header.style.transform = '';
   }
   let bottom = $header.getBoundingClientRect().bottom - vbandeau;
   if (bottom < 2) bottom = 0;
   if (bottom >= vheader * 0.25) bottom = vheader * 0.25;
-  $bandeau.style.bottom = `${bottom}px`;
+  // $bandeau.style.bottom = `${bottom}px`;
+  if (rubriques.isPhone()) {
+    $bandeau.style.transform = ``;
+  } else {
+    $bandeau.style.transform = `translateY(-${vbandeau + bottom + 0.1}px)`;
+  }
 }
 function box(el) {
   const box = {
