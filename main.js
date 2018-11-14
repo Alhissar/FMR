@@ -196,16 +196,59 @@ function closeReader() {
   const [rubr, txtNb, page,] = content.reading;
   content[rubr][txtNb].page = page;
   content[rubr][txtNb].scroll = scroll;
+  // si 'proses' on enregistre le cookie
   if (rubr === 'proses') {
     cookieFrom(content);
   }
-  document.querySelector('#reader-container').style = '';
-  document.body.style = '';
+  // disparition du reader (et du #over)
+  const $over = document.querySelector('#over');
+  const $container = document.querySelector('#reader-container');
+  const animOptions = {
+    duration: 300,
+    easing: 'cubic-bezier(0.2,1,0.6,1)',
+    fill: 'forwards'
+  };
+  let keys = [
+    { transform: 'scale(1)' },
+    { transform: 'scale(0)' }
+  ];
+  anim($container, keys, 300);
+  keys = [
+    { opacity: 1 },
+    { opacity: 0 },
+  ];
+  anim($over, keys, 300);
+  window.setTimeout(()=> {
+    $container.style = '';
+    $over.style = '';
+    document.body.style = '';
+  }, 300);
 }
 function closePopup() {
-  document.querySelector('#popup-container').style = '';
-  document.querySelector('#reader-container').style.display = 'flex';
-  updateScroll(document.querySelector('#reader-scrollbar'));
+  const $popup = document.querySelector('#popup-container');
+  const $reader = document.querySelector('#reader-container');
+  // disparition du $popup, réapparition du $reader
+  const popupOut = [
+    { transform: 'scale(1)', opacity: 1 },
+    { transform: 'scale(0)', opacity: 0 },
+  ];
+  const readerIn = [
+    { transform: 'scale(0)', opacity: 0 },
+    { transform: 'scale(1)', opacity: 1 },
+  ];
+  
+  window.setTimeout(() => {
+    document.querySelector('#popup-img img').src = '';
+  }, 400);
+  // disparition du popup (mais pas du #over)
+  // et réapparition du reader
+  anim($popup, popupOut);
+  anim($reader, readerIn);
+  window.setTimeout(() => {
+    document.querySelector('#popup-container').style = '';
+    document.querySelector('#reader-container').style.display = 'flex';
+    updateScroll(document.querySelector('#reader-scrollbar'));
+  }, 300);
 }
 function cookieFrom(content) {
   let cookieContent = [];
@@ -230,9 +273,9 @@ function excerpt(rubr) {
   const $inbox = document.querySelector('#inbox');
   content[rubr].forEach((obj, i) => {
     if (rubr !== 'nondit') {
-      txt += `<p onclick= 'reader("${rubr}", ${i})'>${obj.titre}</p>`;
+      txt += `<p onclick= 'readerShow("${rubr}", ${i})'>${obj.titre}</p>`;
     } else {
-      txt += `<p onclick= 'reader("${rubr}", ${i})'>${obj.auteur} - (${obj.titre})</p>`;
+      txt += `<p onclick= 'readerShow("${rubr}", ${i})'>${obj.auteur} - (${obj.titre})</p>`;
     }
   });
   $inbox.innerHTML = txt;
@@ -374,23 +417,43 @@ function init() {
 }
 function popup([rubr, index, page, i]) {
   const $img = document.querySelector('#popup-container img');
-  document.querySelector('#popup-img').style.opacity = 0;
-  $img.style.width = '1px';
-  document.querySelector('#popup-container').style.display = 'flex';
-  document.querySelector('#reader-container').style.display = '';
-  document.body.style.overflow = 'hidden';
+  const $popup = document.querySelector('#popup-container');
+  const $titre = document.querySelector('#popup-titre');
+  const $reader = document.querySelector('#reader-container');
+  // $popup.style.opacity = 0;
+  $titre.style.opacity = 0;
+  
+  const animIn = [
+    { transform: 'scale(0)', opacity: 0 },
+    { transform: 'scale(1)', opacity: 1 },
+  ];
+  const animOut = [
+    { transform: 'scale(1)', opacity: 1 },
+    { transform: 'scale(0)', opacity: 0 },
+  ];
+  const animOptions = {
+    duration: 300,
+    fill: 'both',
+    easing: 'ease-out',
+  };
+  // disparition du reader et du popup
+  anim($popup, animOut, 300);
+
+  // début !!!
+  // faire ici le code pour l'affichage de l'image
   content.viewing = i;
   const obj = content[rubr][index];
   const [imageName, imageURL] = obj.txt[page][i];
-  // const imageURL = obj.txt[page][i][1];
-  // const imageName = obj.txt[page][i][0];
   const src = `${content.url + obj.url}${imageURL}.jpg`;
-  document.querySelector('#popup-titre').innerHTML = `<cite>${imageName} (${obj.auteur})</cite>`;
   // load and display image
   const show = () => {
-    document.querySelector('#popup-img').style.opacity = 1;
+    // $popup.style.opacity = 1;
+    $titre.style.opacity = 1;
+    $titre.innerHTML = `${imageName} (${obj.auteur})`;
     document.querySelector('#popup-img img').alt = `${imageName} - (${obj.auteur})`;
     resize($img);
+    // $popup.animate(animIn, animOptions);
+    anim($popup, animIn);
   };
   $img.onload = show;
   setTimeout(()=> {
@@ -401,20 +464,66 @@ function popup([rubr, index, page, i]) {
     }
   }, 400);
 }
+function popupShow([rubr, index, page, i]) {
+  const $popup = document.querySelector('#popup-container');
+  const $reader = document.querySelector('#reader-container');
+  const animIn = [
+    { transform: 'scale(0)', opacity: 0 },
+    { transform: 'scale(1)', opacity: 1 },
+  ];
+  const animOut = [
+    { transform: 'scale(1)', opacity: 1 },
+    { transform: 'scale(0)', opacity: 0 },
+  ];
+  document.querySelector('#popup-container').style.display = 'flex';
+  anim($reader, animOut);
+  // document.querySelector('#reader-container').style.display = '';
+  document.body.style.overflow = 'hidden';
+  popup([rubr, index, page, i]);
+}
+// animations !!!
+function anim($el, keys, duration = 300) {
+  $el.animate( keys,
+    {
+      duration: duration,
+      easing: 'cubic-bezier(0, 0.79, 0.58, 1)',
+      fill: 'both',
+    });
+}
+// apparition du reader et du #over
+function readerShow(rubr, index) {
+  const $over = document.querySelector('#over');
+  const $container = document.querySelector('#reader-container');
+  document.querySelector('#reader-container').style.display = 'flex';
+  let keys = [
+    { transform: 'scale(0)', opacity: '0' },
+    { transform: 'scale(1)', opacity: '1' },
+  ];
+  // animation du container
+  anim($container, keys, 300);
+  // animation du $over
+  keys = [
+    { opacity: 0 },
+    { opacity: 1 },
+  ];
+  anim($over, keys, 300);
+  document.querySelector('#over').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  reader(rubr, index);
+}
+// update du reader
 function reader(rubr, index) {
   const obj = content[rubr][index];
   const $reader = document.querySelector('#reader'); 
   const $texte = document.querySelector('#texte');
   const $pageNb = document.querySelector('#pageNb');
-  document.querySelector('#reader-container').style.display = 'flex';
-  document.body.style.overflow = 'hidden';
   // on sauvegarde l'objet lu (rubr, textNb, page, scroll) dans content
   let { page = 0, scroll } = obj;
   content.reading = [rubr, index, page, scroll];
   $texte.innerHTML = '';
   $pageNb.innerHTML = '';
   $texte.classList.remove('page0');
-  // remplissage du reader par le contenu de la page
+  // remplissage du reader
   if (rubr !== 'nondit') {
     // affichage proses ou poésies
     if (page === 0) {
@@ -444,7 +553,7 @@ function reader(rubr, index) {
     for (let i = 0; i < obj.txt[page].length; i++) {
       const image = obj.txt[page][i];
       const srcThumb = `${content.url + obj.url}tbn_${image[1]}.jpg`;
-      txt += `<figure onclick='popup(["${rubr}",${index}, ${page}, ${i}])' class='thumb'>`;
+      txt += `<figure onclick='popupShow(["${rubr}",${index}, ${page}, ${i}])' class='thumb'>`;
       txt += `<img src='${srcThumb}' alt='${image[0]} - (${obj.auteur})'>`;
       // txt += "width='150px' height='150px'>";
       txt += `<figcaption>${image[0]}</figcaption></figure>`;
@@ -483,7 +592,7 @@ function reader(rubr, index) {
   } else {
     $texte.style.textAlign = '';
     $texte.classList.remove(('texteVerticalCenter'));
-    document.querySelector('#reader-titre').innerHTML = `- <cite>${obj.titre}</cite> - (${obj.auteur})`;
+    document.querySelector('#reader-titre').innerHTML = `- ${obj.titre} - (${obj.auteur})`;
   }
   // affichage boutons prev, next
   document.querySelector('#prev').style.height = prev ? '' : '0';
@@ -506,7 +615,8 @@ function resize($img) {
   // calculer 2 ratios (width : container / originale), (height : container / originale)
   // conserver celui qui vérifie (originale * ratio) < container
   // si les deux vérifient la condition, prendre le plus grand
-  const marginH = box(document.querySelector('#popup-titre')).height + 10;
+  // const marginH = box(document.querySelector('#popup-titre')).height + 10;
+  const marginH = 40; // hardcode (taille titre 30px + 10px)
   let ratioWidth = (window.innerWidth - 4) / $img.naturalWidth;
   let ratioHeight = (window.innerHeight - marginH) / $img.naturalHeight;
   if (ratioWidth * $img.naturalHeight > window.innerHeight - marginH) ratioWidth = 0;

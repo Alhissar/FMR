@@ -262,6 +262,16 @@ footer .copyright{
   text-align: center;
   text-shadow: #333 1px 1px 2px;
 }
+#over {
+  display: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 15;
+
+}
 .over {
   display: none;
   flex-direction: column;
@@ -271,7 +281,7 @@ footer .copyright{
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.8);
+  /* background-color: rgba(0,0,0,0.8); */
 }
 #reader-container {
   font-family: "Questrial";
@@ -311,6 +321,7 @@ footer .copyright{
   color: #dde5c6;
   font-family: 'LT33';
   text-shadow: #a7a7a7 0.5px 0.5px 1px;
+  transition: opacity 0.3s ease-in-out;
 }
 #texte {
   display: flex;
@@ -453,20 +464,20 @@ figure.thumb img {
 }
 #popup-img {
   position: relative;
-  opacity: 0;
+  /* opacity: 0; */
   transition: opacity 0.3s;
+  /* transition: scale 0.8s cubic-bezier(0, 0.25, 0.5, 1); */
 }
 #popup-container img {
   width: 1px;
   margin: 0 auto 0px;
   border-radius: 10px;
-  transition: width 0.4s;
 }
 #popup-close, #popup-prev, #popup-next {
   position: absolute;
   top: 0;
   opacity: 0;
-  transition: opacity 0.3s ease-in;
+  transition: opacity 0.3s cubic-bezier(0, 0.61, 0.58, 1);
 }
 #popup-close {
   right: 10px;
@@ -535,6 +546,7 @@ figure.thumb img {
     position: absolute;
     bottom: 0;
   }
+  /* ne pas modifier !
   /* javascript indication mobile */
   .header .bandeau {
     position: relative;
