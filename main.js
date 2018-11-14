@@ -179,7 +179,7 @@ function click(name) {
     if (namediv === name || !rubriques.abs) {
       divs[namediv].style.left = rubriques[name].left + 'px';
       divs[namediv].style.opacity = 1;
-      divs[name].style.zIndex = 2;
+      divs[name].style.zIndex = 10;
     } else {
       divs[namediv].style.opacity = 0;
     }
