@@ -99,10 +99,10 @@ h1 {
   margin: 0 auto;
   justify-content: space-around;
   align-items: center;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .proses, .poesies, .nondit {
-  --ease: cubic-bezier(0.75, 1, 0.50, 1);
+  --ease: cubic-bezier(0.15, 1, 0.50, 1);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -112,6 +112,15 @@ h1 {
   left: 0;
   top: 0;
   transition: left 0.4s var(--ease), top 0.4s var(--ease), opacity 0.3s var(--ease);
+  z-index: 1;
+}
+.proses {
+  z-index: 3;
+}
+.poesies {
+  z-index: 2;
+}
+.nondit {
   z-index: 1;
 }
 nav .rubrique-image {
@@ -146,7 +155,6 @@ aside img {
   top: 0;
   padding: 2px 3.5% 0;
   padding-left: calc(3.5% + 2px);
-  overflow: hidden;
   -moz-user-select: none;
   user-select: none;
   transition: opacity 0.4s, left 0.4s, top 0.4s;
@@ -254,6 +262,16 @@ footer .copyright{
   text-align: center;
   text-shadow: #333 1px 1px 2px;
 }
+#over {
+  display: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 15;
+
+}
 .over {
   display: none;
   flex-direction: column;
@@ -263,7 +281,7 @@ footer .copyright{
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.8);
+  /* background-color: rgba(0,0,0,0.8); */
 }
 #reader-container {
   font-family: "Questrial";
@@ -303,6 +321,7 @@ footer .copyright{
   color: #dde5c6;
   font-family: 'LT33';
   text-shadow: #a7a7a7 0.5px 0.5px 1px;
+  transition: opacity 0.3s ease-in-out;
 }
 #texte {
   display: flex;
@@ -452,20 +471,20 @@ figure.thumb img {
 }
 #popup-img {
   position: relative;
-  opacity: 0;
+  /* opacity: 0; */
   transition: opacity 0.3s;
+  /* transition: scale 0.8s cubic-bezier(0, 0.25, 0.5, 1); */
 }
 #popup-container img {
   width: 1px;
   margin: 0 auto 0px;
   border-radius: 10px;
-  transition: width 0.4s;
 }
 #popup-close, #popup-prev, #popup-next {
   position: absolute;
   top: 0;
   opacity: 0;
-  transition: opacity 0.3s ease-in;
+  transition: opacity 0.3s cubic-bezier(0, 0.61, 0.58, 1);
 }
 #popup-close {
   right: 10px;
@@ -534,6 +553,7 @@ figure.thumb img {
     position: absolute;
     bottom: 0;
   }
+  /* ne pas modifier !
   /* javascript indication mobile */
   .header .bandeau {
     position: relative;
@@ -550,6 +570,7 @@ figure.thumb img {
   }
   .rubriques {
     flex-direction: column;
+    overflow: hidden;
   }
   nav .rubrique-image {
     margin: 0;
@@ -580,6 +601,7 @@ figure.thumb img {
   }
   #box {
     width: 100%;
+    overflow: hidden;
   }
   #inbox {
     transition: bottom 0.4s, right 0s;
