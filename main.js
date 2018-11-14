@@ -70,7 +70,7 @@ const rubriques = {
     let boxHeight = 0;
     // 0.035 = valeur de $box.paddingLeft
     const padding = box($rubriques).width * 0.035;
-    document.getElementById('excerpt-close').style.left = `${padding + 4}px`;
+    document.getElementById('excerpt-close').style.left = `${padding + 6}px`;
     if (this.isPhone()) {
       // animation verticale (mobile)
       $box.style.left = 0;
@@ -109,14 +109,21 @@ function bandeau() {
   const vbandeau = box($bandeau).height;
   let scroll = window.scrollY;
   if (scroll >= vheader - vbandeau) {
-    $header.style.top = `${- vheader + vbandeau + scroll}px`;
+    // $header.style.top = `${- vheader + vbandeau + scroll}px`;
+    $header.style.transform = `translateY(${- vheader + vbandeau + scroll}px)`;
   } else {
-    $header.style.top = 0;
+    // $header.style.top = 0;
+    $header.style.transform = '';
   }
   let bottom = $header.getBoundingClientRect().bottom - vbandeau;
   if (bottom < 2) bottom = 0;
   if (bottom >= vheader * 0.25) bottom = vheader * 0.25;
-  $bandeau.style.bottom = `${bottom}px`;
+  // $bandeau.style.bottom = `${bottom}px`;
+  if (rubriques.isPhone()) {
+    $bandeau.style.transform = ``;
+  } else {
+    $bandeau.style.transform = `translateY(-${vbandeau + bottom + 0.1}px)`;
+  }
 }
 function box(el) {
   const box = {
@@ -163,7 +170,7 @@ function click(name) {
   if (rubriques.clicked === '') {
     rubriques.refresh(true);
     rubriques.allVisible();
-    setTimeout(toggle, 210);
+    setTimeout(toggle, 410);
     return;
   }
   toggle();

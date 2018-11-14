@@ -52,7 +52,8 @@ h1 {
   width: 100%;
   background: rgba(0,0,0,0.56);
   position: absolute;
-  bottom: 25%;
+  /* bottom: 25%; */
+  transform: translateY(-100.1%);
 }
 .header .titre {
   margin: auto;
@@ -98,8 +99,10 @@ h1 {
   margin: 0 auto;
   justify-content: space-around;
   align-items: center;
+  overflow: hidden;
 }
 .proses, .poesies, .nondit {
+  --ease: cubic-bezier(0.75, 1, 0.50, 1);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -108,7 +111,7 @@ h1 {
   width: 26%;
   left: 0;
   top: 0;
-  transition: left 0.2s, top 0.2s, opacity 0.2s;
+  transition: left 0.4s var(--ease), top 0.4s var(--ease), opacity 0.3s var(--ease);
   z-index: 1;
 }
 nav .rubrique-image {
@@ -173,7 +176,7 @@ aside img {
 }
 #excerpt-close {
   position: absolute;
-  top: 4px;
+  top: 6px;
   left: 0;
   width: 30px;
   height: 30px;
@@ -534,6 +537,7 @@ figure.thumb img {
   /* javascript indication mobile */
   .header .bandeau {
     position: relative;
+    transform: translateY(0);
   }
   .hasard{
     display: none;
