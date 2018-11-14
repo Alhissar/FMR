@@ -437,7 +437,7 @@ function popup([rubr, index, page, i]) {
     easing: 'ease-out',
   };
   // disparition du reader et du popup
-  anim($popup, animOut, 300);
+  anim($popup, animOut, 200);
 
   // début !!!
   // faire ici le code pour l'affichage de l'image
@@ -462,7 +462,7 @@ function popup([rubr, index, page, i]) {
     } else {
       $img.src = src;
     }
-  }, 400);
+  }, 200);
 }
 function popupShow([rubr, index, page, i]) {
   const $popup = document.querySelector('#popup-container');
@@ -476,7 +476,7 @@ function popupShow([rubr, index, page, i]) {
     { transform: 'scale(0)', opacity: 0 },
   ];
   document.querySelector('#popup-container').style.display = 'flex';
-  anim($reader, animOut);
+  anim($reader, animOut, 200);
   // document.querySelector('#reader-container').style.display = '';
   document.body.style.overflow = 'hidden';
   popup([rubr, index, page, i]);
