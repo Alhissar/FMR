@@ -215,7 +215,7 @@ aside img {
 footer {
   position: relative;
   width: 100%;
-  font-size: 1.7vw;
+  font-size: 1.4vw;
 }
 footer .bandeau {
   display: flex;
@@ -254,11 +254,11 @@ footer .stylo-txt1 {
   opacity: 0.9;
 }
 footer .stylo-txt2 {
-  font-size: 1.6vw;
+  font-size: 1.2vw;
 }
 footer .copyright{
   padding: 0.6vw 0;
-  font-size: 1.3vw;
+  font-size: 0.9vw;
   text-align: center;
   text-shadow: #333 1px 1px 2px;
 }
@@ -372,6 +372,13 @@ footer .copyright{
 }
 #texte p.italique{
 	font-style: italic;
+}
+#texte p.separateurs{
+	width: 56px;
+	height: 16px;
+	background: url("img/separateurs.png"), url("img/separateurs.png");
+	margin: 0 auto;
+	
 }
 #texte p {
   -webkit-user-select: none;
@@ -516,7 +523,7 @@ figure.thumb img {
     font-size: 35px;
   }
     footer .stylo-txt1 {
-    font-size: 24px;
+    font-size: 22px;
     margin-bottom: 10px;
   }
   footer .stylo-txt2 {
@@ -646,6 +653,12 @@ figure.thumb img {
   #texte.galerie {
 	  justify-content: space-around;
   }
+	#texte p.citation{
+		width: 70%;
+	}
+	#texte p.right{
+		font-size: 12px;
+	}
   #reader-titre, #popup-titre {
     font-size: 16px;
   }
