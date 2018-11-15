@@ -215,9 +215,9 @@ function closeReader() {
   content[rubr][txtNb].page = page;
   content[rubr][txtNb].scroll = scroll;
   // si 'proses' on enregistre le cookie
-  if (rubr === 'proses') {
-    cookieFrom(content);
-  }
+  // if (rubr === 'proses') {
+  //   cookieFrom(content);
+  // }
   // disparition du reader (et du #over)
   const $over = document.querySelector('#over');
   const $container = document.querySelector('#reader-container');
@@ -285,24 +285,24 @@ function closePopup() {
     updateScroll(document.querySelector('#reader-scrollbar'));
   }, 300);
 }
-function cookieFrom(content) {
-  let cookieContent = [];
-  content.proses.forEach(({titre, page, scroll}) => {
-    cookieContent.push({titre, page, scroll});
-  });
-  docCookies.setItem('fmr', JSON.stringify(cookieContent), Infinity);
-}
-function cookieTo(content) {
-  const json = docCookies.getItem('fmr');
-  if (!json) return false;
-  const prosesInfos = JSON.parse(json);
-  prosesInfos.forEach( prose => {
-    // trouve l'index de la prose dans content.proses
-    const i = content.proses.findIndex( elem => elem.titre === prose.titre);
-    content.proses[i].page = prose.page;
-    content.proses[i].scroll = prose.scroll;
-  });
-}
+// function cookieFrom(content) {
+//   let cookieContent = [];
+//   content.proses.forEach(({titre, page, scroll}) => {
+//     cookieContent.push({titre, page, scroll});
+//   });
+//   docCookies.setItem('fmr', JSON.stringify(cookieContent), Infinity);
+// }
+// function cookieTo(content) {
+//   const json = docCookies.getItem('fmr');
+//   if (!json) return false;
+//   const prosesInfos = JSON.parse(json);
+//   prosesInfos.forEach( prose => {
+//     // trouve l'index de la prose dans content.proses
+//     const i = content.proses.findIndex( elem => elem.titre === prose.titre);
+//     content.proses[i].page = prose.page;
+//     content.proses[i].scroll = prose.scroll;
+//   });
+// }
 function excerpt(rubr) {
   let txt = '';
   const $inbox = document.querySelector('#inbox');
@@ -448,7 +448,7 @@ function init() {
     divs[name].addEventListener('click', () => click(name), false);
   });
   rubriques.refresh();
-  cookieTo(content);
+  // cookieTo(content);
 }
 function popup([rubr, index, page, i]) {
   const $img = document.querySelector('#popup-container img');
