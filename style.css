@@ -184,12 +184,11 @@ aside img {
 }
 #excerpt-close {
   position: absolute;
-  top: 6px;
-  left: 0;
-  width: 30px;
-  height: 30px;
-  background: url('img/close.png'), #333;
-  border-radius: 42px;
+  top: -4px;
+  left: -20px;
+  width: 50px;
+  height: 50px;
+  background: url('img/close.png') center no-repeat;
   cursor: pointer;
 }
 #excerpt-scrollbar, #reader-scrollbar {
