@@ -70,7 +70,7 @@ const rubriques = {
     let boxHeight = 0;
     // 0.035 = valeur de $box.paddingLeft
     const padding = box($rubriques).width * 0.035;
-    document.getElementById('excerpt-close').style.left = `${padding + 6}px`;
+    document.getElementById('excerpt-close').style.left = `${padding + 6 - 10}px`;
     if (this.isPhone()) {
       // animation verticale (mobile)
       $box.style.left = 0;
