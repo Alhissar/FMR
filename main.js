@@ -101,7 +101,25 @@ const rubriques = {
     }
   }
 };
-
+// animations !!!
+function anim($el, keys, duration = 300) {
+  if ($el.animate) {
+    $el.animate(keys[0],
+      {
+        duration: duration,
+        easing: 'cubic-bezier(0, 0.79, 0.58, 1)',
+        fill: 'both',
+      });
+  } else {
+    window.setTimeout(() => {
+      keys[1].forEach(style => {
+        $el.style[style[0]] = style[1];
+      });
+    }, 5);
+    
+  }
+  
+}
 function bandeau() {
   const $header = document.querySelector('.header');
   const $bandeau = document.querySelector('.bandeau');
@@ -209,18 +227,28 @@ function closeReader() {
     fill: 'forwards'
   };
   let keys = [
-    { transform: 'scale(1)' },
-    { transform: 'scale(0)' }
+    [
+      { transform: 'scale(1)' },
+      { transform: 'scale(0)' }
+    ],
+    [
+        ['transform', 'scale(0)'],
+    ]
   ];
   anim($container, keys, 300);
   keys = [
-    { opacity: 1 },
-    { opacity: 0 },
+    [
+      { opacity: 1 },
+      { opacity: 0 },
+    ],
+    [
+      ['opacity', '0'],
+    ]
   ];
   anim($over, keys, 300);
   window.setTimeout(()=> {
-    $container.style = '';
-    $over.style = '';
+    $container.style.display = '';
+    $over.style.display = '';
     document.body.style = '';
   }, 300);
 }
@@ -229,12 +257,24 @@ function closePopup() {
   const $reader = document.querySelector('#reader-container');
   // disparition du $popup, réapparition du $reader
   const popupOut = [
-    { transform: 'scale(1)', opacity: 1 },
-    { transform: 'scale(0)', opacity: 0 },
+    [
+      { transform: 'scale(1)', opacity: 1 },
+      { transform: 'scale(0)', opacity: 0 },
+    ],
+    [
+      ['transform', 'scale(0)'],
+      ['opacity', '0'],
+    ]
   ];
   const readerIn = [
-    { transform: 'scale(0)', opacity: 0 },
-    { transform: 'scale(1)', opacity: 1 },
+    [
+      { transform: 'scale(0)', opacity: 0 },
+      { transform: 'scale(1)', opacity: 1 },
+    ],
+    [
+      ['transform', 'scale(1)'],
+      ['opacity', '1'],
+    ]
   ];
   
   window.setTimeout(() => {
@@ -245,7 +285,7 @@ function closePopup() {
   anim($popup, popupOut);
   anim($reader, readerIn);
   window.setTimeout(() => {
-    document.querySelector('#popup-container').style = '';
+    document.querySelector('#popup-container').style.display = '';
     document.querySelector('#reader-container').style.display = 'flex';
     updateScroll(document.querySelector('#reader-scrollbar'));
   }, 300);
@@ -424,18 +464,26 @@ function popup([rubr, index, page, i]) {
   $titre.style.opacity = 0;
   
   const animIn = [
-    { transform: 'scale(0)', opacity: 0 },
-    { transform: 'scale(1)', opacity: 1 },
+    [
+      { transform: 'scale(0)', opacity: 0 },
+      { transform: 'scale(1)', opacity: 1 },
+    ],
+    [
+      ['transform', 'scale(1)'],
+      ['opacity', '1'],
+      // ['display', 'flex'],
+    ]
   ];
   const animOut = [
-    { transform: 'scale(1)', opacity: 1 },
-    { transform: 'scale(0)', opacity: 0 },
+    [
+      { transform: 'scale(1)', opacity: 1 },
+      { transform: 'scale(0)', opacity: 0 },
+    ],
+    [
+      ['transform', 'scale(0)'],
+      ['opacity', '0'],
+    ]
   ];
-  const animOptions = {
-    duration: 300,
-    fill: 'both',
-    easing: 'ease-out',
-  };
   // disparition du reader et du popup
   anim($popup, animOut, 200);
 
@@ -452,8 +500,7 @@ function popup([rubr, index, page, i]) {
     $titre.innerHTML = `${imageName} (${obj.auteur})`;
     document.querySelector('#popup-img img').alt = `${imageName} - (${obj.auteur})`;
     resize($img);
-    // $popup.animate(animIn, animOptions);
-    anim($popup, animIn);
+    anim($popup, animIn, 200);
   };
   $img.onload = show;
   setTimeout(()=> {
@@ -472,8 +519,14 @@ function popupShow([rubr, index, page, i]) {
     { transform: 'scale(1)', opacity: 1 },
   ];
   const animOut = [
-    { transform: 'scale(1)', opacity: 1 },
-    { transform: 'scale(0)', opacity: 0 },
+    [
+      { transform: 'scale(1)', opacity: 1 },
+      { transform: 'scale(0)', opacity: 0 },
+    ],
+    [
+      ['transform', 'scale(0)'],
+      ['opacity', '0'],
+    ]
   ];
   document.querySelector('#popup-container').style.display = 'flex';
   anim($reader, animOut, 200);
@@ -481,33 +534,37 @@ function popupShow([rubr, index, page, i]) {
   document.body.style.overflow = 'hidden';
   popup([rubr, index, page, i]);
 }
-// animations !!!
-function anim($el, keys, duration = 300) {
-  $el.animate( keys,
-    {
-      duration: duration,
-      easing: 'cubic-bezier(0, 0.79, 0.58, 1)',
-      fill: 'both',
-    });
-}
 // apparition du reader et du #over
 function readerShow(rubr, index) {
   const $over = document.querySelector('#over');
   const $container = document.querySelector('#reader-container');
-  document.querySelector('#reader-container').style.display = 'flex';
+  $container.style.display = 'flex';
   let keys = [
-    { transform: 'scale(0)', opacity: '0' },
-    { transform: 'scale(1)', opacity: '1' },
+    [
+      { transform: 'scale(0)', opacity: '0' },
+      { transform: 'scale(1)', opacity: '1' }
+    ],
+    [
+      ['transform', 'scale(1)'],
+      ['opacity', '1'],
+      ['display', 'flex'],
+    ]
   ];
   // animation du container
   anim($container, keys, 300);
   // animation du $over
   keys = [
-    { opacity: 0 },
-    { opacity: 1 },
+    [
+      { opacity: '0' },
+      { opacity: '1' }
+    ],
+    [
+      ['opacity', '1'],
+      ['display', 'block'],
+    ]
   ];
+  $over.style.display = 'block';
   anim($over, keys, 300);
-  document.querySelector('#over').style.display = 'block';
   document.body.style.overflow = 'hidden';
   reader(rubr, index);
 }
