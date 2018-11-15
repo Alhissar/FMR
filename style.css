@@ -629,7 +629,7 @@ figure.thumb img {
 }
 @media screen and (min-width: 800px) {
   .hasard {
-    font-size: 4.8vw;
+    font-size: 3.9vw;
   }
   #inbox p {
     font-size: 20px;
@@ -648,7 +648,7 @@ figure.thumb img {
     font-size: 35px;
   }
   .hasard {
-    font-size: 70px;
+    font-size: 58px;
   }
   nav .texte {
     font-size: 35px;
