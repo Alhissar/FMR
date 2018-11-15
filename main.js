@@ -221,11 +221,6 @@ function closeReader() {
   // disparition du reader (et du #over)
   const $over = document.querySelector('#over');
   const $container = document.querySelector('#reader-container');
-  const animOptions = {
-    duration: 300,
-    easing: 'cubic-bezier(0.2,1,0.6,1)',
-    fill: 'forwards'
-  };
   let keys = [
     [
       { transform: 'scale(1)' },
@@ -235,7 +230,7 @@ function closeReader() {
         ['transform', 'scale(0)'],
     ]
   ];
-  anim($container, keys, 300);
+  anim($container, keys, 200);
   keys = [
     [
       { opacity: 1 },
@@ -245,12 +240,12 @@ function closeReader() {
       ['opacity', '0'],
     ]
   ];
-  anim($over, keys, 300);
+  anim($over, keys, 200);
   window.setTimeout(()=> {
     $container.style.display = '';
     $over.style.display = '';
     document.body.style = '';
-  }, 300);
+  }, 200);
 }
 function closePopup() {
   const $popup = document.querySelector('#popup-container');
@@ -565,7 +560,9 @@ function readerShow(rubr, index) {
   ];
   $over.style.display = 'block';
   anim($over, keys, 300);
+  const padd = window.innerWidth - document.body.clientWidth;
   document.body.style.overflow = 'hidden';
+  document.body.style.paddingRight = `${padd}px`;
   reader(rubr, index);
 }
 // update du reader
