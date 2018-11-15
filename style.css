@@ -26,7 +26,7 @@ h1 {
   font-weight: 400;
 }
 #main {
-  background: url('img/fond-fixe.jpg') center fixed;
+  background: url('img/fond-fixe.jpg') center/cover fixed;
   max-width: 1600px;
   min-height: 100vh;
   margin: auto;
