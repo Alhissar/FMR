@@ -6,6 +6,7 @@
   box-sizing: border-box;
   -webkit-user-select: none;
   user-select: none;
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 body {
   margin: 0;
@@ -26,7 +27,7 @@ h1 {
   font-weight: 400;
 }
 #main {
-  background: url('img/fond-fixe.jpg') center fixed;
+  background: url('img/fond-fixe.jpg') center/cover fixed;
   max-width: 1600px;
   min-height: 100vh;
   margin: auto;
@@ -73,10 +74,10 @@ h1 {
   box-shadow: 0px 0.1vw 0.4vw #222;
 }
 .hasard{
-  font-family: "Qwigley", cursive;
+  font-family: "Great Vibes", sans-serif;
   overflow: hidden;
   text-align: center;
-  font-size: 7vw;
+  font-size: 5vw;
   padding-top: 2vh;
   opacity: 1;
   transition: opacity 0.5s;
@@ -190,6 +191,7 @@ aside img {
   height: 50px;
   background: url('img/close.png') center no-repeat;
   cursor: pointer;
+	
 }
 #excerpt-scrollbar, #reader-scrollbar {
   position: absolute;
@@ -378,9 +380,8 @@ footer .copyright{
 #texte p.separateurs{
 	width: 56px;
 	height: 16px;
-	background: url("img/separateurs.png"), url("img/separateurs.png");
+	background: url("img/separateurs.png");
 	margin: 0 auto;
-	
 }
 #texte p {
   -webkit-user-select: none;
@@ -433,7 +434,6 @@ footer .copyright{
 #next, #popup-next {
   background: 100% center no-repeat url(img/next.png);
 }
-
 #texte.galerie {
   flex-direction: inherit;
   justify-content: space-evenly;
@@ -507,46 +507,6 @@ figure.thumb img {
 #popup-img:hover #popup-close {
   opacity: 1;
 }
-@media screen and (min-width: 1600px) {
-  body {
-    background-color: black;
-    font-size: 28px;
-  }
-  .bandeau h1 {
-    font-size: 110px;
-  }
-  .header .bandeau p {
-    font-size: 35px;
-  }
-  .hasard {
-    font-size: 78px;
-  }
-  nav .texte {
-    font-size: 35px;
-  }
-    footer .stylo-txt1 {
-    font-size: 22px;
-    margin-bottom: 10px;
-  }
-  footer .stylo-txt2 {
-    font-size: 20px;
-  }
-  footer .copyright {
-    font-size: 14px;
-    padding: 10px 0;
-  }
-}
-
-@media screen and (min-width: 800px) {
-  .hasard {
-    font-size: 4.8vw;
-  }
-  #inbox p {
-    font-size: 20px;
-    padding: 5px 0;
-  }
-}
-
 @media screen and (max-width: 600px) {
   #main {
     min-height: 100vh;
@@ -599,7 +559,6 @@ figure.thumb img {
     display: block;
     text-align: center;
     font-size: 7.5vw;
-
   }
   #box {
     width: 100%;
@@ -667,6 +626,44 @@ figure.thumb img {
   #reader-scrollbar {
     right: 10px;
     opacity: 0.5;
+  }
+}
+@media screen and (min-width: 800px) {
+  .hasard {
+    font-size: 3.9vw;
+  }
+  #inbox p {
+    font-size: 20px;
+    padding: 5px 0;
+  }
+}
+@media screen and (min-width: 1600px) {
+  body {
+    background-color: black;
+    font-size: 28px;
+  }
+  .bandeau h1 {
+    font-size: 110px;
+  }
+  .header .bandeau p {
+    font-size: 35px;
+  }
+  .hasard {
+    font-size: 58px;
+  }
+  nav .texte {
+    font-size: 35px;
+  }
+    footer .stylo-txt1 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  footer .stylo-txt2 {
+    font-size: 20px;
+  }
+  footer .copyright {
+    font-size: 14px;
+    padding: 10px 0;
   }
 }
 @media (hover:none) {
