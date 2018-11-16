@@ -149,7 +149,7 @@ aside p {
 aside img {
   width: 100%;
 }
-#box {
+#excerpt-container {
   position: absolute;
   opacity: 0;
   width: 70%;
@@ -160,7 +160,7 @@ aside img {
   user-select: none;
   transition: opacity 0.4s, left 0.4s, top 0.4s;
 }
-#inbox {
+#excerpt {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -177,7 +177,7 @@ aside img {
   box-shadow: 1px 1px 3px #777;
   margin-bottom: 3px;
 }
-#inbox p {
+#excerpt p {
   flex: 0 0 30px;
   margin: auto;
   text-align: center;
@@ -560,11 +560,11 @@ figure.thumb img {
     text-align: center;
     font-size: 7.5vw;
   }
-  #box {
+  #excerpt-container {
     width: 100%;
     overflow: hidden;
   }
-  #inbox {
+  #excerpt {
     transition: bottom 0.4s, right 0s;
   }
   footer .bandeau {
@@ -632,7 +632,7 @@ figure.thumb img {
   .hasard {
     font-size: 3.9vw;
   }
-  #inbox p {
+  #excerpt p {
     font-size: 20px;
     padding: 5px 0;
   }

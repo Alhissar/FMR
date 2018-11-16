@@ -1,15 +1,15 @@
 const names = ['proses', 'poesies', 'nondit'];
 const divs = {};
 const $rubriques = document.querySelector('.rubriques');
-const $box = document.getElementById('box');
-const $inbox = document.getElementById('inbox');
+const $excerptCont = document.getElementById('excerpt-container');
+const $excerpt = document.getElementById('excerpt');
 const rubriques = {
   abs: false,
   clicked: '',
   height: 0,
   top,
   allVisible() {
-    $box.style.opacity = '';
+    $excerptCont.style.opacity = '';
     names.forEach(name => {
       divs[name].style.opacity = 1;
       divs[name].style.zIndex = '';
@@ -31,7 +31,7 @@ const rubriques = {
     return (positionCheck === 'relative') ? true : false;
   },
   refresh(anim) {
-    $box.style.transition = (anim) ? '' : '0s';
+    $excerptCont.style.transition = (anim) ? '' : '0s';
     if (rubriques.abs && this.isPhone()) $rubriques.style.height = 0;
     const rubHeight = box(divs.proses).height;
     const rubWidth = box(divs.proses).width;
@@ -68,29 +68,29 @@ const rubriques = {
     });
     // update box
     let boxHeight = 0;
-    // 0.035 = valeur de $box.paddingLeft
+    // 0.035 = valeur de $excerptCont.paddingLeft
     const padding = box($rubriques).width * 0.035;
     document.getElementById('excerpt-close').style.left = `${padding + 6 - 10}px`;
     if (this.isPhone()) {
       // animation verticale (mobile)
-      $box.style.left = 0;
-      $box.style.top = `${rubHeight + space}px`;
+      $excerptCont.style.left = 0;
+      $excerptCont.style.top = `${rubHeight + space}px`;
       boxHeight = this.getHeight() / 1.55;
-      $inbox.style.height = `${this.getHeight() / 1.55}px`; // ?
+      $excerpt.style.height = `${this.getHeight() / 1.55}px`; // ?
       if (this.clicked) {
-        $box.style.top = `${rubHeight + space}px`;
+        $excerptCont.style.top = `${rubHeight + space}px`;
       } else {
-        $box.style.top = `${boxHeight + this.getHeight() / 1.55}px`;
+        $excerptCont.style.top = `${boxHeight + this.getHeight() / 1.55}px`;
       }
     } else {
       // animation horizontale (desktop)
       boxHeight = this.getHeight();
-      $box.style.top = '-7%';
-      $inbox.style.height = `${this.getHeight()}px`;
+      $excerptCont.style.top = '-7%';
+      $excerpt.style.height = `${this.getHeight()}px`;
       if (this.clicked) {
-        $box.style.left = `${rubWidth + space}px`;
+        $excerptCont.style.left = `${rubWidth + space}px`;
       } else {
-        $box.style.left = `${box($box).width + rubWidth + space}px`;
+        $excerptCont.style.left = `${box($excerptCont).width + rubWidth + space}px`;
       }
     }
     if (!this.abs) return;
@@ -183,7 +183,7 @@ function changeView(nb) {
 function click(name) {
   if (rubriques.abs && rubriques.clicked !== name) return;
   rubriques.clicked = rubriques.abs ? '' : name;
-  $box.style.opacity = 1;
+  $excerptCont.style.opacity = 1;
   // si on reclique : clicked = ''
   if (rubriques.clicked === '') {
     rubriques.refresh(true);
@@ -305,7 +305,7 @@ function closePopup() {
 // }
 function excerpt(rubr) {
   let txt = '';
-  const $inbox = document.querySelector('#inbox');
+  const $excerpt = document.querySelector('#excerpt');
   content[rubr].forEach((obj, i) => {
     if (rubr !== 'nondit') {
       txt += `<p onclick= 'readerShow("${rubr}", ${i})'>${obj.titre}</p>`;
@@ -313,7 +313,7 @@ function excerpt(rubr) {
       txt += `<p onclick= 'readerShow("${rubr}", ${i})'>${obj.auteur} - (${obj.titre})</p>`;
     }
   });
-  $inbox.innerHTML = txt;
+  $excerpt.innerHTML = txt;
   updateScroll(document.querySelector('#excerpt-scrollbar'));
 }
 function init() {
@@ -426,9 +426,9 @@ function init() {
   document.querySelector('#reader').addEventListener('touchstart', middleware('touchstart'));
   document.querySelector('#reader').addEventListener('wheel', middleware('wheel'));
   document.querySelector('#reader').addEventListener('touchmove', middleware('touchmove'), tab);
-  document.querySelector('#inbox').addEventListener('touchstart', middleware('touchstart'));
-  document.querySelector('#inbox').addEventListener('wheel', middleware('wheel'));
-  document.querySelector('#inbox').addEventListener('touchmove', middleware('touchmove'), tab);
+  document.querySelector('#excerpt').addEventListener('touchstart', middleware('touchstart'));
+  document.querySelector('#excerpt').addEventListener('wheel', middleware('wheel'));
+  document.querySelector('#excerpt').addEventListener('touchmove', middleware('touchmove'), tab);
   document.querySelector('#prev').onclick = () => changePage(-1);
   document.querySelector('#next').onclick = () => changePage(1);
   document.querySelector('#popup-prev').onclick = () => changeView(-1);
