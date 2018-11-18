@@ -3,107 +3,63 @@ const divs = {};
 const $rubriques = document.querySelector('.rubriques');
 const $excerptCont = document.getElementById('excerpt-container');
 const $excerpt = document.getElementById('excerpt');
+const scr = {};
 const rubriques = {
-  abs: false,
+  one: false,
   clicked: '',
   height: 0,
   top,
-  allVisible() {
-    $excerptCont.style.opacity = '';
-    names.forEach(name => {
-      divs[name].style.opacity = 1;
-      divs[name].style.zIndex = '';
-    });
-  },
-  getHeight() {
-    let height = 0;
-    if (!this.isPhone()) {
-      height = box(divs.proses).height;
-    } else {
-      const parent = document.getElementById('box-rubriques').getBoundingClientRect();
-      height = parent.height - ( 0.04 * parent.width);
-    }
-    return height;
-  },
   isPhone() {
     const cssCheck = window.getComputedStyle(document.querySelector('.header .bandeau'));
     const positionCheck = cssCheck.getPropertyValue('position');
     return (positionCheck === 'relative') ? true : false;
   },
   refresh(anim) {
-    $excerptCont.style.transition = (anim) ? '' : '0s';
-    if (rubriques.abs && this.isPhone()) $rubriques.style.height = 0;
-    const rubHeight = box(divs.proses).height;
+    if (!this.one) return;
     const rubWidth = box(divs.proses).width;
+    const rubHeight = box(divs.proses).height;
+    // gestion de la transition (anim ou pas ?)
+    const transition = (anim) ? '' : '0s';
+    $excerptCont.style.transition = transition;
+    names.forEach( name => {
+      divs[name].style.transition = transition;
+    });
+    // calcul de space
     let space = 0;
     if (this.isPhone()) {
-      space = this.getHeight() - rubHeight * 3;
-      space = space < 0 ? 0 : space / 6;
+      space = box($rubriques).height - rubHeight * 3;
+      space = space < 0 ? 0 : space / 3;
+      space = space / rubHeight * 100;
     } else {
-      space = (box($rubriques).width - rubWidth * 3) / 6;
+      space = (box($rubriques).width - rubWidth * 3) / 3;
+      space = space / rubWidth * 100;
     }
     // udapte rubriques > divs
     names.forEach((name, i) => {
+      // version mobile
       if (this.isPhone()) {
-        // version mobile
-        this[name] = {
-          left: 0,
-          top: rubHeight * i + space * (2 * i + 1)
-        };
-        if (rubriques.clicked) {
-          this[name].top = space;
-        }
+        divs[name].style.transform = `translate(0, -${ i * (100 + space) }%)`;
       } else {
         // version desktop
-        this[name] = {
-          left: rubWidth * i + space * (2 * i + 1),
-          top: 0
-        };
-        if (this.clicked) {
-          this[name].left = space;
-        }
+        divs[name].style.transform = `translate(-${i * (100 + space) }%, 0)`;
       }
-      divs[name].style.left = this[name].left + 'px';
-      divs[name].style.top = this[name].top + 'px';
     });
     // update box
-    let boxHeight = 0;
-    // 0.035 = valeur de $excerptCont.paddingLeft
-    const padding = box($rubriques).width * 0.035;
-    document.getElementById('excerpt-close').style.left = `${padding + 6 - 10}px`;
+    const padding = box($rubriques).width * 0.035; // 0.035 = $excerptCont.paddingLeft
+    document.getElementById('excerpt-close').style.left = `${padding - 6}px`;
     if (this.isPhone()) {
       // animation verticale (mobile)
-      $excerptCont.style.left = 0;
-      $excerptCont.style.top = `${rubHeight + space}px`;
-      boxHeight = this.getHeight() / 1.55;
-      $excerpt.style.height = `${this.getHeight() / 1.55}px`; // ?
-      if (this.clicked) {
-        $excerptCont.style.top = `${rubHeight + space}px`;
-      } else {
-        $excerptCont.style.top = `${boxHeight + this.getHeight() / 1.55}px`;
-      }
+      $excerptCont.style.transform = 'translate(0, 50%)';
     } else {
       // animation horizontale (desktop)
-      boxHeight = this.getHeight();
-      $excerptCont.style.top = '-7%';
-      $excerpt.style.height = `${this.getHeight()}px`;
-      if (this.clicked) {
-        $excerptCont.style.left = `${rubWidth + space}px`;
-      } else {
-        $excerptCont.style.left = `${box($excerptCont).width + rubWidth + space}px`;
-      }
-    }
-    if (!this.abs) return;
-    if (this.getHeight() < boxHeight + rubHeight && this.isPhone()) {
-      $rubriques.style.height = `${boxHeight + rubHeight}px`;
-    } else {
-      $rubriques.style.height = `${this.getHeight()}px`;
+      $excerptCont.style.transform = 'translate(42%, 0)';
     }
   }
 };
 // animations !!!
 function anim($el, keys, duration = 300) {
-  if ($el.animate) {
+  // if ($el.animate) {
+  if ('animate' in $el) {
     $el.animate(keys[0],
       {
         duration: duration,
@@ -181,27 +137,33 @@ function changeView(nb) {
   popup(content.reading);
 }
 function click(name) {
-  if (rubriques.abs && rubriques.clicked !== name) return;
-  rubriques.clicked = rubriques.abs ? '' : name;
-  $excerptCont.style.opacity = 1;
+  if (rubriques.one && rubriques.clicked !== name) return;
+  rubriques.clicked = rubriques.one ? '' : name;
   // si on reclique : clicked = ''
-  if (rubriques.clicked === '') {
-    rubriques.refresh(true);
-    rubriques.allVisible();
-    setTimeout(toggle, 410);
-    return;
+  if (!rubriques.one) {
+    excerpt(name);
+    names.forEach(namediv => {
+      if (namediv === name) {
+        divs[namediv].style.opacity = 1;
+        divs[namediv].style.zIndex = 10;
+      } else {
+        divs[namediv].style.opacity = 0;
+        divs[namediv].style.zIndex = '';
+      }
+    });
+    $excerptCont.style.opacity = 1;
+  } else {
+    // re-click : reinitialiser les divs (et excerpt)
+    names.forEach((name, i) => {
+      divs[name].style.opacity = 1;
+      divs[name].style.transition = '';
+      divs[name].style.transform = 'translate(0)';
+    });
+    $excerptCont.style.opacity = 0;
+    $excerptCont.style.transform = '';
   }
-  toggle();
-  excerpt(name);
-  names.forEach(namediv => {
-    if (namediv === name || !rubriques.abs) {
-      divs[namediv].style.left = rubriques[name].left + 'px';
-      divs[namediv].style.opacity = 1;
-      divs[name].style.zIndex = 10;
-    } else {
-      divs[namediv].style.opacity = 0;
-    }
-  });
+  rubriques.one = rubriques.one ? false : true;
+  rubriques.refresh(true);
 }
 function closeOver(e, callback) {
   if (e.target.className !== 'over' || 
@@ -214,10 +176,6 @@ function closeReader() {
   const [rubr, txtNb, page,] = content.reading;
   content[rubr][txtNb].page = page;
   content[rubr][txtNb].scroll = scroll;
-  // si 'proses' on enregistre le cookie
-  // if (rubr === 'proses') {
-  //   cookieFrom(content);
-  // }
   // disparition du reader (et du #over)
   const $over = document.querySelector('#over');
   const $container = document.querySelector('#reader-container');
@@ -285,27 +243,9 @@ function closePopup() {
     updateScroll(document.querySelector('#reader-scrollbar'));
   }, 300);
 }
-// function cookieFrom(content) {
-//   let cookieContent = [];
-//   content.proses.forEach(({titre, page, scroll}) => {
-//     cookieContent.push({titre, page, scroll});
-//   });
-//   docCookies.setItem('fmr', JSON.stringify(cookieContent), Infinity);
-// }
-// function cookieTo(content) {
-//   const json = docCookies.getItem('fmr');
-//   if (!json) return false;
-//   const prosesInfos = JSON.parse(json);
-//   prosesInfos.forEach( prose => {
-//     // trouve l'index de la prose dans content.proses
-//     const i = content.proses.findIndex( elem => elem.titre === prose.titre);
-//     content.proses[i].page = prose.page;
-//     content.proses[i].scroll = prose.scroll;
-//   });
-// }
 function excerpt(rubr) {
   let txt = '';
-  const $excerpt = document.querySelector('#excerpt');
+  const $texte = document.querySelector('#excerpt-texte');
   content[rubr].forEach((obj, i) => {
     if (rubr !== 'nondit') {
       txt += `<p onclick= 'readerShow("${rubr}", ${i})'>${obj.titre}</p>`;
@@ -313,13 +253,17 @@ function excerpt(rubr) {
       txt += `<p onclick= 'readerShow("${rubr}", ${i})'>${obj.auteur} - (${obj.titre})</p>`;
     }
   });
-  $excerpt.innerHTML = txt;
+  $texte.innerHTML = txt;
   updateScroll(document.querySelector('#excerpt-scrollbar'));
 }
 function init() {
   // on peuple divs
   names.forEach(name => {
     divs[name] = document.querySelector(`.${name}`);
+  });
+  ['excerpt', 'reader'].forEach( id => {
+    scr[id] = 0;
+    scr[`${id}-scroll`] = 0;
   });
   // ajout des onclick
   let prevEvent, firstEvent;
@@ -342,19 +286,33 @@ function init() {
     if (eventName === 'wheel') {
       return function wheel(e) {
         e.preventDefault();
+        const targetId = e.currentTarget.id;
+        const $texte = document.querySelector(`#${targetId}-texte`);
+        
         const oldScroll = e.currentTarget.scrollTop;
+        // const oldScroll = scr[targetId];
+        let scroll = oldScroll;
         let delta = e.deltaY;
         if (e.deltaMode === 1) {
           delta *= 33;
         }
         if (content.reading[0] === 'nondit') {
           e.currentTarget.scrollTop += delta / 2;
+          // delta /= 2;
         } else {
           e.currentTarget.scrollTop += delta / 4;
+          // delta /= 4;
         }
-        if (oldScroll !== e.currentTarget.scrollTop) {
-          e.preventDefault();
-        }
+        scroll += delta;
+        
+        // attention aux limites 👀
+        const max = box($texte).height - box(e.currentTarget).height;
+        if (scroll > max + 30) scroll = max + 30;
+        if (scroll < 0) scroll = 0;
+        // translate $texte
+        // $texte.style.transform = `translateY(${-scroll}px)`;
+        // saving scroll
+        scr[targetId] = scroll;
         updateScroll(e.currentTarget.parentNode.lastElementChild);
       };
     }
@@ -362,10 +320,11 @@ function init() {
       return function move(e) {
         e.preventDefault();
         if (e.buttons && prevEvent) {
-          if (e.currentTarget.id === 'reader-scroll' ||
-            e.currentTarget.id === 'excerpt-scroll') {
+          let id = e.currentTarget.id;
+          if (id === 'reader-scroll' || id === 'excerpt-scroll') {
+            if (id !== prevEvent.target.id) return;
             const $scroll = e.currentTarget;
-            if (e.currentTarget.id !== prevEvent.target.id) return;
+            const scroll = 0; // = ???
             // cas du move sur scroll
             // 1. recupérer la valeur de $scroll.style.top et virer 'px'
             const cssTop = window.getComputedStyle($scroll).top;
@@ -447,7 +406,8 @@ function init() {
   names.forEach((name) => {
     divs[name].addEventListener('click', () => click(name), false);
   });
-  rubriques.refresh();
+  bandeau();
+  // rubriques.refresh();
   // cookieTo(content);
 }
 function popup([rubr, index, page, i]) {
@@ -529,47 +489,11 @@ function popupShow([rubr, index, page, i]) {
   document.body.style.overflow = 'hidden';
   popup([rubr, index, page, i]);
 }
-// apparition du reader et du #over
-function readerShow(rubr, index) {
-  const $over = document.querySelector('#over');
-  const $container = document.querySelector('#reader-container');
-  $container.style.display = 'flex';
-  let keys = [
-    [
-      { transform: 'scale(0)', opacity: '0' },
-      { transform: 'scale(1)', opacity: '1' }
-    ],
-    [
-      ['transform', 'scale(1)'],
-      ['opacity', '1'],
-      ['display', 'flex'],
-    ]
-  ];
-  // animation du container
-  anim($container, keys, 300);
-  // animation du $over
-  keys = [
-    [
-      { opacity: '0' },
-      { opacity: '1' }
-    ],
-    [
-      ['opacity', '1'],
-      ['display', 'block'],
-    ]
-  ];
-  $over.style.display = 'block';
-  anim($over, keys, 300);
-  const padd = window.innerWidth - document.body.clientWidth;
-  document.body.style.overflow = 'hidden';
-  document.body.style.paddingRight = `${padd}px`;
-  reader(rubr, index);
-}
 // update du reader
 function reader(rubr, index) {
   const obj = content[rubr][index];
   const $reader = document.querySelector('#reader'); 
-  const $texte = document.querySelector('#texte');
+  const $texte = document.querySelector('#reader-texte');
   const $pageNb = document.querySelector('#pageNb');
   // on sauvegarde l'objet lu (rubr, textNb, page, scroll) dans content
   let { page = 0, scroll } = obj;
@@ -654,6 +578,42 @@ function reader(rubr, index) {
   // update de scrollbar
   updateScroll(document.querySelector('#reader-scrollbar'));
 }
+// apparition du reader et du #over
+function readerShow(rubr, index) {
+  const $over = document.querySelector('#over');
+  const $container = document.querySelector('#reader-container');
+  $container.style.display = 'flex';
+  let keys = [
+    [
+      { transform: 'scale(0)', opacity: '0' },
+      { transform: 'scale(1)', opacity: '1' }
+    ],
+    [
+      ['transform', 'scale(1)'],
+      ['opacity', '1'],
+      ['display', 'flex'],
+    ]
+  ];
+  // animation du container
+  anim($container, keys, 300);
+  // animation du $over
+  keys = [
+    [
+      { opacity: '0' },
+      { opacity: '1' }
+    ],
+    [
+      ['opacity', '1'],
+      ['display', 'block'],
+    ]
+  ];
+  $over.style.display = 'block';
+  anim($over, keys, 300);
+  const padd = window.innerWidth - document.body.clientWidth;
+  document.body.style.overflow = 'hidden';
+  document.body.style.paddingRight = `${padd}px`;
+  reader(rubr, index);
+}
 function refresh(e) {
   bandeau();
   // pas d'anim des rubriques et de l'excerpt si resize
@@ -700,21 +660,6 @@ function updateScroll(el) {
     // scroll max de scroll : (scrollbar.height - scroll.height) * ratio
     el.lastElementChild.style.top = `${(box(el).height) * ratio - box(el.firstElementChild).height / 2}px`;
   }
-}
-function toggle() {
-  let txt = '';
-  if (!rubriques.abs) {
-    $rubriques.style.height = `${rubriques.getHeight()}px`;
-    rubriques.abs = true;
-    txt = 'absolute';
-  } else {
-    $rubriques.style.height = '';
-    rubriques.abs = false;
-  }
-  names.forEach(name => {
-    divs[name].style.position = txt;
-  });
-  if (rubriques.abs) refresh();
 }
 
 init();
