@@ -171,6 +171,7 @@ function closeOver(e, callback) {
   callback();
 }
 function closeReader() {
+  document.body.style = '';
   const txt = document.querySelector('#reader');
   const scroll = txt.scrollTop;
   const [rubr, txtNb, page,] = content.reading;
@@ -202,7 +203,6 @@ function closeReader() {
   window.setTimeout(()=> {
     $container.style.display = '';
     $over.style.display = '';
-    document.body.style = '';
   }, 200);
 }
 function closePopup() {
@@ -406,16 +406,13 @@ function init() {
   names.forEach((name) => {
     divs[name].addEventListener('click', () => click(name), false);
   });
-  bandeau();
-  // rubriques.refresh();
-  // cookieTo(content);
+  window.setTimeout(bandeau, 50);
 }
 function popup([rubr, index, page, i]) {
   const $img = document.querySelector('#popup-container img');
   const $popup = document.querySelector('#popup-container');
   const $titre = document.querySelector('#popup-titre');
   const $reader = document.querySelector('#reader-container');
-  // $popup.style.opacity = 0;
   $titre.style.opacity = 0;
   
   const animIn = [
@@ -426,7 +423,6 @@ function popup([rubr, index, page, i]) {
     [
       ['transform', 'scale(1)'],
       ['opacity', '1'],
-      // ['display', 'flex'],
     ]
   ];
   const animOut = [
@@ -450,7 +446,6 @@ function popup([rubr, index, page, i]) {
   const src = `${content.url + obj.url}${imageURL}.jpg`;
   // load and display image
   const show = () => {
-    // $popup.style.opacity = 1;
     $titre.style.opacity = 1;
     $titre.innerHTML = `${imageName} (${obj.auteur})`;
     document.querySelector('#popup-img img').alt = `${imageName} - (${obj.auteur})`;
@@ -485,7 +480,6 @@ function popupShow([rubr, index, page, i]) {
   ];
   document.querySelector('#popup-container').style.display = 'flex';
   anim($reader, animOut, 200);
-  // document.querySelector('#reader-container').style.display = '';
   document.body.style.overflow = 'hidden';
   popup([rubr, index, page, i]);
 }
@@ -533,7 +527,6 @@ function reader(rubr, index) {
       const srcThumb = `${content.url + obj.url}tbn_${image[1]}.jpg`;
       txt += `<figure onclick='popupShow(["${rubr}",${index}, ${page}, ${i}])' class='thumb'>`;
       txt += `<img src='${srcThumb}' alt='${image[0]} - (${obj.auteur})'>`;
-      // txt += "width='150px' height='150px'>";
       txt += `<figcaption>${image[0]}</figcaption></figure>`;
     }
     $texte.innerHTML += txt;
@@ -629,7 +622,6 @@ function resize($img) {
   // calculer 2 ratios (width : container / originale), (height : container / originale)
   // conserver celui qui vérifie (originale * ratio) < container
   // si les deux vérifient la condition, prendre le plus grand
-  // const marginH = box(document.querySelector('#popup-titre')).height + 10;
   const marginH = 40; // hardcode (taille titre 30px + 10px)
   let ratioWidth = (window.innerWidth - 4) / $img.naturalWidth;
   let ratioHeight = (window.innerHeight - marginH) / $img.naturalHeight;
