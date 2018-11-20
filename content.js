@@ -105,6 +105,76 @@ const content = {
       titre: 'Jusqu\'au sang',
       txt: ["<p></p><p></p><p>Lorsque son âme erre aux portes de ses songes</p><p>Aux souvenirs amers de trop nombreux mensonges,</p><p>Son corps brûle aux mémoires stigmates des caresses</p><p>Souillant sa peau qui, de fuir, n'avait de cesse.</p><p>Au sortir de ces nuits aux angoisses matinales,</p><p>Elle hurle ses silences aux mélopées lacrymales</p><p>Face aux cécités de ses miroirs sans reflets,</p><p>Qui nourrissent ses failles et écorchent ses plaies.</p><p>Elle ne sait offrir, à mes regards inquisiteurs,</p><p>Que le simulacre d'un corps fardé de pudeurs</p><p>Qui se dérobe et se mure, à l'aulne des ses peurs,</p><p>Dans un silence immuable délivrant ses froideurs.</p><p>Aux mains tendues comme aux mots qui révèlent,</p><p>Elle se refuse, et, dans un élan sacrificiel,</p><p>Abîme son être à ses remparts élevés</p><p>Comme autant de séquestres à son âme abusée.</p><p>Elle ne sait offrir, à mes regards indiscrets,</p><p>Que ses portes closes sur son intimité,</p><p>Auxquelles viennent se heurter, inexorablement,</p><p>Mes phalanges, dussent-elles y frapper jusqu'au sang.</p>"]
     },
+    {
+      auteur: "FM&reg;",
+      titre: 'La corde',
+      txt: ["<p></p><p></p><p>Atrocement douce et délicieusement mordante,</p><p>Tu lies mon vice aux chairs nues de mon amante.</p><p>Ma fidèle complice, ma volupté décadente,</p><p>Qui offre à mes désirs les postures impudentes</p><p>De son corps contraint au salace de mes attentes,</p><p>Louvoyant au gré de ses splendeurs ardentes.</p><p>Là, aux détours de ses poignets que tu enserres,</p><p>Là, caressant ses chevilles retenues prisonnières,</p><p>Là, soulignant les courbes de ses cuisses estuaires,&nbsp;</p><p>Là, révélant l’ineffable de sa nuque syllabaire.</p><p>Ma fidèle complice, ma volupté décadente,</p><p>Qui offre à mes regards ses postures indécentes,</p><p>Objet de ses plaisirs, dépourvue de miséricorde,</p><p>La corde.</p>"]
+    },
+    {
+      auteur: "FM&reg;",
+      titre: 'Absence',
+      txt: ["<p></p><p></p><p>Là, sous la pulpe caressante de mes doigts avides,</p><p>Sa peau, d’abord évanescente, a laissé place au vide.</p><p>Là, mes lèvres, en quête de gourmandise, s’égarent,</p><p>Perdues parmi les volutes de son corps brouillard.</p><p>Là, les douceurs suaves de ses mots susurrés,</p><p>Se dissipent jusqu’au morbide d’un silence figé.</p><p>Là, l’ivresse aux effluves sublimes de son parfum</p><p>Qui nourrissait mon être jusqu’à l’inopportun,</p><p>A laissé place aux fadeurs de sa déliquescence,</p><p>Absence.</p>"]
+    },
+    {
+      auteur: "FM&reg;",
+      titre: 'Variations sur Léna',
+      txt: ["<p></p><p></p><p>Léna aime sentir ses sens&nbsp;</p><p>Sollicités par ses excès.</p><p>Quand la petite suit l’indécence</p><p>Dessinée par sa sensualité,</p><p>Les succubes invoqués dansent</p><p>Et s’emparent de sont corps assoiffé.</p><p>La caresse, comme une transe,</p><p>De ses amants sublimés,</p><p>L’invite à la décadence</p><p>De ces petits jeux dévoyés.</p><p>Léna aime sentir ses sens</p><p>Sollicités sans autre avis.</p><p>Et la petite, sans réticence,</p><p>Offre au feu inassouvi</p><p>De ses sensuelles appétences,</p><p>L’ardeur d’une douceur sans sursis.</p><p>Léna aime sentir ses sens</p><p>Sollicités par une main</p><p>Dont la cruelle et cinglante absence,</p><p>Laisse pourtant aux courbes de ses reins,</p><p>Une empreinte dont l’incandescence</p><p>Rougit la carnation de son teint.</p><p>Léna aime sentir ses sens</p><p>Sollicités jusqu’au supplice.</p><p>Lorsque sans défaillance,</p><p>Ses doigts s’enfoncent et glissent</p><p>Jusqu'au cœur de ses déliquescences,</p><p>Pour qu’enfin explose et jaillisse</p><p>L’expression de ses jouissances,</p><p>Là, où la petite, plongée dans ses abysses,</p><p>Dérive, loin de toute innocence.</p><p>Léna aime sentir ses sens</p><p>Sollicités par ses fantasmes</p><p>Qui, imprimant la cadence</p><p>A l’orée de ses spasmes,</p><p>Délivre l’effervescence&nbsp;</p><p>De ses innombrables orgasmes.</p>"]
+    },
+    {
+      auteur: "FM&reg;",
+      titre: 'Au bout de la nuit',
+      txt: ["<p></p><p></p><p>Là, le souffle brûlant de l'ennui qui meurtrit</p><p>Et caresse l'épiderme de mes nuits.</p><p>Là, le vertige de tes silences épistolaires</p><p>Où vacillent mes espérances solitaires.</p><p>Là, l'ombre froide, larvée à mes tréfonds,</p><p>M'invite au gouffre où s'effondre ma raison.</p><p>D'abord, la danse satyre des mots en bacchanale,</p><p>Célèbre les effluves aux floraisons du mal.</p><p>Je perds mon souffle à l'âcreté de ces pollens</p><p>Qui assaillent de mon âme dans une envolée sadienne.</p><p>Là, le souffre déchu de l'ange à l'agonie,</p><p>Déchaîne les impatiences de ma peau hérésie.</p><p>Et mon voyage mû par ses fins nécrophages,</p><p>Se repaît de mes errances à jamais sans partage.</p><p>Afin que rien ne puisse entamer mon insomnie,</p><p>Que l'absurde me conduise jusqu'au bout de la nuit,</p><p>J'abandonne à Baudelaire les maux empreints de spleen</p><p>Pour enfin me noyer dans les eaux troubles de Céline.</p>"]
+    },
+    {
+      auteur: "FM&reg;",
+      titre: 'Le deuil',
+      txt: ["<p></p><p></p><p>Par dessus les eaux sombres,</p><p>Vois, je te tends la main,</p><p>Lorsque déjà les ombres</p><p>Font de toi leur festin.</p><p>Entends-tu, depuis l'autre rive,</p><p>Résonner par dessus le Styx,</p><p>Comme un hymne à la dérive,</p><p>Mes oraisons si prolixes ?</p><p>Quand bien même je sais devoir,</p><p>Vois comme je ne peux,</p><p>M'abandonner à d'autres espoirs,</p><p>En te livrant mes adieux.</p><p>Mon âme, aux voiles déchirées,</p><p>Ne cesse de sombrer à l'écueil</p><p>De ton spectre décharné,</p><p>De ton tombeau, dont je foule le seuil,</p><p>De ton souvenir à qui je ne puis accorder</p><p>La possibilité d'un deuil.</p>"]
+    },
+    {
+      auteur: "FM&reg;",
+      titre: 'Ailleurs',
+      txt: ["<p></p><p></p><p>Vois mon désir,</p><p>Pareil à un sherpa,</p><p>Charrier et se saisir</p><p>De ce que tu ne m'offres pas.</p><p></p><p>Vois l'ardeur de ce corps</p><p>Auquel tu te refuses,</p><p>S’enflammer ce soir encore,</p><p>A l’aulne de mes chairs percluses.</p><p></p><p>Vois la soif de mes sens,</p><p>S'abîmer aux souvenirs</p><p>D'une intime indécence,</p><p>Condamnée à agonir.</p><p></p><p>Vois ma liberté,</p><p>Lasse de tes froideurs,</p><p>S'apprêter à s'envoler,</p><p>Ailleurs.</p>"]
+    },
+    {
+      auteur: "FM&reg;",
+      titre: 'Le Pardon',
+      txt: ["<p></p><p></p><p>Là, entre ces murs solitaires,</p><p>Mon antre, mon monastère,</p><p>Résonnent en litanie</p><p>Les affres de ma nostalgie.</p><p>Cette saveur, ce souvenir amer,</p><p>Aussi ténu qu'éphémère,</p><p>Arrache à mon âme un cri</p><p>Qui s'écoule et ne tarit.</p><p></p><p>Et te voilà, livrée à mon être,</p><p>Mon autre, mon âme sœur,</p><p>Illuminant mes noirceurs</p><p>Jusqu'à les soumettre,</p><p>M'initiant aux douceurs,</p><p>À l'incommensurable don,</p><p>Qui affranchit des rancœurs,</p><p>Le pardon.</p>"]
+    },
+    {
+      auteur: "FM&reg;",
+      titre: 'Singeries',
+      txt: ["<p></p><p></p><p>Au gré des errances&nbsp;</p><p>De mes iris,</p><p>Confronté aux semblances</p><p>De mon autre Narcisse,</p><p>Dans ce jeu de miroirs</p><p>Où mon être pétrifié</p><p>Conduit à émouvoir</p><p>Ma raison égarée,</p><p>Je me vois.</p><p></p><p>Que s'usent mes rétines</p><p>Jusqu'à l'ivresse,</p><p>Au fil de tes patines</p><p>Dont je sens les caresses,</p><p>Révélant tes empreintes,</p><p>Façonnant mon corps de glaise</p><p>Abandonné à tes étreintes,</p><p>De l'informe à la genèse,</p><p>Je te vois.</p>"]
+    },
+    {
+      auteur: "FM&reg;",
+      titre: 'Danse',
+      txt: ["<p></p><p></p><p>Voilà qu'elle entre dans ma danse</p><p>Aux impudences mélodiques,</p><p>Susurrant quelques outrances</p><p>Aux sonorités érotiques.</p><p></p><p>Sa féminité famélique,</p><p>Sa liberté, sans nuance,</p><p>Appelle son désir vampirique</p><p>À nourrir ses appétences.</p><p></p><p>Ses aubades, d'abord lascives,</p><p>Mettent à mal mes impatiences</p><p>Et mes soifs impulsives,</p><p>Avides de décadence.</p><p></p><p>Puis, bouleversant la rythmique</p><p>De ses chorégraphies diablesses,</p><p>Elle attise, de sa fièvre épidémique,</p><p>Le feu de mes luxures pécheresses.</p><p></p><p>Là, je la vois mener ma danse</p><p>Aux impudences mélodiques,</p><p>Imposant dès lors les cadences</p><p>De mes sonorités érotiques.</p>"]
+    },
+    {
+      auteur: "FM&reg;",
+      titre: 'De l\'origine',
+      txt: ["<p></p><p></p><p>Là, sous la peau ébène</p><p>De ma petite diablesse,</p><p>S'embrase une Géhenne</p><p>Aux multiples promesses.</p><p></p><p>Là, sous la peau diaphane</p><p>De ma petite guenon,</p><p>S'étend le sillon profane</p><p>De sa vallée de Hinnom.</p><p></p><p>Je me brûle au purgatoire</p><p>De ses chaleurs qui déferlent,</p><p>Puis révère son ostensoir</p><p>Avant d'en débusquer la perle.</p><p></p><p>Revenant à l'origine,</p><p>Aux douceurs de l'éden,</p><p>Là, à sa source cyprine,</p><p>Je la fais mienne.</p>"]
+    },
+    {
+      auteur: "FM&reg;",
+      titre: 'Noirceurs satinées',
+      txt: ["<p></p><p></p><p>Là, sous ses noirceurs satinées</p><p>Ornées de jarretelles,</p><p>Se dessinent mes fantasmes déclinés</p><p>En arabesques sensuelles.</p><p></p><p>Ces exquises volutes encrées,</p><p>Offertes à mon regard tenace,</p><p>Esquissent la liberté moirée</p><p>De ma sexy petite connasse.</p><p></p><p>Et mes doigts de s'enflammer,</p><p>Enviant la caresse du dermographe,</p><p>Pour au métal venir substituer</p><p>Leurs pulpes calligraphes.</p><p></p><p>Là, sous ses noirceurs satinées</p><p>Ornées de jarretelles,</p><p>Mon regard est venu tatouer</p><p>Mes appétences dévotionnelles.</p>"]
+    },
+    {
+      auteur: "FM&reg;",
+      titre: 'Insomnie',
+      txt: ["<p></p><p></p><p>Mon rêve est une longue insomnie,</p><p>Un songe sans mensonge, sans sommeil,</p><p>Où, aux détours de mes errances alanguies,</p><p>Ta vérité me caresse et me réveille.</p><p></p><p>Mon rêve est une longue insomnie,</p><p>Une mascarade sans masque, sans paraître,</p><p>Une prière, une salace litanie</p><p>Adressée à ton cul pour toucher ton être.</p><p></p><p>Mon rêve est une longue insomnie,</p><p>Une mélodie animale aux accords déroutants,</p><p>Une folie aux outrances impunies</p><p>Qui t'écoute et qui t'entend.</p><p></p><p>Mon rêve est une longue insomnie,</p><p>Un jeu du je, un voyage délirant,</p><p>Une douce schizophrénie</p><p>Qui te regarde et qui t'attend.</p>"]
+    },
+    {
+      auteur: "FM&reg;",
+      titre: 'Espoir',
+      txt: ["<p></p><p></p><p>Parce que je te devine,</p><p>Parce que mon désir te dessine,</p><p>Parce qu'en creux, parfois tu glisses</p><p>Vers mes merveilles, au pays d'Alice,</p><p>Parce que tes mots me traversent,</p><p>Percent mes remparts et les renversent,</p><p>Parce que par-delà mon réel, je te vois</p><p>Arpenter les venelles de mes émois,</p><p>J'ai semé mes graines sans en séparer l'ivraie,</p><p>À trop vouloir cueillir cette fleur livrée,</p><p>J'ai cédé à la faiblesse illusoire,</p><p>Au chancre pernicieux, à l'espoir.</p>"]
+    },
+    {
+      auteur: "FM&reg;",
+      titre: 'Antidote',
+      txt: ["<p></p><p><p>Là, derrière les barreaux de métal</p><p>De ma perpétuelle réclusion,</p><p>S’offrent aux yeux de l’Animal,</p><p>Les saveurs de l’évasion.</p><p>De litanies outrancières</p><p>En douceurs dévoilées,</p><p>S’agitent les beautés amères</p><p>De ma belle écorchée.</p><p>Miroir, reflet de mes poisons,</p><p>Voilà qu’elle me tend l’antidote</p><p>Pulvérisant ma prison,</p><p>Charlotte.</p>"]
+    },
 
 
   ],
