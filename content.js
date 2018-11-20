@@ -287,9 +287,9 @@ const content = {
       txt: [
         [
           ["Bisou", "bisou"], ["Bisou II", "bisou2"], ["Bonobo", "bonobo"], ["Couette", "couette"],
-          ["Ecolière", "ecoliere"], ["Juste", "juste"], ["Juste2", "juste2"], ["Pirate", "pirate"],
+          ["Ecolière", "ecoliere"], ["Juste", "juste"], ["Juste II", "juste2"], ["Pirate", "pirate"],
           ["Poète", "poete"], ["Sage", "sage"], ["Simius", "simius"], ["Simius II", "simius2"],
-          ["Taiji", "taiji"], ["Trésor", "tresor"], ["Trésor2", "tresor2"], ["Zen", "zen"],
+          ["Taiji", "taiji"], ["Trésor", "tresor"], ["Trésor II", "tresor2"], ["Zen", "zen"],
         ]
       ],
       type: "images",
