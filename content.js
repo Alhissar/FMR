@@ -272,9 +272,9 @@ const content = {
       titre2: "",
       txt: [
         [
-          ["Atlas", "atlas"], ["Avant Toile", "avant"], ["Avers", "avers"], ["Derme", "derme"],
-          ["Epiderme", "epiderme"], ["Fumée", "fumee"], ["Mère", "mere"], ["Tatoo", "tatoo"],
-          ["Milo", "milo"], ["Offrande", "offrande"], ["Rodin", "rodin"],
+          ["Rodin", "rodin"], ["Avant Toile", "avant"], ["Offrande", "offrande"],
+					["Avers", "avers"],	["Fumée", "fumee"], ["Derme", "derme"], ["Epiderme", "epiderme"],
+					["Atlas", "atlas"],["Mère", "mere"], ["Tatoo", "tatoo"], ["Milo", "milo"], 
         ]
       ],
       type: "images",
