@@ -654,4 +654,13 @@ function updateScroll(el) {
   }
 }
 
+window.onload = () => {
+  document.querySelector('.header img').style.opacity = '0';
+  document.querySelectorAll('.hideLoading').forEach(($) => {
+    $.style.opacity = '1';
+  });
+  document.querySelectorAll('.bandeau').forEach(($) => {
+    $.style.opacity = '1';
+  });
+};
 init();

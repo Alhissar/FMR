@@ -1,9 +1,11 @@
 @font-face {
   font-family: LT33;
   src: url('HELVETICA_LT_33.TTF');
+  font-display: block;
 }
 :root {
   --ease-out: cubic-bezier(0, 0.79, 0.58, 1);
+  --start: opacity 1.3s ease-out;
 }
 * {
   box-sizing: border-box;
@@ -17,6 +19,10 @@ body {
   background-color: #f2f2f2;
   font-family: 'LT33', sans-serif;
   color: #505050;
+}
+.hideLoading {
+  opacity: 0;
+  transition: var(--start);
 }
 .shadow{
   text-shadow: 1px 1px 4px #999;
@@ -44,11 +50,14 @@ h1 {
   position: relative;
   z-index: 11;
   color: #dde5c6;
+  background: 0 100%/100% url('img/accueil.jpg');
   box-shadow: 0 0.2vw 0.5vw #777;
 }
 .header img{
   width: 100%;
   display: block;
+  opacity: 1;
+  transition: var(--start);
 }
 .header .bandeau {
   box-sizing: border-box;
@@ -72,9 +81,10 @@ h1 {
   text-align: right;
   font-size: 2.2vw;
 }
-.bandeau
- {
+.bandeau {
+  opacity: 0;
   box-shadow: 0px 0.1vw 0.4vw #222;
+  transition: var(--start);
 }
 .hasard{
   font-family: "Great Vibes", sans-serif;
@@ -130,8 +140,9 @@ nav .rubrique-image {
 }
 figure {
   margin: 0;
-  font-size: 2.2vw;
-  text-align: center;
+  font-size: 0;
+  /* text-align: center; */
+
 }
 .rubriques .img {
   width: 100%;
