@@ -491,6 +491,7 @@ figure.thumb img {
 .thumb figcaption {
   font-size: 15px;
   margin-top: 6px;
+	text-align: center;
   text-shadow: #999 1px 1px 2px;
 }
 #popup-container {
