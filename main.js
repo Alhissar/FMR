@@ -657,7 +657,8 @@ function updateScroll(el) {
 window.onload = () => {
   init();
   document.querySelector('.header img').style.opacity = '0';
-  document.querySelectorAll('.hideLoading').forEach( $div => {
+  const $divs =  document.querySelectorAll('.hideLoading');
+  [...$divs].forEach( $div => {
     $div.style.opacity = '1';
   });
 };
