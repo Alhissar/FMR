@@ -406,7 +406,7 @@ function init() {
   names.forEach((name) => {
     divs[name].addEventListener('click', () => click(name), false);
   });
-  bandeau();
+  window.setTimeout( bandeau, 20 );
 }
 function popup([rubr, index, page, i]) {
   const $img = document.querySelector('#popup-container img');
