@@ -660,7 +660,7 @@ window.onload = () => {
   if (window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = Array.prototype.forEach;
   }
-  [...$divs].forEach( $div => {
+  $divs.forEach( $div => {
     $div.style.opacity = '1';
   });
   init();
