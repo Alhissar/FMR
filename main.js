@@ -662,5 +662,5 @@ window.onload = () => {
   document.querySelectorAll('.bandeau').forEach(($) => {
     $.style.opacity = '1';
   });
+  init();
 };
-init();
