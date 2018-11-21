@@ -659,8 +659,5 @@ window.onload = () => {
   document.querySelectorAll('.hideLoading').forEach(($) => {
     $.style.opacity = '1';
   });
-  // document.querySelectorAll('.bandeau').forEach(($) => {
-  //   $.style.opacity = '1';
-  // });
   init();
 };
