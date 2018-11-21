@@ -406,7 +406,7 @@ function init() {
   names.forEach((name) => {
     divs[name].addEventListener('click', () => click(name), false);
   });
-  window.setTimeout(bandeau, 50);
+  bandeau();
 }
 function popup([rubr, index, page, i]) {
   const $img = document.querySelector('#popup-container img');
@@ -659,8 +659,8 @@ window.onload = () => {
   document.querySelectorAll('.hideLoading').forEach(($) => {
     $.style.opacity = '1';
   });
-  document.querySelectorAll('.bandeau').forEach(($) => {
-    $.style.opacity = '1';
-  });
+  // document.querySelectorAll('.bandeau').forEach(($) => {
+  //   $.style.opacity = '1';
+  // });
   init();
 };

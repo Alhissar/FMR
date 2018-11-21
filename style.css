@@ -65,7 +65,6 @@ h1 {
   width: 100%;
   background: rgba(0,0,0,0.56);
   position: absolute;
-  /* bottom: 25%; */
   transform: translateY(-100.1%);
 }
 .header .titre {
@@ -82,7 +81,7 @@ h1 {
   font-size: 2.2vw;
 }
 .bandeau {
-  opacity: 0;
+  /* opacity: 0; */
   box-shadow: 0px 0.1vw 0.4vw #222;
   transition: var(--start);
 }
@@ -91,7 +90,7 @@ h1 {
   overflow: hidden;
   text-align: center;
   font-size: 5vw;
-  padding-top: 2vh;
+  padding: 6vh 0 4vh;
   opacity: 1;
   transition: opacity 0.5s;
 }
@@ -99,7 +98,7 @@ h1 {
   margin: 0;
 }
 #box-rubriques {
-  padding: 2% 0;
+  padding: 2% 0 3%;
   display: flex;
   align-items: center;
   position: relative;
@@ -135,13 +134,12 @@ h1 {
 }
 nav .rubrique-image {
   width: 100%;
-  /* margin-bottom: 20px; */
   cursor: pointer;
 }
 figure {
   margin: 0;
   font-size: 0;
-  /* text-align: center; */
+  text-align: center;
 
 }
 .rubriques .img {
@@ -175,9 +173,6 @@ aside img {
 #excerpt {
   position: relative;
   display: flex;
-  /* flex-direction: column; */
-  /* justify-content: flex-start; */
-  /* align-items: center; */
   flex: auto;
   background-color:rgba(0,0,0,0.80);
   border-radius: 15px;
@@ -491,7 +486,6 @@ figure.thumb img {
 .thumb figcaption {
   font-size: 15px;
   margin-top: 6px;
-	text-align: center;
   text-shadow: #999 1px 1px 2px;
 }
 #popup-container {
@@ -499,7 +493,6 @@ figure.thumb img {
 }
 #popup-img {
   position: relative;
-  /* transition: opacity 0.3s; */
 }
 #popup-container img {
   width: 1px;
@@ -534,6 +527,9 @@ figure.thumb img {
 @media screen and (max-width: 600px) {
   #main {
     min-height: 100vh;
+  }
+  .header {
+    background: 0 100%/100% url('img/accueil-mobile.jpg');
   }
   .header img{
     position: absolute;
